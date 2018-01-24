@@ -1,0 +1,1 @@
+LogRegression(LR(:,1:2), LR(:,3), 'BGA', 500);
