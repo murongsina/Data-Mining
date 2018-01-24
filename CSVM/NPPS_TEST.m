@@ -18,7 +18,7 @@ hold on;
 % Xn = X(idx,:);
 
 % 余弦和模式选择
-Xn = NDP(X, Y, 32, 12, 12);
+Xn = NDP(X, Y, 24, 12, 12);
 
 % 绘制散点图
 scatter(Xn(:,1),Xn(:,2),24,'ob');
