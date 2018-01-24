@@ -1,5 +1,6 @@
 function [ idx ] = NPPS( X, Y, k )
 %NPPS 此处显示有关此函数的摘要
+%   Neighbors Property Pattern Selection (NPPS)
 %   X    -数据集
 %   Y    -标签集
 %   k    -近邻数
@@ -12,10 +13,12 @@ function [ idx ] = NPPS( X, Y, k )
     samples = zeros(m, 1);
     for x = 1 : m
         % 计算近邻熵、近邻匹配
-        [ ~, entropy, match, J ] = NeighborsProperty( X, Y, M, x, k );
+        [ ~, entropy, match, J ] = NP( Y, M, x, k );
         % 选择近邻熵大于0，近邻匹配大于1/J的样本点
-        if entropy > 0 && match >= 1/J
+        if (entropy > 0) && (match >= 1/J)
             samples(x, :) = 1;
+        else
+            samples(x, :) = 0;
         end
     end
     % 得到被选中样本点的下标
