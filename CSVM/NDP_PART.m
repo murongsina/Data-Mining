@@ -1,4 +1,4 @@
-function [ idx ] = NDP_PART( X, k, th )
+function [ Xn, Yn ] = NDP_PART( X, Y, k, th )
 %CSUM 此处显示有关此函数的摘要
 % Cosine Sum Sample Selection Part
 % 
@@ -37,4 +37,5 @@ function [ idx ] = NDP_PART( X, k, th )
         end
     end    
     idx = find(samples==1);
+    Xn = X(idx,:); Yn = Y(idx,:);
 end

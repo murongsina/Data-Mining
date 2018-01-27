@@ -1,4 +1,4 @@
-function [ idx ] = NPPS( X, Y, k )
+function [ Xn, Yn ] = NPPS( X, Y, k )
 %NPPS 此处显示有关此函数的摘要
 %   Neighbors Property Pattern Selection (NPPS)
 %   X    -数据集
@@ -23,5 +23,5 @@ function [ idx ] = NPPS( X, Y, k )
     end
     % 得到被选中样本点的下标
     idx = find(samples == 1);
+    Xn = X(idx, :); Yn = Y(idx, :);
 end
-

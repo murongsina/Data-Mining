@@ -8,4 +8,3 @@ function [  ] = SCATTER( X )
     Xp = X(X(:,3)==1,:);
     scatter(Xp(:,1),Xp(:,2),12,'+g');
 end
-

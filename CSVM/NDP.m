@@ -1,4 +1,4 @@
-function [ D ] = NDP( X, Y, k, th_p, th_n )
+function [ dX, dY ] = NDP( X, Y, k, th_p, th_n )
 %CSSUM 此处显示有关此函数的摘要
 % Cosine Sum Sample Selection
 %
@@ -11,15 +11,10 @@ function [ D ] = NDP( X, Y, k, th_p, th_n )
 %
 %   此处显示详细说明
     % Generating Dp'
-    Dp = X(Y==1,:);
-    idp = NDP_PART(Dp, k, th_p);
-    Dp1 = Dp(idp,:);
+    [Xp1, Yp1] = NDP_PART(X(Y==1,:), Y(Y==1,:), k, th_p);
     % Generating Dn'
-    Dn = X(Y==-1,:);
-    idn = NDP_PART(Dn, k, th_n);
-    Dn1 = Dn(idn,:);
+    [Xn1, Yn1] = NDP_PART(X(Y==-1,:), Y(Y==-1,:), k, th_n);
     % Generating D'
     % Step 6: use Dp' and Dn' to construct D';
-    D = [Dp1; Dn1];
+    dX = [Xp1; Xn1]; dY = [Yp1; Yn1];
 end
-

@@ -9,8 +9,7 @@ function [ idx, entropy, match, J ] = NP( Y, M, x, k )
     class = unique(Y);
     J = length(class);
     % 求得x的k近邻
-    [~, idx] = sort(M(x,:), 'ascend');
-    idx = idx(:,2:1+k);
+    idx = KNN(M, x, k);
     % 计算x的近邻熵
     entropy = 0;
     for j = 1 : J
