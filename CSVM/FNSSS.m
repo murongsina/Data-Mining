@@ -1,13 +1,13 @@
 function [ Xn, Yn ] = FNSSS( X, Y, r, k )
 %FNSSS 此处显示有关此函数的摘要
 % Fixed Neighborhood Sphere Sample Selection (FNSSS)
+%   此处显示详细说明
 % 参数：
 %   X    -样本
 %   Y    -标签
 %   r    -近邻球半径
 %   k    -子样本数
-%
-%   此处显示详细说明
+
     [m, n] = size(X);
     % 按照r将每一维的区间划分成网格
     mins = min(X);

@@ -16,7 +16,7 @@ function [ Xn, Yn ] = NDP_PART( X, Y, k, th )
     % µ√µΩæ‡¿Î
     M = DIST(X);
     % Step 1: Solve the problem of k-nearest neighbors on D;
-    for x = 1 : m        
+    for x = 1 : m
         knn = KNN(M, x, k);
         % Calculate cosine sum according to formula (6) or formula (8);
         % Definition 3-1(mass center).

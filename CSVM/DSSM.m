@@ -2,6 +2,11 @@ function [ Xd, Yd ] = DSSM( X, Y, dc )
 %DSSM 此处显示有关此函数的摘要
 % Distance-based Sample Selection Method
 %   此处显示详细说明
+% 参数：
+%   X    -数据集
+%   Y    -标签集
+%   dc   -保留样本数
+
     Xp = X(Y==1,:); Xn = X(Y==-1,:);
     Yp = Y(Y==1,:); Yn = Y(Y==-1,:);
     [p, ~] = size(Xp); [q, ~] = size(Xn);

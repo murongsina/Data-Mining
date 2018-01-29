@@ -1,10 +1,12 @@
 function [ Xn, Yn ] = NPPS( X, Y, k )
 %NPPS 此处显示有关此函数的摘要
-%   Neighbors Property Pattern Selection (NPPS)
+% Neighbors Property Pattern Selection (NPPS)
+%   此处显示详细说明
+% 参数：
 %   X    -数据集
 %   Y    -标签集
 %   k    -近邻数
-%   此处显示详细说明
+
     % 得到维数
     [m, ~] = size(X);
     % 得到距离

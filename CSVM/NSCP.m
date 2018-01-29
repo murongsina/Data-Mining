@@ -1,13 +1,12 @@
 function [ Xn, Yn ] = NSCP( X, Y, k )
 %NSCP 此处显示有关此函数的摘要
 % Non-Stable Cut Point Sample Selection [Decision Tree]
-%
+%   此处显示详细说明
 % 参数：
 %      X    -样本
 %      Y    -标签
 %      k    -选择参数
-%
-%   此处显示详细说明
+
     [m, n] = size(X);
 %     class = unique(Y);
 %     nclass = length(class);

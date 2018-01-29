@@ -1,4 +1,4 @@
-function [accuracy,t]=KerSVM(tstX,tstY,X,Y,C,p1)
+function [ Accuracy, Time]=KerSVM(tstX, tstY, X, Y, C, p1)
     opts=[];
     [L,~]=size(X);
 
@@ -15,7 +15,7 @@ function [accuracy,t]=KerSVM(tstX,tstY,X,Y,C,p1)
     % 二次规划求解
     [x] = quadprog(H,a,[],[],[],[],lb,ub,[],opts);
     % 停止计时
-    t = toc;
+    Time = toc;
 
     [s,~] = size(tstX);
     % 核矩阵
@@ -27,7 +27,6 @@ function [accuracy,t]=KerSVM(tstX,tstY,X,Y,C,p1)
     % 预测值为0的改为1
     pre(pre==0)=1;
     % 计算精确度
-    accuracy=mean(pre==tstY);
+    Accuracy = mean(pre==tstY);
 end
-
 

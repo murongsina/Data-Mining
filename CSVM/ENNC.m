@@ -1,9 +1,14 @@
 function [ chains ] = ENNC( X, Y, k, alpha, beta )
 %ENNC 此处显示有关此函数的摘要
 %   Extended Nearest Neighbor Chain (ENNC)
+% 此处显示详细说明
+% 参数：
+%       X    -数据集
+%       Y    -标签集
+%       k    -近邻数
 %   alpha    -反向收敛因子 
-%   beta     -正向收敛因子 M[1,2] <= beta * M[0,1]
-%   此处显示详细说明
+%    beta    -正向收敛因子 M[1,2] <= beta * M[0,1]
+
     % 得到维数
     [m, ~] = size(X);
     % 得到距离

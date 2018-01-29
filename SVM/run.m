@@ -1,17 +1,4 @@
 function [ ] = run(X, Y, ker, C, file)
-    % 训练模型
-    [m, n]=size(X);
-    fprintf('size X = [%d, %d]\n', m, n);
-    % 训练模型
-    [ nsv, alpha, b0 ] = svc( X, Y, ker, C );
-    % 输出支持向量个数
-    fprintf('svi: %d\n', nsv);
-    % 根据alpha计算w
-    epsilon = 10e-6;
-    svi = alpha(:,1) > epsilon;
-    svAlpha = alpha(svi,1);
-    svX = X(svi,:);
-    svY = Y(svi,:);
     % 构造测试数据集
     x = zeros(961, 2);
     for i = 1:1:30
@@ -26,13 +13,14 @@ function [ ] = run(X, Y, ker, C, file)
     % 输出x, y的信息
     [m, n] = size(x);
     fprintf('size x = [%d, %d]\n', m, n);
+    clf = SVM(ker, C, 12);
+    % 训练模型
+    clf = clf.Fit(X, Y);
     % 在测试集上测试
-    b = repmat(b0, 1, m);
-    y = sign(sum(svAlpha.*svY.*kernel(ker, svX, x)) + b);
-    [m, n] = size(y);
-    fprintf('size y = [%d, %d]\n', m, n);
+    [clf, y] = clf.Predict(x);
+    svX = X(clf.svi,:);
     % 绘制图形
-    h = figure('Visible','off');
+    h = figure('Visible','on');
     % 绘制测试数据点
     xp = x(y==1,:);
     scatter(xp(:,1), xp(:,2), 1, 'r');

@@ -2,6 +2,11 @@ function [ Xd, Yd ] = KSSM( X, Y, k )
 %KSSM 此处显示有关此函数的摘要
 % Knn-based Sample Selection Method
 %   此处显示详细说明
+% 参数：
+%   X    -数据集
+%   Y    -标签集
+%   k    -近邻数
+
     Xp = X(Y==1,:); Xn = X(Y==-1,:);
     Yp = Y(Y==1,:); Yn = Y(Y==-1,:);
     [p, ~] = size(Xp); [q, ~] = size(Xn);
