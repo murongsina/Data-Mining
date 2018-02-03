@@ -12,7 +12,9 @@ function [  ] = PlotMultiClass( D, name, m, n, i, sz, colors )
 
     % 分割样本和标签
     [X, Y] = SplitDataLabel(D);
+    % 得到有序的类别集
     C = unique(Y);
+    C = sort(C);
     Cn = length(C);
     % 分别绘制每一类点
     for j = 1 : Cn

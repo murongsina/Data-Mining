@@ -1,6 +1,6 @@
-function [ dX, dY ] = NDP( X, Y, k, th_p, th_n )
-%CSSUM 此处显示有关此函数的摘要
-% Cosine Sum Sample Selection
+function [ Xr, Yr ] = NDP( X, Y, k, th_p, th_n )
+%NDP 此处显示有关此函数的摘要
+% Neighbour Distribution Pattern
 %   此处显示详细说明
 % 参数：
 %   X     -数据集
@@ -15,5 +15,5 @@ function [ dX, dY ] = NDP( X, Y, k, th_p, th_n )
     [Xn1, Yn1] = NDP_PART(X(Y==-1,:), Y(Y==-1,:), k, th_n);
     % Generating D'
     % Step 6: use Dp' and Dn' to construct D';
-    dX = [Xp1; Xn1]; dY = [Yp1; Yn1];
+    Xr = [Xp1; Xn1]; Yr = [Yp1; Yn1];
 end

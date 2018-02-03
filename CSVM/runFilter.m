@@ -45,7 +45,7 @@ for i = 1 : nD
         PlotDataset(D1, 3, 2, j, Methods{j}, 6, 'xr', '+g');
     end
     hold on;
-    saveas(h, [images, DatasetNames{i}, '-Filter.png']);
+    saveas(h, [images, 'Filter-', DatasetNames{i}, '.png']);
     clf(h);
 end
 

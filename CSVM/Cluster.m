@@ -34,7 +34,12 @@ function [ C, V, T ] = Cluster( X, Y, name, k )
         [~, n] = size(X);
         Vx = zeros(k, n);
         for i = 1 : k
-            Vx(i, :) = mean(X(C==Vy(i), :));
+            Xi = X(C==Vy(i), :);
+            if length(Xi) == 1
+                Vx(i, :) = Xi;
+            else
+                Vx(i, :) = mean(Xi);
+            end
         end
         % 构造聚类中心
         V = [Vx, Vy];

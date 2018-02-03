@@ -3,14 +3,14 @@ datasets = '../datasets/artificial/';
 
 % 数据集名称
 DatasetNames = {
-    'LR', 'wine', 'wine-quality-red', 'wine-quality-white', 'wifilocalization'
+    'LR', 'wine', 'Immunotherapy', 'wine-quality-red', 'wine-quality-white', 'wifilocalization'
 };
 % 数据集
-Datasets = { LR, wine, winequalityred, winequalitywhite, wifilocalization };
+Datasets = { LR, wine, Immunotherapy, winequalityred, winequalitywhite, wifilocalization };
 % 数据集标签所在列
-LabelColumn = [3, 1, 12, 12, 8];
+LabelColumn = [3, 1, 8, 12, 12, 8];
 % 数据集分类数
-LabelNumber = [2, 3, 6, 7, 4];
+LabelNumber = [2, 3, 2, 6, 7, 4];
 % 颜色列表
 Colors = [ 
     255 0 0; 0 255 0; 0 0 255; 255 255 0; 255 0 255; 0 255 255; ...
@@ -20,10 +20,10 @@ Colors = Colors / 255;
 
 % 聚类方法
 Methods = {
-    'Initial', 'KMeans', 'AGNES', 'BiKMeans'
+    'Initial', 'KMeans', 'BiKMeans'
 };
 % 输出结果
-Range = [1 2];
+Range = [1 2 3];
 nD = length(Range);
 nM = length(Methods);
 
@@ -34,7 +34,9 @@ title('Performance of Clustering');
 % 对每一个数据集
 nIndex = 0;
 for i = Range
-    %进行编号
+    % 清空图像
+    clf(h);
+    % 进行编号
     nIndex = nIndex + 1;
     D = Datasets{i};
     % 重新整理数据标签的顺序
@@ -55,5 +57,4 @@ for i = Range
     end
     hold on;
     saveas(h, [images, 'Cluster-', DatasetNames{i}, '.png']);
-    clf(h);
 end

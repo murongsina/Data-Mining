@@ -15,7 +15,7 @@ function [  ] = Scatter( D, sz, cp, cn)
     % 绘制正类点
     scatter(Xp(:, 1), Xp(:, 2), sz, cp);
     hold on
-    % 绘制负类点    
+    % 绘制负类点
     scatter(Xn(:, 1), Xn(:, 2), sz, cn);
     hold on;
 end

@@ -20,7 +20,7 @@ function [ Xn, Yn ] = NDP_PART( X, Y, k, th )
         knn = KNN(M, x, k);
         % Calculate cosine sum according to formula (6) or formula (8);
         % Definition 3-1(mass center).
-        xk = sum(X(knn,:))/k;
+        xk = mean(X(knn, :));
         % Definition 3-2(sample-neighbor angle).
         x0k = X(x,:) - xk; % x0 - xk, 1*n æÿ’Û
         x0i = repmat(X(x,:), k, 1) - X(knn,:); % x0 - xi kn * n

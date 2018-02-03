@@ -1,4 +1,4 @@
-function [ Recall, Precision, Accuracy, FAR, FDR ] = CrossValid( D, n, C, Sigma )
+function [ Accuracy, Precision, Recall ] = CrossValid( D, n, C, Sigma )
 %CROSSVALID 此处显示有关此函数的摘要
 % n折交叉验证
 %   此处显示详细说明
@@ -10,6 +10,7 @@ function [ Recall, Precision, Accuracy, FAR, FDR ] = CrossValid( D, n, C, Sigma 
 
     % 初始化分类器参数
     clf = CSVM(C, Sigma);
+    fprintf('CrossValid: %d fold, CSVM(%4.6f, %4.6f)\n', n, C, Sigma);
     % 分割样本标签
     [X, Y] = SplitDataLabel(D);
     Y(Y==-1) = 0;
@@ -18,6 +19,7 @@ function [ Recall, Precision, Accuracy, FAR, FDR ] = CrossValid( D, n, C, Sigma 
     cp = classperf(Y);
     % 实验记进行n次(交叉验证折数)，求n次的平均值作为实验结果
     for i = 1 : n
+        fprintf('CrossValid:%d\n', i);
         % 得到训练和测试集索引
         test = (indices == i);
         train = ~test;
@@ -28,9 +30,7 @@ function [ Recall, Precision, Accuracy, FAR, FDR ] = CrossValid( D, n, C, Sigma 
         % 分类性能
         classperf(cp, y, test);
     end
-    Recall = cp.Sensitivity;
-    Precision = cp.PositivePredictiveValue;
     Accuracy = cp.CorrectRate;
-    FAR = cp.Specificity;
-    FDR = 1 - cp.Specificity;
+    Precision = cp.PositivePredictiveValue;
+    Recall = cp.Sensitivity;
 end

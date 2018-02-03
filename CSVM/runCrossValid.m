@@ -25,9 +25,8 @@ Output = zeros(n, 5);
 % 在三个数据集上测试
 for i = 1 : n
     D = Datasets{i};
-    [ Recall, Precision, Accuracy, FAR, FDR ] = CrossValid( D(1:1000,:), n, C, Sigma );
-    Output(i, :) = [ Recall, Precision, Accuracy, FAR, FDR ];
-    fprintf('%s\t%8.5f\t%8.5f\t%8.5f\n', DatasetNames{i}, Accuracy, Recall, Precision);
+    fprintf('CrossValid: on %s\n', DatasetNames{i});
+    Output(i, :) = CrossValid( D, n, C, Sigma );
 end
 
 % 绘制条形图

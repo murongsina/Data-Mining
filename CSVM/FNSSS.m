@@ -45,7 +45,7 @@ function [ Xn, Yn ] = FNSSS( X, Y, r, k )
         % step 2: count the neighbors in the neighborhood sphere;
         vecs = X(idx, :)-X(i, :);
         dists = sqrt(sum(vecs.*vecs, 2));
-        samples(i, :) = length(find(dists<=r/3));
+        samples(i, :) = length(find(dists<=r/4));
     end
     % step 3: sort the samples according to the number of the neighbors by ascending order;
     [~, IX] = sort(samples, 'ascend');

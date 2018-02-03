@@ -13,24 +13,26 @@ function [ C, V ] = LVQ( X, Y, k, alpha, MaxIter )
 
     [m, n] = size(X);
     % 初始化一组原型向量
-    V = rand(k, n);
-    C = unique(Y);
+    Vx = rand(k, n);
+    Vy = unique(Y);
     % 设置更新标记
     for Iter = 1 : MaxIter
         % 随机选取一个样本
         j = randperm(m, 1);
         % 计算样本到每个原型向量的距离
-        PX = X(j) - V;
+        PX = X(j) - Vx;
         D = sqrt(sum(PX.*PX, 2));
         % 找出与x最近的原型向量p
         [~, i] = min(D);
         % 如果x与p的类别相同
-        if Y(j) == C(i)
+        if Y(j) == Vy(i)
             % p向x靠拢
-            V(i, :) = V(i, :) + alpha * (X(j) - V(i, :));
+            Vx(i, :) = Vx(i, :) + alpha * (X(j) - Vx(i, :));
         else
             % p远离x
-            V(i, :) = V(i, :) - alpha * (X(j) - V(i, :));
+            Vx(i, :) = Vx(i, :) - alpha * (X(j) - Vx(i, :));
         end
     end
+    C = Y;
+    V = [Vx, Vy];
 end

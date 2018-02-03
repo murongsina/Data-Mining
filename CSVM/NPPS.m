@@ -1,6 +1,6 @@
 function [ Xn, Yn ] = NPPS( X, Y, k )
 %NPPS 此处显示有关此函数的摘要
-% Neighbors Property Pattern Selection (NPPS)
+% Neighbors Property Pattern Selection
 %   此处显示详细说明
 % 参数：
 %   X    -数据集

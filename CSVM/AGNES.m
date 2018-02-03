@@ -31,7 +31,6 @@ function [ C ] = AGNES( X, k, d )
         % 删除距离矩阵的第j行与第j列
         M(j, :) = [];
         M(:, j) = [];
-        fprintf('AGNES: merge [%d,%d]\n', i, j);
         q = q - 1;
         % 重新计算簇i到簇j的距离
         for j = 1 : q
@@ -39,13 +38,13 @@ function [ C ] = AGNES( X, k, d )
             Mij = D(C==i, C==j);
             switch(d)
                 case {'min'}
-                % 最小距离
+                % 1. 单连接法
                 M(i, j) = min(Mij(:));
                 case {'max'}
-                % 最大距离
+                % 2. 全连接法
                 M(i, j) = max(Mij(:));
                 case {'avg'}
-                % 平均距离
+                % 3. 平均连接法
                 M(i, j) = mean(Mij(:));
             end
             M(j, i) = M(i, j);

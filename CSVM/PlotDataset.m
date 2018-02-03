@@ -3,6 +3,7 @@ function [  ] = PlotDataset( D, m, n, i, name, sz, cp, cn )
 % 绘制数据集
 %   此处显示详细说明
 % 参数：
+%     D    -数据集
 %     m    -行
 %     n    -列
 %     i    -第i位
