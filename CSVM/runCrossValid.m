@@ -1,14 +1,11 @@
 images = '../images/CSVM/';
 datasets = '../datasets/artificial/';
 
-% 数据集名称
-DatasetNames = {
-    'Sine-4000', 'Grid-4000', 'Ring-4000'
-};
+% 数据集
+DataSets = datas;
 
 % 加载数据集
-load([datasets, 'Datasets.mat'], 'Datasets');
-n = length(DatasetNames);
+% load([datasets, 'DataSets.mat'], 'Datasets');
 
 % 打开文件
 fprintf('Datasets\tAccuracy\tRecall\tPrecision\tTime(s)\n');
@@ -24,9 +21,9 @@ Output = zeros(n, 5);
  
 % 在三个数据集上测试
 for i = 1 : n
-    D = Datasets{i};
-    fprintf('CrossValid: on %s\n', DatasetNames{i});
-    Output(i, :) = CrossValid( D, n, C, Sigma );
+    DataSet = DataSets(i);
+    fprintf('CrossValid: on %s\n', DataSet.Name);
+    Output(i, :) = CrossValid( DataSet.Data, 10, C, Sigma );
 end
 
 % 绘制条形图

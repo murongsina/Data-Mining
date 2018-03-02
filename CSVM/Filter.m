@@ -24,13 +24,13 @@ function [ Dr, T ] = Filter( D, ssm )
             [Xr, Yr] = NDP(X, Y, 18, 9, 9);
         case {'FNSSS'}
             % 3. Fixed Neighborhood Sphere Sample Selection (FNSSS)
-            [Xr, Yr] = FNSSS(X, Y, 1, 600);
+            [Xr, Yr] = FNSSS(X, Y, 1, 300);
         case {'DSSM'}
             % 4. Distance-based Sample Selection Method
-            [Xr, Yr] = DSSM(X, Y, 600);
+            [Xr, Yr] = DSSM(X, Y, 300);
         case {'KSSM'}
             % 5. Knn-based Sample Selection Method
-            [Xr, Yr] = KSSM(X, Y, 12);
+            [Xr, Yr] = KSSM(X, Y, 8);
         case {'CBD'}
             % 6. Concept Boundary Detection
             % Spiral distributed dataset

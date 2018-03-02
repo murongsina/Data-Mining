@@ -1,29 +1,16 @@
-images = '../images/CSVM/';
+images = '../images/Cluster/';
 datasets = '../datasets/artificial/';
 
-% 数据集名称
-DatasetNames = {
-    'LR', 'wine', 'Immunotherapy', 'wine-quality-red', 'wine-quality-white', 'wifilocalization'
-};
 % 数据集
-Datasets = { LR, wine, Immunotherapy, winequalityred, winequalitywhite, wifilocalization };
-% 数据集标签所在列
-LabelColumn = [3, 1, 8, 12, 12, 8];
-% 数据集分类数
-LabelNumber = [2, 3, 2, 6, 7, 4];
-% 颜色列表
-Colors = [ 
-    255 0 0; 0 255 0; 0 0 255; 255 255 0; 255 0 255; 0 255 255; ...
-    255 128 0; 255 0 128; 128 0 255; 128 255 0; 0 255 128; 0 128 255 ...
-];
-Colors = Colors / 255;
+DataSets = datas;
 
 % 聚类方法
 Methods = {
-    'Initial', 'KMeans', 'BiKMeans'
+    'Initial', 'KMeans', 'BiKMeans', 'AGNES'
 };
+
 % 输出结果
-Range = [1 2 3];
+Range = [1 2 3 4 7 8 9];
 nD = length(Range);
 nM = length(Methods);
 
@@ -38,17 +25,18 @@ for i = Range
     clf(h);
     % 进行编号
     nIndex = nIndex + 1;
-    D = Datasets{i};
+    % 数据集
+    DataSet = DataSets(i);
     % 重新整理数据标签的顺序
-    D = DataLabel(D, LabelColumn(i));
+    D = DataLabel(DataSet.Data, DataSet.LabelColumn);
     [ X, Y ] = SplitDataLabel(D);
     % 对每一种聚类算法
     for j = 1 : nM
         % 进行聚类
-        fprintf('Cluster:%s on %s\n', Methods{j}, DatasetNames{i});
-        [C, V, Time] = Cluster(X, Y, Methods{j}, LabelNumber(i));
+        fprintf('Cluster:%s on %s\n', Methods{j}, DataSet.Name);
+        [C, V, Time] = Cluster(X, Y, Methods{j}, DataSet.LabelNumber);
         CorrectRate = mean(C==Y);
-        fprintf('Methods:%s\t%4.5f\t%d\n', Methods{i}, CorrectRate, Time);
+        fprintf('Methods:%s\t%4.5f\t%d\n', Methods{j}, CorrectRate, Time);
         % 绘制聚类结果
         S = [X, C];
         PlotMultiClass(S, Methods{j}, 2, 2, j, 6, Colors);
@@ -56,5 +44,5 @@ for i = Range
         PlotMultiClass(V, Methods{j}, 2, 2, j, 32, Colors);
     end
     hold on;
-    saveas(h, [images, 'Cluster-', DatasetNames{i}, '.png']);
+    saveas(h, [images, 'Cluster-', DataSet.Name, '.png']);
 end

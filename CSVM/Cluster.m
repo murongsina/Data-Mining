@@ -26,6 +26,8 @@ function [ C, V, T ] = Cluster( X, Y, name, k )
             [ C ] = AGNES( X, k, 'min' );
         case {'BiKMeans'}
             [ C ] = BiKMeans( X, 32, k );
+        case {'DP'}
+            [ C, V ] = DP();
     end
     % 如果没有计算聚类中心
     if isempty(V)

@@ -2,26 +2,24 @@ images = '../images/CSVM/';
 datasets = '../datasets/artificial/';
 
 % 数据集名称
-DatasetNames = {
-    'Sine-4000', 'Grid-4000', 'Ring-4000'
-};
+DataSets = datas;
 
 % 加载数据集
-load([datasets, 'Datasets.mat'], 'Datasets');
+% load([datasets, 'Datasets.mat'], 'Datasets');
 
 % 样本选择方法
 Methods = {
-    'ALL', 'NPPS', 'NDP', 'FNSSS', 'DSSM', 'KSSM'
+    'ALL', 'NPPS', 'NDP', 'CBD', 'DSSM', 'KSSM'
 };
 
-ADD = ['CBD', 'ENNC', 'BEPS'];
+ADD = ['FNSSS', 'ENNC', 'BEPS'];
 
 % 设置模型参数
 C = 1136.5;
 Sigma = 3.6;
 kFold = 10;
 % 输出结果
-nD = length(Datasets);
+nD = length(DataSets);
 nM = length(Methods);
 Output = zeros(nD*nM, 5);
 
@@ -30,13 +28,14 @@ h = figure('Visible', 'on');
 
 % 对每一个数据集
 for i = 1 : nD
-    D = Datasets{i};
+    DataSet = DataSets(i);
+    D = DataSet.Data;
     [m, ~] = size(D);
-    fprintf('%s:\n', DatasetNames{i});
+    fprintf('%s:\n', DataSet.Name);
     % 对每一种样本选择算法
     for j = 1 : nM
         % 进行样本选择
-        fprintf('Filter:%s on %s\n', Methods{j}, DatasetNames{i});
+        fprintf('Filter:%s on %s\n', Methods{j}, DataSet.Name);
         [D1, T] = Filter(D, Methods{j});
         [n, ~] = size(D1);
         SelectRate = n/m;
@@ -48,7 +47,7 @@ for i = 1 : nD
         PlotDataset(D1, 3, 2, j, Methods{j}, 6, 'xr', '+g');
     end
     hold on;
-    saveas(h, [images, DatasetNames{i}, '.png']);
+    saveas(h, [images, DataSet.Name, '.png']);
     clf(h);
 end
 

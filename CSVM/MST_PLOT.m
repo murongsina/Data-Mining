@@ -1,7 +1,7 @@
 function [ matrix, idx ] = MST_PLOT( X, mst )
 %PLOT_MST 此处显示有关此函数的摘要
-%   绘制MST，转换MST为邻接矩阵
-%   此处显示详细说明
+% 绘制MST，转换MST为邻接矩阵
+% 此处显示详细说明
     [m,~] = size(X);
     matrix = zeros(m, m);
     reduce = zeros(m, 1);
@@ -21,7 +21,7 @@ function [ matrix, idx ] = MST_PLOT( X, mst )
         x = [X(u,1) X(v,1)];
         y = [X(u,2) X(v,2)];
         plot(x, y, '-b');
-        hold on;          
+        hold on;
     end
     idx = find(reduce==1);
 end
