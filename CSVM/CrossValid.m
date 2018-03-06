@@ -26,7 +26,7 @@ function [ Accuracy, Precision, Recall ] = CrossValid( D, n, C, Sigma )
         % 在训练集上训练
         [clf, ~] = clf.Fit(X(train,:), Y(train,:));
         % 在测试集上测试
-        [clf, y] = clf.Predict(X(test,:));
+        [clf, y] = clf.Predict(X(test,:));       
         % 分类性能
         classperf(cp, y, test);
     end

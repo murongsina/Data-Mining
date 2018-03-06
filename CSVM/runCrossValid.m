@@ -23,7 +23,7 @@ Output = zeros(n, 5);
 for i = 1 : n
     DataSet = DataSets(i);
     fprintf('CrossValid: on %s\n', DataSet.Name);
-    Output(i, :) = CrossValid( DataSet.Data, 10, C, Sigma );
+    Output(i, :) = CrossValid( DataSet.Data, 5, C, Sigma );
 end
 
 % ªÊ÷∆Ãı–ŒÕº

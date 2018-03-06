@@ -2,7 +2,7 @@ images = '../images/CSVM/';
 datasets = '../datasets/artificial/';
 
 % 数据集
-DataSets = datas;
+DataSets = Shape_sets;
 
 % 输出结果
 nD = length(Datasets);
@@ -11,13 +11,13 @@ nD = length(Datasets);
 for i = 1 : nD
     DataSet = DataSets{i};
     % 重新整理数据标签的顺序
-    D = DataLabel(DataSet.data, DataSet.LabelColumn);
+    D = DataLabel(DataSet.Data, DataSet.LabelColumn);
     % LVQ
     [X, Y] = SplitDataLabel(D);
-    [ P, t ] = LVQ( X, Y, DataSet.LabelNumber, 0.5, 40000 );
+    [ P, t ] = LVQ( X, Y, DataSet.Classes, 0.5, 40000 );
     lv = [P, t];
     % KMeans
-    [Y, V] = KMeans(X, DataSet.LabelNumber);
+    [Y, V] = KMeans(X, DataSet.Classes);
     % 绘制原始数据集
     PlotMultiClass(D, DataSet.Name, nD, 3, i*3-2, 6, Colors);
     % 绘制lv

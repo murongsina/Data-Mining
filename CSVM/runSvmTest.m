@@ -2,30 +2,25 @@ images = '../images/CSVM/';
 datasets = '../datasets/artificial/';
 
 % 数据集名称
-DataSets = datas;
-
-% 加载数据集
-% load([datasets, 'Datasets.mat'], 'Datasets');
-nD = length(DataSets);
-
+DataSets = ShapeSets;
+% 实验用数据集
+DataSetIndices = [6 11 12 13];
+% 输出结果
+nD = length(DataSetIndices);
+Output = zeros(nD, 2);
 % 构造分类器
 % clf = SVM('rbf', 1136.5, 12);
 % clf = CSVM(1136.5, 3.6);
-clf = CSVM(1136.5, 3.6);
+% clf = CSVM(1136.5, 3.6);
+clf = TWSVM(1.2, 1.2);
 
-% 输出结果
-Output = zeros(nD, 2);
 
 % 开启绘图模式
 h = figure('Visible', 'on');
 for i = 1 : nD
-    DataSet = DataSets(i);
-    fprintf('%s:\n', DataSet.Name);
-    Data = DataSet.Data;
-    fprintf('SplitDataset\n');
-    DTrain = Data(1:1800, :);
-    DTest = Data(1801:2000, :);
-    fprintf('SplitDataLabel\n');
+    DataSet = DataSets(DataSetIndices(i));
+    fprintf('SplitDataset %s:\n', DataSet.Name);
+    [DTrain, DTest] = SplitTrainTest(DataSet.Data, 0.8);
     [XTrain, YTrain] = SplitDataLabel(DTrain);
     [XTest, YTest] = SplitDataLabel(DTest);
     fprintf('Fit...\n');
@@ -45,5 +40,5 @@ end
 saveas(h, [images, 'runSvmTest.png']);
 
 % 保存结果
-csvwrite('runSvmTest.csv', Output);
-xlswrite('runSvmTest.xls', Output);
+% csvwrite('runSvmTest.csv', Output);
+% xlswrite('runSvmTest.xls', Output);

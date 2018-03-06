@@ -1,11 +1,13 @@
 function [ Dr, T ] = Filter( D, ssm )
-%FILTER 此处显示有关此函数的摘要
+%FILTER 
 % Sample Selection Method Wrapper
 %   此处显示详细说明
 % 参数：
 %     ssm    -样本选择算法
 %       D    -数据集
-%
+% 返回：
+%      Dr    -约减数据集
+%       T    -时间
 
     % 分割样本和标签
     [X, Y] = SplitDataLabel(D);
@@ -21,16 +23,16 @@ function [ Dr, T ] = Filter( D, ssm )
             % 2. Neighbour Distribution Pattern
             % However, some reserved samples far away from decision plane have
             % no contribution to the performance of SVM and should be disposed
-            [Xr, Yr] = NDP(X, Y, 18, 9, 9);
+            [Xr, Yr] = NDP(X, Y, 24, 12, 12);
         case {'FNSSS'}
             % 3. Fixed Neighborhood Sphere Sample Selection (FNSSS)
-            [Xr, Yr] = FNSSS(X, Y, 1, 300);
+            [Xr, Yr] = FNSSS(X, Y, 1, 200);
         case {'DSSM'}
             % 4. Distance-based Sample Selection Method
-            [Xr, Yr] = DSSM(X, Y, 300);
+            [Xr, Yr] = DSSM(X, Y, 200);
         case {'KSSM'}
             % 5. Knn-based Sample Selection Method
-            [Xr, Yr] = KSSM(X, Y, 8);
+            [Xr, Yr] = KSSM(X, Y, 12);
         case {'CBD'}
             % 6. Concept Boundary Detection
             % Spiral distributed dataset
@@ -43,7 +45,7 @@ function [ Dr, T ] = Filter( D, ssm )
             % 8. Border-Edge Pattern Selection
             % ref: Selecting critical patterns based on local geometrical and statistical information
         case {'NSCP'}
-            % 9. 不稳定分割点样本选择
+            % 9. Non-Stable Cut Point Sample Selection
             [Xr, Yr] = NSCP(X, Y, 1);
         case {'ALL'}
             % 全部样本

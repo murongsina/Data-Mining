@@ -55,4 +55,3 @@ function [ mst ] = MST( X, start )
     end
     mst = path;
 end
-

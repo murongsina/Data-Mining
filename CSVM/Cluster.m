@@ -11,7 +11,6 @@ function [ C, V, T ] = Cluster( X, Y, name, k )
 %      C   -簇划分
 %      V   -聚类中心
 %      T   -运行时间
-%
 
     tic;
     V = [];
@@ -31,20 +30,7 @@ function [ C, V, T ] = Cluster( X, Y, name, k )
     end
     % 如果没有计算聚类中心
     if isempty(V)
-        % 计算聚类中心
-        Vy = unique(C);
-        [~, n] = size(X);
-        Vx = zeros(k, n);
-        for i = 1 : k
-            Xi = X(C==Vy(i), :);
-            if length(Xi) == 1
-                Vx(i, :) = Xi;
-            else
-                Vx(i, :) = mean(Xi);
-            end
-        end
-        % 构造聚类中心
-        V = [Vx, Vy];
+        V = ClusterCenter(X, C);
     end
     T = toc;
 end

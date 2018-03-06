@@ -57,7 +57,7 @@ classdef SVM
             yTest = yTest';
             yTest(yTest==0) = 1;
             % 将-1换成0，classperf要求
-%             yTest(yTest==-1) = 0;
+            yTest(yTest==-1) = 0;
             [m, n] = size(yTest);
             fprintf('size y = [%d, %d]\n', m, n);
         end

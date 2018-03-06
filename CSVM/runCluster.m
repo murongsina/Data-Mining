@@ -2,7 +2,7 @@ images = '../images/Cluster/';
 datasets = '../datasets/artificial/';
 
 % 数据集
-DataSets = datas;
+DataSets = ShapeSets;
 
 % 聚类方法
 Methods = {
@@ -28,13 +28,13 @@ for i = Range
     % 数据集
     DataSet = DataSets(i);
     % 重新整理数据标签的顺序
-    D = DataLabel(DataSet.Data, DataSet.LabelColumn);
-    [ X, Y ] = SplitDataLabel(D);
+    Data = DataLabel(DataSet.Data, DataSet.LabelColumn);
+    [ X, Y ] = SplitDataLabel(Data);
     % 对每一种聚类算法
     for j = 1 : nM
         % 进行聚类
         fprintf('Cluster:%s on %s\n', Methods{j}, DataSet.Name);
-        [C, V, Time] = Cluster(X, Y, Methods{j}, DataSet.LabelNumber);
+        [C, V, Time] = Cluster(X, Y, Methods{j}, DataSet.Classes);
         CorrectRate = mean(C==Y);
         fprintf('Methods:%s\t%4.5f\t%d\n', Methods{j}, CorrectRate, Time);
         % 绘制聚类结果
