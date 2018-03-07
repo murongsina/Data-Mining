@@ -1,4 +1,4 @@
-function [  ] = PlotDataset( D, m, n, i, name, sz, cp, cn )
+function [  ] = PlotDataset( D, name, m, n, i, sz, cp, cn )
 %PLOTDATASET 此处显示有关此函数的摘要
 % 绘制数据集
 %   此处显示详细说明

@@ -5,10 +5,12 @@ function [ X, Y ] = SplitDataLabel( D, j )
 % 参数：
 %    D    -数据集
 %    j    -标签列，默认将最后一列作为标签
-%
+% 输出：
+%    X    -样本
+%    Y    -标签
 
     [~, n] = size(D);
-    if (nargin < 2) 
+    if (nargin < 2)
         X = D(:, 1:n-1);
         Y = D(:, n);
     elseif j < 1 || j > n
