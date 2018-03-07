@@ -31,19 +31,21 @@ classdef SVM
             clf.X = xTrain;
             clf.Y = yTrain;
             tic;
+            % 开始训练
             [clf.nsv, clf.alpha, clf.b0 ] = SVM.svc( xTrain, yTrain, clf.ker, clf.C, clf.Sigma );
-            Time = toc;
-        end
-        function [ clf, yTest ] = Predict(clf, xTest)
-        % 预测
-        % 参数：
-        %    x    -测试集
-            
             % 输出支持向量个数
             fprintf('svi: %d\n', clf.nsv);
             % 根据alpha计算w
             epsilon = 10e-6;
             clf.svi = clf.alpha(:,1) > epsilon;
+            % 结束训练
+            Time = toc;
+        end
+        function [ yTest ] = Predict(clf, xTest)
+        % 预测
+        % 参数：
+        %    x    -测试集
+            
             svAlpha = clf.alpha(clf.svi,1);
             svX = clf.X(clf.svi,:);
             svY = clf.Y(clf.svi,:);
@@ -69,7 +71,7 @@ classdef SVM
             fprintf('b0:\t%d.\n', clf.b0);
         end
     end
-    methods (Static, Access = 'private')
+    methods (Static)
         function [ nsv, alpha, b0 ] = svc( X, Y, ker, C, Sigma )
         %SVC 此处显示有关此函数的摘要
         % SVC Support Vector Classification

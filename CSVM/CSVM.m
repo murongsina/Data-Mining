@@ -38,7 +38,7 @@ classdef CSVM
             % Í£Ö¹¼ÆÊ±
             Time = toc;
         end
-        function [ clf, yTest ] = Predict(clf, xTest)
+        function [ yTest ] = Predict(clf, xTest)
             xTrain = clf.X;
             yTrain = clf.Y;
             [L, ~] = size(xTrain);
