@@ -15,10 +15,10 @@ classdef LSTWSVM
     
     properties (Access = 'private')
         C;  % [A;B]
-        w1; % TWSVM1
-        b1; % TWSVM1
-        w2; % TWSVM2
-        b2; % TWSVM2
+        w1; % LSTWSVM1
+        b1; % LSTWSVM1
+        w2; % LSTWSVM2
+        b2; % LSTWSVM2
     end
     
     methods (Access = 'public')
@@ -39,7 +39,7 @@ classdef LSTWSVM
                 end
             end
         end
-        function [ clf, Time ] = Fit(clf, xTrain, yTrain)            
+        function [ clf, Time ] = Fit(clf, xTrain, yTrain)
             % 计时
             tic
             % 分割正负类点

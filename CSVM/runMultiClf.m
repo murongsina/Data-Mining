@@ -1,4 +1,4 @@
-images = '../images/MultiClf/KTWSVM/';
+images = '../images/MultiClf/LSTWSVM/';
 
 % 实验用数据集
 DataSets = Artificial;
@@ -11,6 +11,7 @@ Output = cell(nD, 6);
 % Clf = KSVM(1136.5, 'rbf', 3.6);
 % Clf = TWSVM(1.2, 1.2);
 % Clf = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+Clf = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
 % 开启绘图模式
 h = figure('Visible', 'on');
 
@@ -43,22 +44,24 @@ for i = 1 : nD
     };
     fprintf('PlotMultiClass...\n');
     % 绘图
-    clf(h);
-    PlotMultiClass(DTrain, DataSet.Name, 1, 1, 1, 6, Colors);
-    saveas(h, [images, DataSet.Name, '-Train.png']);
-    savefig(h, [images, DataSet.Name, '-Train.fig']);
-    clf(h);
-    PlotMultiClass(DTest, DataSet.Name, 1, 1, 1, 6, Colors);
-    saveas(h, [images, DataSet.Name, '-Test.png']);
-    savefig(h, [images, DataSet.Name, '-Test.fig']);
-    clf(h);
-    PlotMultiClass(D1, DataSet.Name, 1, 1, 1, 6, Colors);
-    saveas(h, [images, DataSet.Name, '-Predict.png']);
-    savefig(h, [images, DataSet.Name, '-Predict.fig']);
+%     clf(h);
+%     PlotMultiClass(DTrain, DataSet.Name, 1, 1, 1, 6, Colors);
+%     saveas(h, [images, DataSet.Name, '-Train.png']);
+%     savefig(h, [images, DataSet.Name, '-Train.fig']);
+%     clf(h);
+%     PlotMultiClass(DTest, DataSet.Name, 1, 1, 1, 6, Colors);
+%     saveas(h, [images, DataSet.Name, '-Test.png']);
+%     savefig(h, [images, DataSet.Name, '-Test.fig']);
+%     clf(h);
+%     PlotMultiClass(D1, DataSet.Name, 1, 1, 1, 6, Colors);
+%     saveas(h, [images, DataSet.Name, '-Predict.png']);
+%     savefig(h, [images, DataSet.Name, '-Predict.fig']);
 end
 
 % 保存结果
 Table = cell2table(Output, 'VariableNames', {'DataSet', 'Instances', 'Attributes', 'Classes', 'Accuracy', 'Time'});
 Table
+
+% save([images, 'Table.mat'], Table);
 % csvwrite('runMultiClf.csv', Output);
 % xlswrite('runMultiClf.xls', Output);

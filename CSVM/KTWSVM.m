@@ -14,7 +14,7 @@ classdef KTWSVM
     end
     
     properties (Access = 'private')
-        C; % [A;B]
+        C;  % [A;B]
         u1; % KTWSVM1
         b1; % KTWSVM1
         u2; % KTWSVM2
@@ -85,7 +85,7 @@ classdef KTWSVM
             yTest(yTest==0) = 1;
         end
         function disp(clf)
-            fprintf('KTWSVM-SVM: C1=%4.5f\tC2=%4.5f\n', clf.C1, clf.C2);
+            fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);
         end
     end
 end

@@ -11,15 +11,17 @@ classdef KSVM
         p2;     % 核参数2
         p3;     % 核参数3
     end
+    
     properties (Access = 'private')
         xTrain; % 训练样本
         yTrain; % 测试样本
         Alpha;  % 训练结果
     end
+    
     methods (Access = 'public')
         function [ clf ] = KSVM(C, Kernel, p1, p2, p3)
-        %CSVM 此处显示有关此函数的摘要
-        % C-SVM
+        %KSVM 此处显示有关此函数的摘要
+        % KSVM
         %   此处显示详细说明
             clf.Name = 'KSVM';
             clf.C = C;

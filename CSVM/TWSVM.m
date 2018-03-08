@@ -10,7 +10,7 @@ classdef TWSVM
     end
     
     properties (Access = 'private')
-        C; % [A;B]
+        C;  % [A;B]
         w1; % TWSVM1
         b1; % TWSVM1
         w2; % TWSVM2
@@ -66,7 +66,7 @@ classdef TWSVM
         end
         function [ yTest ] = Predict(clf, xTest)
             D1 = abs(xTest*clf.w1+clf.b1);
-            D2 = abs(xTest*clf.w1+clf.b1);
+            D2 = abs(xTest*clf.w2+clf.b2);
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
         end
