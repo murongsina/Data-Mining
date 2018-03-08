@@ -2,15 +2,17 @@ classdef MultiClf
     %MULTICLF 此处显示有关此类的摘要
     % 构造多分类器
     %   此处显示详细说明
-    
+
     properties (Access = 'public')
+        Name;     % 分类器名称
         nClasses; % 多分类数
-        Clfs; % 分类器
-        Lables; % 类别数组
+        Clfs;     % 分类器
+        Lables;   % 类别数组
     end
-    
+
     methods (Access = 'public')
         function [ clf ] = MultiClf(Clf, nClasses, Labels)
+            clf.Name = ['Multi-', Clf.Name];
             clf.nClasses = nClasses; % 多分类数
             clf.Clfs = repmat(Clf, nchoosek(nClasses, 2), 1); % 分类器数组
             clf.Lables = Labels;
@@ -23,7 +25,7 @@ classdef MultiClf
         %     xTrain    -训练样本
         %     yTrain    -训练标签
         % 返回：
-        %       Time    -训练时间            % 得到样本标签
+        %       Time    -训练时间
 
             % OvO分类
             nIndex = 0;
@@ -87,16 +89,31 @@ classdef MultiClf
                 yTest(i) = clf.Lables(IDX(1));
             end
         end
+        function disp(clf)
+            fprintf('%s: %d Classes\n', clf.Name, clf.nClasses);
+        end
     end
     methods (Static)
         function [ Xr, Yr ] = OvO( X, Y, Lables, i, j )
-        %SUBSET 此处显示有关此函数的摘要
-        % 选择二类子集
-        %   此处显示详细说明
-        % 参数：
+            %OvO 此处显示有关此函数的摘要
+            % i作为正类点，j负类点
+            %   此处显示详细说明
 
             Ip = Y==Lables(i);
             In = Y==Lables(j);
+            Xp = X(Ip, :);
+            Yp = ones(length(Xp), 1);
+            Xn = X(In, :);
+            Yn = -ones(length(Xn), 1);
+            Xr = [Xp; Xn];
+            Yr = [Yp; Yn];
+        end
+        function [ Xr, Yr ] = OvR( X, Y, Lables, i)
+            %OvO 此处显示有关此函数的摘要
+            % i作为正类点，其余负类点
+            %   此处显示详细说明
+            Ip = Y==Lables(i);
+            In = Y~=Lables(i);
             Xp = X(Ip, :);
             Yp = ones(length(Xp), 1);
             Xn = X(In, :);
