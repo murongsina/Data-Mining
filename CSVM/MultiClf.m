@@ -46,7 +46,7 @@ classdef MultiClf
             end
             % 停止计时
             Time = toc;
-        end        
+        end
         function [ yTest ] = Predict(clf, xTest)
         %PREDICT 此处显示有关此函数的摘要
         % 解决多分类问题
