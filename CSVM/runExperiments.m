@@ -3,6 +3,15 @@ datasets = '../datasets/artificial/';
 
 % 数据集
 DataSets = ShapeSets;
+% 分类器
+Clf1 = KSVM(1136.5, 'rbf', 3.6);
+Clf2 = TWSVM(1.2, 1.2);
+Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+Clf5 = AdaBoost({Clf1, Clf2, Clf3, Clf4});
+Clf6 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5, 3.6);
+Clf7 = BP();
+Clfs = {Clf1, Clf2, Clf3, Clf4, Clf5, Clf6, Clf7};
 % 样本选择方法
 Filters = {
     'ALL', 'NPPS', 'NDP', 'DSSM', 'KSSM', 'CBD', 'FNSSS', 'ENNC', 'BEPS'
@@ -40,7 +49,7 @@ for i = 1 : nD
         SelectRate = n/Data.Instances;
         % 选择后的数据集上做交叉验证
         fprintf('CrossValid:%s on reduced %s\n', Filters{j}, DataSet.Name);
-        [ Accuracy, Precision, Recall ] = CrossValid( D1, kFold, C, Sigma  );
+        [ Accuracy, Precision, Recall ] = CrossValid( Clf3, DataSet.Data, kFold, C, Sigma  );
         Output(sub2ind([nM, nD], j, i), :) = [ SelectRate, T, Accuracy, Precision, Recall ];
         % 绘制样本选择结果
         PlotDataset(D1, 3, 2, j, Filters{j}, 6, 'xr', '+g');
