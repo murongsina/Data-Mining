@@ -52,8 +52,6 @@ classdef LSTWSVM
             e2 = ones(m2, 1);
             % ππ‘Ï∫Àæÿ’Û
             clf.C = [A; B];
-%             E = [A e1];
-%             F = [B e2];
             E = [Utils.K(clf.Kernel, A, clf.C, clf.p1, clf.p2, clf.p3) e1];
             F = [Utils.K(clf.Kernel, B, clf.C, clf.p1, clf.p2, clf.p3) e2];
             E2 = E'*E;
@@ -70,8 +68,6 @@ classdef LSTWSVM
             Time = toc;
         end
         function [ yTest ] = Predict(clf, xTest)
-%             D1 = abs(xTest*clf.w1+clf.b1);
-%             D2 = abs(xTest*clf.w2+clf.b2);
             K = Utils.K(clf.Kernel, xTest, clf.C, clf.p1, clf.p2, clf.p3);
             D1 = abs(K*clf.w1+clf.b1);
             D2 = abs(K*clf.w2+clf.b2);

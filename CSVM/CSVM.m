@@ -1,5 +1,5 @@
-classdef KSVM
-    %KSVM 此处显示有关此类的摘要
+classdef CSVM
+    %CSVM 此处显示有关此类的摘要
     % Kernel Support Vector Machine
     %   此处显示详细说明
     
@@ -19,11 +19,11 @@ classdef KSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = KSVM(C, Kernel, p1, p2, p3)
-        %KSVM 此处显示有关此函数的摘要
-        % KSVM
+        function [ clf ] = CSVM(C, Kernel, p1, p2, p3)
+        %CSVM 此处显示有关此函数的摘要
+        % CSVM
         %   此处显示详细说明
-            clf.Name = 'KSVM';
+            clf.Name = 'CSVM';
             clf.C = C;
             clf.Kernel = Kernel;
             if strcmp('linear', Kernel) == 0
