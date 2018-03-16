@@ -1,4 +1,4 @@
-function [ Output ] = GridSearchCV(Clf, X, Y, ValInd, k, P1, P2)
+function [ Output ] = GridSearchCV( Clf, X, Y, ValInd, k, P1, P2 )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 网格搜索交叉验证
 %   此处显示详细说明
