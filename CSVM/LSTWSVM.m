@@ -64,13 +64,14 @@ classdef LSTWSVM
             % 设置分类器参数
             clf.C1 = params.C1;
             clf.C2 = params.C2;
-            clf.Kernel = params.Kernel;
+            clf.Kernel = FKernel(params.Kernel);
         end
         function [ params ] = GetParams(clf)
             % 得到分类器参数
             params = struct(clf);
             kernel = params.Kernel.GetParams();
             params = rmfield(params, 'Kernel');
+            params = MergeStruct(params, kernel);
         end
         function disp(clf)
             fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);

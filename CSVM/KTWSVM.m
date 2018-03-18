@@ -74,7 +74,7 @@ classdef KTWSVM
             % 设置分类器参数
             clf.C1 = params.C1;
             clf.C2 = params.C2;
-            clf.Kernel.SetParams(params.Kernel);
+            clf.Kernel = FKernel(params.Kernel);
         end
         function [ params ] = GetParams(clf)
             % 得到分类器参数

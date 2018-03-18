@@ -20,6 +20,7 @@ classdef CSVM
         %CSVM 此处显示有关此函数的摘要
         % CSVM
         %   此处显示详细说明
+            clf.Name = 'CSVM';
             clf = clf.SetParams(params);
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
@@ -52,14 +53,13 @@ classdef CSVM
         end
         function [ clf ] = SetParams(clf, params)
             % 设置分类器参数
-            clf.Name = params.Name;
             clf.C = params.C;
             clf.Kernel = FKernel(params.Kernel);
         end
         function [ params ] = GetParams(clf)
             % 得到分类器参数
-            kernel = clf.Kernel.GetParams();
             params = struct(clf);
+            kernel = params.Kernel.GetParams();
             params = rmfield(params, 'Kernel');
             params = MergeStruct(params, kernel);
         end

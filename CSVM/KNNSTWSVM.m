@@ -102,12 +102,12 @@ classdef KNNSTWSVM
             clf.c2 = params.c2;
             clf.c3 = params.c3;
             clf.c4 = params.c4;
-            clf.Kernel = Kernel(params.Kernel);
+            clf.Kernel = FKernel(params.Kernel);
         end
         function [ params ] = GetParams(clf)
             % 得到分类器参数
             params = struct(clf);
-            kernel = params.Kernel.GetParams(params);
+            kernel = params.Kernel.GetParams();
             params = rmfield(params, 'Kernel');
             params = MergeStruct(params, kernel);
         end

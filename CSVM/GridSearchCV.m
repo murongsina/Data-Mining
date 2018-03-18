@@ -16,6 +16,7 @@ function [ Output ] = GridSearchCV( Clf, X, Y, ValInd, IParams, Kfold )
     Output = zeros(nParams, 4);
     % 对每一组参数
     for i = 1 : nParams
+        fprintf('GridSearchCV: %d', i);
         % 设置参数
         Clf = Clf.SetParams(IParams(i));
         % 交叉验证

@@ -19,6 +19,7 @@ function [ Accuracy, Precision, Recall, Time ] = CrossValid( Clf, X, Y, ValInd, 
     cp = classperf(Y);
     % 实验记进行k次(交叉验证折数)，求k次的平均值作为实验结果
     for i = 1 : k
+        fprintf('CrossValid: %d', i);
         % 得到训练和测试集索引
         test = (ValInd == i);
         train = ~test;
