@@ -7,11 +7,8 @@ classdef CSVM
         Name;   % 名称
         C;      % 参数
         Kernel; % 核函数
-        p1;     % 核参数1
-        p2;     % 核参数2
-        p3;     % 核参数3
     end
-    
+
     properties (Access = 'private')
         xTrain; % 训练样本
         yTrain; % 测试样本
@@ -19,24 +16,11 @@ classdef CSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = CSVM(C, Kernel, p1, p2, p3)
+        function [ clf ] = CSVM(params)
         %CSVM 此处显示有关此函数的摘要
         % CSVM
         %   此处显示详细说明
-            clf.Name = 'CSVM';
-            clf.C = C;
-            clf.Kernel = Kernel;
-            if strcmp('linear', Kernel) == 0
-                if nargin > 2
-                    clf.p1 = p1;
-                end
-                if nargin > 3
-                    clf.p2 = p2;
-                end
-                if nargin > 4
-                    clf.p3 = p3;
-                end
-            end
+            clf = clf.SetParams(params);
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
             % 计时
@@ -46,7 +30,7 @@ classdef CSVM
             clf.yTrain = yTrain;
             [m, ~] = size(xTrain);
             % 核矩阵
-            K = Utils.K(clf.Kernel, xTrain, xTrain, clf.p1, clf.p2, clf.p3);
+            K = clf.Kernel.K(xTrain, xTrain);
             % 常数项
             a = -ones(m, 1);
             lb = zeros(m, 1);
@@ -60,14 +44,28 @@ classdef CSVM
         end
         function [ yTest ] = Predict(clf, xTest)
             % 核矩阵
-            K = Utils.K(clf.Kernel, xTest, clf.xTrain, clf.p1, clf.p2, clf.p3);
+            K = clf.Kernel.K(xTest, clf.xTrain);
             % 预测值
             yTest = sign(K*diag(clf.yTrain)*clf.Alpha);
             % 将0换成1
             yTest(yTest==0) = 1;
         end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.Name = params.Name;
+            clf.C = params.C;
+            clf.Kernel = FKernel(params.Kernel);
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            kernel = clf.Kernel.GetParams();
+            params = struct(clf);
+            params = rmfield(params, 'Kernel');
+            params = MergeStruct(params, kernel);
+        end
         function disp(clf)
             fprintf('%s: C=%4.5f\n', clf.Name, clf.C);
         end
     end
+    
 end

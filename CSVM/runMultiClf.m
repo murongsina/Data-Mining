@@ -8,7 +8,7 @@ nD = length(DataSetIndices);
 Output = cell(nD, 6);
 % 构造基分类器
 Clf0 = SVM(1136.5, 'rbf', 12);
-Clf1 = KSVM(1136.5, 'rbf', 3.6);
+Clf1 = CSVM(1136.5, 'rbf', 3.6);
 Clf2 = TWSVM(1.2, 1.2);
 Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
 Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);

@@ -2,14 +2,14 @@ images = '../images/Filter/';
 datasets = '../datasets/artificial/';
 
 % 数据集
-DataSets = ShapeSets;
+DataSets = Artificial;
 % 分类器
-Clf1 = KSVM(1136.5, 'rbf', 3.6);
+Clf1 = KSVM(1.2, 'rbf', 1136.5);
 Clf2 = TWSVM(1.2, 1.2);
-Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
-Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5);
+Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5);
 Clf5 = AdaBoost({Clf1, Clf2, Clf3, Clf4});
-Clf6 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5, 3.6);
+Clf6 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5);
 Clf7 = BP();
 Clfs = {Clf1, Clf2, Clf3, Clf4, Clf5, Clf6, Clf7};
 % 样本选择方法
@@ -17,16 +17,17 @@ Filters = {
     'ALL', 'NPPS', 'NDP', 'DSSM', 'KSSM', 'CBD', 'FNSSS', 'ENNC', 'BEPS'
 };
 % 实验用数据集和样本选择方法
-DataSetIndices = [1 2 3 4 5 6];
+DataSetIndices = [5 10 11];
 FilterIndices = [1 2 3 4 5 6];
 % 输出结果
 nD = length(DataSetIndices);
 nM = length(FilterIndices);
-Output = zeros(nD*nM, 5);
-% 设置模型参数
-C = 1136.5;
-Sigma = 3.6;
-kFold = 10;
+Output = zeros(nD*nM, 6);
+% 参数区间
+P1 = -3:1:3;
+P2 = 2:1:6;
+P3 = 2:1:6;
+kFold = 5;
 % 开启图表绘制
 h = figure('Visible', 'on');
 title('Performance of five Sample Selection Algorithm');
@@ -47,10 +48,13 @@ for i = 1 : nD
         [D1, T] = Filter(Data, FilterName);
         [n, ~] = size(D1);
         SelectRate = n/Data.Instances;
-        % 选择后的数据集上做交叉验证
-        fprintf('CrossValid:%s on reduced %s\n', Filters{j}, DataSet.Name);
-        [ Accuracy, Precision, Recall ] = CrossValid( Clf3, DataSet.Data, kFold, C, Sigma  );
-        Output(sub2ind([nM, nD], j, i), :) = [ SelectRate, T, Accuracy, Precision, Recall ];
+        % 分割样本标签
+        [X, Y] = SplitDataLabel(DataSet.Data);
+        % 交叉验证索引
+        ValInd = CrossValInd( Y, DataSet.Classes, DataSet.Labels, 5 );
+        % 选择后的数据集上做网格搜索和交叉验证
+        fprintf('GridSearchCV:%s on reduced %s\n', Filters{j}, DataSet.Name);
+        GridSearchCV(Clf, X, Y, ValInd, kFold, P1, P2, P3);
         % 绘制样本选择结果
         PlotDataset(D1, 3, 2, j, Filters{j}, 6, 'xr', '+g');
     end

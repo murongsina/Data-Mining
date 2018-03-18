@@ -8,7 +8,7 @@ Filters = {
     'ALL', 'NPPS', 'NDP', 'DSSM', 'KSSM', 'CBD', 'FNSSS', 'ENNC', 'BEPS'
 };
 % 实验用数据集和样本选择方法
-DataSetIndices = [11, 12, 13];
+DataSetIndices = [5 10 11];
 FilterIndices = [1 2 3 4 5 6];
 % 输出结果
 nD = length(DataSetIndices);

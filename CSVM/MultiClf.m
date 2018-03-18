@@ -8,14 +8,16 @@ classdef MultiClf
         nClasses; % 多分类数
         Clfs;     % 分类器
         Lables;   % 类别数组
+        Params;   % 分类器运行参数
     end
 
     methods (Access = 'public')
         function [ clf ] = MultiClf(Clf, nClasses, Labels)
             clf.Name = ['Multi-', Clf.Name];
-            clf.nClasses = nClasses; % 多分类数
-            clf.Clfs = repmat(Clf, nchoosek(nClasses, 2), 1); % 分类器数组
+            clf.nClasses = nClasses;
+            clf.Clfs = repmat(Clf, nchoosek(nClasses, 2), 1);
             clf.Lables = Labels;
+            clf.Params = struct(Clf);
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
         %FIT 此处显示有关此函数的摘要
@@ -88,6 +90,24 @@ classdef MultiClf
                 % 选取得票数最多的一个作为分类结果
                 yTest(i) = clf.Lables(IDX(1));
             end
+        end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.Params = params;
+            nIndex = 0;
+            % 初始化所有分类器的参数
+            for i = 1 : clf.nClasses - 1
+                for j = i + 1 : clf.nClasses
+                    nIndex = nIndex + 1;
+                    Clf = clf.Clfs(nIndex);
+                    Clf.SetParams(params);
+                    clf.Clfs(nIndex) = Clf;
+                end
+            end
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            params = clf.Params;
         end
         function disp(clf)
             fprintf('%s: %d Classes\n', clf.Name, clf.nClasses);

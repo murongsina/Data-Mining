@@ -4,17 +4,19 @@ images = '../images/MultiClf/KTWSVM';
 DataSets = Artificial;
 DataSetIndices = [1 2 4 6];
 % 构造分类器
-Clf1 = CSVM(1.2, 'rbf', 1136.5, 3.6);
+Clf1 = CSVM(1136.5, 'rbf', 1136.5, 3.6);
 Clf2 = TWSVM(1.2, 1.2);
 Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
-Clf = Clf3;
+Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+Clf5 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5, 3.6);
+Clf = Clf5;
 % 输出结果
 nD = length(DataSetIndices);
 Output = cell(nD, 8);
 % 开启绘图模式
-h = figure('Visible', 'on');
+% h = figure('Visible', 'on');
 fprintf('runCrossValid\n');
-% 在三个数据集上测试
+% 开始实验
 for i = 1 : nD
     % 选择数据集
     DataSet = DataSets(DataSetIndices(i));
@@ -40,9 +42,6 @@ Table = cell2table(Output, 'VariableNames', {
 });
 Table
 
-% 绘制条形图
-bar(Output{:,5:8});
-
 % 保存结果
-csvwrite('runCrossValid.txt', Output);
 xlswrite('runCrossValid.mat', Table);
+writetable(table, 'runCrossValid.mat', 'WriteVariableNames', 1);

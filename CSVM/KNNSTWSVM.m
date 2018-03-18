@@ -10,9 +10,6 @@ classdef KNNSTWSVM
         c3;     % 参数3
         c4;     % 参数4
         Kernel; % 核函数
-        p1;     % 核参数1
-        p2;     % 核参数2
-        p3;     % 核参数3
     end
     
     properties (Access = 'private')
@@ -24,23 +21,10 @@ classdef KNNSTWSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = KNNSTWSVM(c1, c2, c3, c4, Kernel, p1, p2, p3)
+        function [ clf ] = KNNSTWSVM(params)
             clf.Name = 'KNNSTWSVM';
-            clf.Kernel = Kernel;
-            clf.c1 = c1;
-            clf.c2 = c2;
-            clf.c3 = c3;
-            clf.c4 = c4;
-            if strcmp('linear', Kernel) == 0
-                if nargin > 5
-                    clf.p1 = p1;
-                end
-                if nargin > 6
-                    clf.p2 = p2;
-                end
-                if nargin > 7
-                    clf.p3 = p3;
-                end
+            if nargin == 1
+                clf = clf.SetParams(params);
             end
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
@@ -56,8 +40,8 @@ classdef KNNSTWSVM
             e2 = ones(m2, 1);
             % 构造核矩阵
             clf.C = [A; B];
-            KA = Utils.K(clf.Kernel, A, clf.C, clf.p1, clf.p2, clf.p3);
-            KB = Utils.K(clf.Kernel, B, clf.C, clf.p1, clf.p2, clf.p3);
+            KA = clf.Kernel.K(A, clf.C);
+            KB = clf.Kernel.K(B, clf.C);
             H = [KA e1];
             G = [KB e2];
             % 构造F1，F2样本选择矩阵
@@ -106,11 +90,26 @@ classdef KNNSTWSVM
             Time = toc;
         end
         function [ yTest ] = Predict(clf, xTest)
-            K = Utils.K(clf.Kernel, xTest, clf.C, clf.p1, clf.p2, clf.p3);
+            K = clf.Kernel.K(xTest, clf.C);
             D1 = abs(K*clf.u1+clf.b1);
             D2 = abs(K*clf.u2+clf.b2);
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
+        end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.c1 = params.c1;
+            clf.c2 = params.c2;
+            clf.c3 = params.c3;
+            clf.c4 = params.c4;
+            clf.Kernel = Kernel(params.Kernel);
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            params = struct(clf);
+            kernel = params.Kernel.GetParams(params);
+            params = rmfield(params, 'Kernel');
+            params = MergeStruct(params, kernel);
         end
         function disp(clf)
             fprintf('%s:\n', clf.Name);

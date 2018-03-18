@@ -18,14 +18,15 @@ classdef TWSVM
     end
 
     methods (Access = 'public')
-        function [ clf ] = TWSVM(C1, C2)
+        function [ clf ] = TWSVM(params)
             clf.Name = 'TWSVM';
+            if nargin > 0
+                clf.SetParams(params);
+            end
             clf.w1 = [];
             clf.b1 = 0;
             clf.w2 = [];
             clf.b2 = 0;
-            clf.C1 = C1;
-            clf.C2 = C2;
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
             % 计时
@@ -70,8 +71,18 @@ classdef TWSVM
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
         end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.C1 = params.C1;
+            clf.C2 = params.C2;
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            params = struct(clf);
+        end
         function disp(clf)
             fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);
         end
     end
+    
 end

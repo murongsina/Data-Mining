@@ -1,12 +1,12 @@
 function [ Accuracy, Precision, Recall, Time ] = CrossValid( Clf, X, Y, ValInd, k )
 %CROSSVALID 此处显示有关此函数的摘要
-% n折交叉验证
+% k折交叉验证
 %   此处显示详细说明
 % 参数：
-%      Clf    -分类器
-%        D    -数据集
-%   ValInd    -交叉验证索引
-%        k    -k折交叉验证
+%         Clf    -分类器
+%           D    -数据集
+%      ValInd    -交叉验证索引
+%           k    -k折交叉验证
 % 输出：
 %    Accuracy    -精确度
 %   Precision    -准确度

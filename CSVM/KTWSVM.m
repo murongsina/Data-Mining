@@ -8,9 +8,6 @@ classdef KTWSVM
         C1;     % 参数1
         C2;     % 参数2
         Kernel; % 核函数
-        p1;     % 核参数1
-        p2;     % 核参数2
-        p3;     % 核参数3
     end
     
     properties (Access = 'private')
@@ -22,21 +19,10 @@ classdef KTWSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = KTWSVM(C1, C2, Kernel, p1, p2, p3)
+        function [ clf ] = KTWSVM(params)
             clf.Name = 'KTWSVM';
-            clf.Kernel = Kernel;
-            clf.C1 = C1;
-            clf.C2 = C2;
-            if strcmp('linear', Kernel) == 0
-                if nargin > 3
-                    clf.p1 = p1;
-                end
-                if nargin > 4
-                    clf.p2 = p2;
-                end
-                if nargin > 5
-                    clf.p3 = p3;
-                end
+            if nargin == 1
+                clf = clf.SetParams(params);
             end
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
@@ -52,8 +38,8 @@ classdef KTWSVM
             e2 = ones(m2, 1);
             % 构造核矩阵
             clf.C = [A; B];
-            S = [Utils.K(clf.Kernel, A, clf.C, clf.p1, clf.p2, clf.p3) e1];
-            R = [Utils.K(clf.Kernel, B, clf.C, clf.p1, clf.p2, clf.p3) e2];
+            S = [clf.Kernel.K(A, clf.C) e1];
+            R = [clf.Kernel.K(B, clf.C) e2];
             S2 = S'*S;
             R2 = R'*R;
             % KDTWSVM1
@@ -78,14 +64,28 @@ classdef KTWSVM
             Time = toc;
         end
         function [ yTest ] = Predict(clf, xTest)
-            K = Utils.K(clf.Kernel, xTest, clf.C, clf.p1, clf.p2, clf.p3);
+            K = clf.Kernel.K(xTest, clf.C);
             D1 = abs(K*clf.u1+clf.b1);
             D2 = abs(K*clf.u2+clf.b2);
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
         end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.C1 = params.C1;
+            clf.C2 = params.C2;
+            clf.Kernel.SetParams(params.Kernel);
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            params = struct(clf);
+            kernel = params.Kernel.GetParams(params);
+            params = rmfield(params, 'Kernel');
+            params = MergeStruct(params, kernel);
+        end
         function disp(clf)
             fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);
         end
     end
+
 end

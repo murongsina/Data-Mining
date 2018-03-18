@@ -9,9 +9,6 @@ classdef WTWSVM
         C2;     % 参数2
         W;      % 权重矩阵
         Kernel; % 核函数
-        p1;     % 核参数1
-        p2;     % 核参数2
-        p3;     % 核参数3
     end    
     
     properties (Access = 'private')
@@ -23,23 +20,9 @@ classdef WTWSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = WTWSVM(C1, C2, W, Kernel, p1, p2, p3)
+        function [ clf ] = WTWSVM(params)
             clf.Name = 'WTWSVM';
-            clf.Kernel = Kernel;
-            clf.C1 = C1;
-            clf.C2 = C2;
-            clf.W = W;
-            if strcmp('linear', Kernel) == 0
-                if nargin > 3
-                    clf.p1 = p1;
-                end
-                if nargin > 4
-                    clf.p2 = p2;
-                end
-                if nargin > 5
-                    clf.p3 = p3;
-                end
-            end
+            clf = clf.SetParams(params);
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
             % 计时
@@ -76,6 +59,12 @@ classdef WTWSVM
             D2 = abs(KX*clf.w2+clf.b2);
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
+        end
+        function [ clf ] = SetParams(clf, params)
+            clf.C1 = params.C1;
+            clf.C2 = params.C2;
+            clf.W = params.W;
+            clf.Kernel = params.Kernel;
         end
         function disp(clf)
             fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);

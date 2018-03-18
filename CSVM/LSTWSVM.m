@@ -8,9 +8,6 @@ classdef LSTWSVM
         C1;     % 参数1
         C2;     % 参数2
         Kernel; % 核函数
-        p1;     % 核参数1
-        p2;     % 核参数2
-        p3;     % 核参数3
     end
     
     properties (Access = 'private')
@@ -22,21 +19,10 @@ classdef LSTWSVM
     end
     
     methods (Access = 'public')
-        function [ clf ] = LSTWSVM(C1, C2, Kernel, p1, p2, p3)
+        function [ clf ] = LSTWSVM(params)
             clf.Name = 'LSTWSVM';
-            clf.Kernel = Kernel;
-            clf.C1 = C1;
-            clf.C2 = C2;
-            if strcmp('linear', Kernel) == 0
-                if nargin > 3
-                    clf.p1 = p1;
-                end
-                if nargin > 4
-                    clf.p2 = p2;
-                end
-                if nargin > 5
-                    clf.p3 = p3;
-                end
+            if nargin > 0
+                clf = clf.SetParams(params);
             end
         end
         function [ clf, Time ] = Fit(clf, xTrain, yTrain)
@@ -52,8 +38,8 @@ classdef LSTWSVM
             e2 = ones(m2, 1);
             % 构造核矩阵
             clf.C = [A; B];
-            E = [Utils.K(clf.Kernel, A, clf.C, clf.p1, clf.p2, clf.p3) e1];
-            F = [Utils.K(clf.Kernel, B, clf.C, clf.p1, clf.p2, clf.p3) e2];
+            E = [clf.Kernel.K(A, clf.C) e1];
+            F = [clf.Kernel.K(B, clf.C) e2];
             E2 = E'*E;
             F2 = F'*F;
             % LS-TWSVM1
@@ -74,8 +60,21 @@ classdef LSTWSVM
             yTest = sign(D2-D1);
             yTest(yTest==0) = 1;
         end
+        function [ clf ] = SetParams(clf, params)
+            % 设置分类器参数
+            clf.C1 = params.C1;
+            clf.C2 = params.C2;
+            clf.Kernel = params.Kernel;
+        end
+        function [ params ] = GetParams(clf)
+            % 得到分类器参数
+            params = struct(clf);
+            kernel = params.Kernel.GetParams();
+            params = rmfield(params, 'Kernel');
+        end
         function disp(clf)
             fprintf('%s: C1=%4.5f\tC2=%4.5f\n', clf.Name, clf.C1, clf.C2);
         end
     end
+    
 end
