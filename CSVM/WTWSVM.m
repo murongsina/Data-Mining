@@ -78,5 +78,12 @@ classdef WTWSVM
         end
     end
     
+    methods (Access = 'private')
+        function [ W ] = NDPWeight(X, Y)
+            % 基于近邻属性的边界样本加权
+            [Xr, Yr, W] = NDP(X, Y, 12, 4, 4);
+        end
+    end
+    
 end
 

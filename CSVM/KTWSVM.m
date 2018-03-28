@@ -36,6 +36,8 @@ classdef KTWSVM
             n = m1 + m2;
             e1 = ones(m1, 1);
             e2 = ones(m2, 1);
+            % 最优化参数
+            options = optimset('Display', 'notify');
             % 构造核矩阵
             clf.C = [A; B];
             S = [clf.Kernel.K(A, clf.C) e1];
@@ -47,7 +49,7 @@ classdef KTWSVM
             H1 = Utils.Cond(H1);
             lb1 = zeros(m2, 1);
             ub1 = ones(m2, 1)*clf.C1;
-            Alpha = quadprog(H1,-e2,[],[],[],[],lb1,ub1);
+            Alpha = quadprog(H1,-e2,[],[],[],[],lb1,ub1,[],options);
             z1 = -S2\R'*Alpha;
             clf.u1 = z1(1:n);
             clf.b1 = z1(end);
@@ -56,7 +58,7 @@ classdef KTWSVM
             H2 = Utils.Cond(H2);
             lb2 = zeros(m1, 1);
             ub2 = ones(m1, 1)*clf.C2;
-            Mu = quadprog(H2,-e1,[],[],[],[],lb2,ub2);
+            Mu = quadprog(H2,-e1,[],[],[],[],lb2,ub2,[],options);
             z2 = -R2\S'*Mu;
             clf.u2 = z2(1:n);
             clf.b2 = z2(end);
