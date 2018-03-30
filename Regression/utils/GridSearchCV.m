@@ -18,8 +18,8 @@ function [ Output ] = GridSearchCV( Learner, X, Y, ValInd, IParams, Kfold )
     for i = 1 : nParams
         fprintf('GridSearchCV: %d', i);
         % 交叉验证
-        [ Accuracy, Precision, Recall, Time ] = CrossValid(Learner, X, Y, ValInd, Kfold, IParams(i));
+        O = CrossValid(Learner, X, Y, ValInd, Kfold, IParams(i), opts);
         % 保存结果
-        Output(i, :) = [Accuracy Precision Recall Time];
+        Output(i, :) = O;
     end
 end

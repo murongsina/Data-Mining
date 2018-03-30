@@ -1,6 +1,11 @@
 images = './images/';
 
 addpath(genpath('./model'));
+addpath(genpath('./utils'));
+
+load('LabUCIReg.mat', 'LabUCIReg');
+load('LabIParams.mat', 'LabIParams');
+load('Colors.mat', 'Colors');
 
 % run regression
 kernel = struct('kernel', 'rbf', 'p1', 1888.2);
