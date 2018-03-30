@@ -1,4 +1,9 @@
 images = './images/';
+
+addpath(genpath('./model'));
+addpath(genpath('./filter'));
+addpath(genpath('./clustering'));
+
 % run regression
 kernel = struct('kernel', 'rbf', 'p1', 1888.2);
 opts1 = struct('Name', 'TWSVR', 'C1', 2, 'C2', 2, 'C3', 2, 'C4', 2, 'eps1', 0.4, 'eps2', 0.4, 'Kernel', kernel);

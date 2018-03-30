@@ -1,5 +1,9 @@
 images = '../images/CSVM/GridSearch/';
 
+addpath(genpath('./model'));
+addpath(genpath('./filter'));
+addpath(genpath('./clustering'));
+
 % 实验用数据集
 load('Artificial.mat');
 DataSets = Artificial;
