@@ -13,7 +13,7 @@ classdef Regressor
                     clf = MTL_TWSVR(params);
                 otherwise
                     throw(MException('Regressor', '未知回归算法！'));
-            end                    
+            end
         end
         function [ Count ] = GetPropertyCount(root)
             % 得到叶节点数目

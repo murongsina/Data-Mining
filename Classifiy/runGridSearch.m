@@ -24,7 +24,7 @@ for i = 1 : nD
     % 交叉验证索引
     ValInd = CrossValInd( Y, DataSet.Classes, DataSet.Labels, Kfold );
     % 设置多分类选项
-    opts.nClasses = DataSet.Classes;
+    opts.Classes = DataSet.Classes;
     opts.Labels = DataSet.Labels;
     opts.Mode = 'OvO';
     % 对每一组实验参数

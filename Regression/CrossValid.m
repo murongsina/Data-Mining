@@ -1,9 +1,9 @@
-function [ Accuracy, Precision, Recall, Time ] = CrossValid( Clf, X, Y, ValInd, k )
+function [ Accuracy, Precision, Recall, Time ] = CrossValid( Learner, X, Y, ValInd, k, opts )
 %CROSSVALID 此处显示有关此函数的摘要
 % k折交叉验证
 %   此处显示详细说明
 % 参数：
-%         Clf    -分类器
+%     Learner    -学习算法
 %           D    -数据集
 %      ValInd    -交叉验证索引
 %           k    -k折交叉验证
@@ -23,11 +23,9 @@ function [ Accuracy, Precision, Recall, Time ] = CrossValid( Clf, X, Y, ValInd, 
         % 得到训练和测试集索引
         test = (ValInd == i);
         train = ~test;
-        % 在训练集上训练
-        [Clf, Time] = Clf.Fit(X(train,:), Y(train,:));
-        % 在测试集上测试
-        [yTest] = Clf.Predict(X(test,:));
-        % 分类性能
+        % 训练和预测
+        [ yTest, Time ] = Learner(X(train,:), Y(train,:), X(test,:), opts);
+        % 评估效果
         classperf(cp, yTest, test);
         % 记录时间
         Times(1, i) = Time;

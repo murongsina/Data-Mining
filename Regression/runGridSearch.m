@@ -13,6 +13,10 @@ Kfold = 5;
 nD = length(DataSetIndices);
 nP = length(ParamIndices);
 Outputs = cell(nD, 8);
+
+% 设置为多任务学习器
+Learner = @MTL;
+
 % 开启绘图模式
 fprintf('runGridSearch\n');
 % 对每一个数据集
@@ -27,12 +31,8 @@ for i = 1 : nD
     for j = 1 : nP
         % 选择实验参数
         Params = IParams{j};
-        % 根据第一组参数初始化二分类器
-        Clf = Classifier.CreateClf(Params(1));
-        % 转换多分类器
-        Clfs = MultiClf(Clf, DataSet.Classes, DataSet.Labels);
         % 网格搜索、交叉验证
-        Outputs = GridSearchCV(Clfs, X, Y, ValInd, Params, Kfold);
+        Outputs = GridSearchCV(Learner, X, Y, ValInd, Params, Kfold);
         % 保存网格搜索交叉验证的结果
         Outputs(i, j) = {
             DataSet.Name, DataSet.Instances, DataSet.Attributes, DataSet.Classes, Output

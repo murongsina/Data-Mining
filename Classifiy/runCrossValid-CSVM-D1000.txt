@@ -1,2 +1,0 @@
-Datasets	Accuracy	Recall	Precision	Time(s)
-Sine-4000	 0.51900	 0.00000	     NaN	Grid-4000	 0.50300	 0.00000	     NaN	Ring-4000	 0.59700	 0.00000	     NaN	
