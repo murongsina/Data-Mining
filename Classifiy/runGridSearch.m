@@ -23,16 +23,16 @@ for i = 1 : nD
     [X, Y] = SplitDataLabel(DataSet.Data);
     % 交叉验证索引
     ValInd = CrossValInd( Y, DataSet.Classes, DataSet.Labels, Kfold );
+    % 设置多分类选项
+    opts.nClasses = DataSet.Classes;
+    opts.Labels = DataSet.Labels;
+    opts.Mode = 'OvO';
     % 对每一组实验参数
     for j = 1 : nP
         % 选择实验参数
         Params = IParams{j};
-        % 根据第一组参数初始化二分类器
-        Clf = Classifier.CreateClf(Params(1));
-        % 转换多分类器
-        Clfs = MultiClf(Clf, DataSet.Classes, DataSet.Labels);
         % 网格搜索、交叉验证
-        Outputs = GridSearchCV(Clfs, X, Y, ValInd, Params, Kfold);
+        Outputs = GridSearchCV(@MultiClf, X, Y, Kfold, ValInd, Params, opts);
         % 保存网格搜索交叉验证的结果
         Outputs(i, j) = {
             DataSet.Name, DataSet.Instances, DataSet.Attributes, DataSet.Classes, Output
