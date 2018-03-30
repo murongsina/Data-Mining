@@ -1,8 +1,6 @@
 images = './images/';
 
 addpath(genpath('./model'));
-addpath(genpath('./filter'));
-addpath(genpath('./clustering'));
 
 % run regression
 kernel = struct('kernel', 'rbf', 'p1', 1888.2);
