@@ -2,6 +2,7 @@ images = './images/';
 
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
+addpath(genpath('./datasets/'));
 
 load('LabUCIReg.mat', 'LabUCIReg');
 load('LabIParams.mat', 'LabIParams');
@@ -19,7 +20,7 @@ h = figure('Visible', 'on');
 for i = [4]
     DataSet = LabUCIReg(i);
     [X, Y] = MultiTask(DataSet, 4);
-    [X, Y] = Normalize(X, Y);
+%     [X, Y] = Normalize(X, Y);
     % 对每一组MTL参数
     for j = [1 2]
         % 多任务学习
