@@ -4,6 +4,7 @@ addpath(genpath('./model'));
 addpath(genpath('./filter'));
 addpath(genpath('./clustering'));
 addpath(genpath('./datasets'));
+addpath(genpath('./utils'));
 
 % 实验用数据集
 load('Artificial.mat');

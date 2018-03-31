@@ -1,4 +1,4 @@
-function [ Output ] = GridSearchCV( Learner, X, Y, Kfold, ValInd, IParams )
+function [ Output ] = GridSearchCV( Learner, X, Y, Kfold, ValInd, IParams, opts )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 网格搜索交叉验证
 %   此处显示详细说明
@@ -18,6 +18,6 @@ function [ Output ] = GridSearchCV( Learner, X, Y, Kfold, ValInd, IParams )
     for i = 1 : nParams
         fprintf('GridSearchCV: %d', i);
         % 交叉验证
-        Output(i, :) = CrossValid(Learner, X, Y, Kfold, ValInd, IParams(i));
+        Output(i, :) = CrossValid(Learner, X, Y, Kfold, ValInd, IParams(i), opts);
     end
 end

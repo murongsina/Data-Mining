@@ -1,4 +1,4 @@
-function [ Output, Time ] = CrossValid( Learner, X, Y, Kfold, ValInd, Params )
+function [ Output, Time ] = CrossValid( Learner, X, Y, Kfold, ValInd, Params, opts )
 %CROSSVALID 此处显示有关此函数的摘要
 % k折交叉验证
 %   此处显示详细说明
@@ -27,7 +27,8 @@ function [ Output, Time ] = CrossValid( Learner, X, Y, Kfold, ValInd, Params )
         test = (ValInd == i);
         train = ~test;
         % 训练和预测
-        [ y, Time ] = Learner(X(train,:), Y(train,:), X(test,:), Params);
+        opts.Params = Params;
+        [ y, Time ] = Learner(X(train,:), Y(train,:), X(test,:), opts);
         % 记录时间
         Times(1, i) = Time;
         % 统计指标
