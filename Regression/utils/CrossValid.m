@@ -1,4 +1,4 @@
-function [ Stats, Time ] = CrossValid( Learner, X, Y, k, ValInd, Params )
+function [ Output, Time ] = CrossValid( Learner, X, Y, Kfold, ValInd, Params )
 %CROSSVALID 此处显示有关此函数的摘要
 % k折交叉验证
 %   此处显示详细说明
@@ -14,11 +14,14 @@ function [ Stats, Time ] = CrossValid( Learner, X, Y, k, ValInd, Params )
 %  SSR/SSE    -
 %     Time    -平均训练时间
 
+%     Stats = { 'MSE', 'MAE', 'SSE', 'SAE' };
+    Funcs = { @mse, @mae, @sse, @sae };
+    
     % 训练时间
-    Times = zeros(1, k);
-    Stats = zeros(k, 1);
+    Times = zeros(1, Kfold);
+    Stats = zeros(Kfold, 4);
     % 实验记进行k次(交叉验证折数)，求k次的平均值作为实验结果
-    for i = 1 : k
+    for i = 1 : Kfold
         fprintf('CrossValid: %d', i);
         % 得到训练和测试集索引
         test = (ValInd == i);
@@ -26,11 +29,13 @@ function [ Stats, Time ] = CrossValid( Learner, X, Y, k, ValInd, Params )
         % 训练和预测
         [ y, Time ] = Learner(X(train,:), Y(train,:), X(test,:), Params);
         % 记录时间
-        yTest = Y(test,:);
         Times(1, i) = Time;
-        Stats(i, 1) = mse(y-yTest, yTest, y);
-        Stats(i, 2) = mae(y-yTest, yTest, y);
-        Stats(i, 3) = sse(y-yTest, yTest, y);
-        Stats(i, 4) = sae(y-yTest, yTest, y);
+        % 统计指标
+        yTest = Y(test,:);
+        for j = 1 : 4
+            Stats(i, j) = Funcs{j}(y-yTest, yTest, y);
+        end
     end
+    Output = mean(Stats);
+    Time = mean(Times);
 end
