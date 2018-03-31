@@ -1,4 +1,4 @@
-function [ Output ] = GridSearchCV( Learner, X, Y, Kfold, ValInd, IParams, opts )
+function [ Output ] = GridSearchCV( Learner, X, Y, IParams, opts )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 网格搜索交叉验证
 %   此处显示详细说明
@@ -10,14 +10,29 @@ function [ Output ] = GridSearchCV( Learner, X, Y, Kfold, ValInd, IParams, opts 
 %      Kfold    -K折交叉验证
 % 输出：
 %     Output    -网格搜索、交叉验证结果
-
-    % 得到参数组数
+    
+%% Parse opts
+    if isfield(opts, 'Kfold')
+        Kfold = opts.Kfold;
+    else
+        throw(MException('CrossValid', 'No Kfold'));
+    end
+    if isfield(opts, 'ValInd')
+        ValInd = opts.ValInd;
+    else
+        throw(MException('CrossValid', 'No ValInd'));
+    end
+    
+%% Gride Search and Cross Validation
     nParams = length(IParams);
     Output = zeros(nParams, 4);
-    % 对每一组参数
     for i = 1 : nParams
         fprintf('GridSearchCV: %d', i);
-        % 交叉验证
-        Output(i, :) = CrossValid(Learner, X, Y, Kfold, ValInd, IParams(i), opts);
+        for j = 1 : Kfold
+            fprintf('CrossValid: %d', j);
+            test = (ValInd == j);
+            train = ~test;
+            [ y, Time ] = Learner(X(train,:), Y(train,:), X(test,:), Params);
+        end
     end
 end

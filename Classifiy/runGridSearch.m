@@ -6,12 +6,13 @@ addpath(genpath('./clustering'));
 addpath(genpath('./datasets'));
 addpath(genpath('./utils'));
 
-% 实验用数据集
 load('Artificial.mat');
+load('LabIParams.mat');
+
+% 实验用数据集
 DataSets = Artificial;
 DataSetIndices = [1 2 4 6];
 % 实验参数设置
-load('LabIParams.mat');
 IParams = LabIParams;
 ParamIndices = [1 3 4];
 % 输出结果
@@ -33,12 +34,10 @@ for i = 1 : nD
     opts.Classes = DataSet.Classes;
     opts.Labels = DataSet.Labels;
     opts.Mode = 'OvO';
-    % 对每一组实验参数
+    % 对每一个实验
     for j = 1 : nP
-        % 选择实验参数
-        Params = IParams{j};
         % 网格搜索、交叉验证
-        Outputs = GridSearchCV(@MultiClf, X, Y, Kfold, ValInd, Params, opts);
+        Outputs = GridSearchCV(@MultiClf, X, Y, Kfold, ValInd, IParams{j}, opts);
         % 保存网格搜索交叉验证的结果
         Outputs(i, j) = {
             DataSet.Name, DataSet.Instances, DataSet.Attributes, DataSet.Classes, Output

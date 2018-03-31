@@ -16,7 +16,7 @@ function [ yTest, Time ] = MTL(xTrain, yTrain, xTest, opts)
                 Learner = Learners{i};
             else
                 % 设置多任务的学习器
-                opts.Learner = Learners{i};
+                BaseLearner = Learners{i};
                 Learner = @MTLearner;
             end
         end
@@ -26,13 +26,12 @@ function [ yTest, Time ] = MTL(xTrain, yTrain, xTest, opts)
 
 %% Multi-Task Learner
     function [ yTest, Time ] = MTLearner(xTrain, yTrain, xTest, opts)
-        L = opts.Learner;
         [ TaskNum, ~ ] = size(xTrain);
         yTest = cell(TaskNum, 1);
         Times = zeros(TaskNum, 1);
         % 使用同样的学习器训练预测每一个任务
         for t = 1 : TaskNum
-            [ y, time ] = L(xTrain{t}, yTrain{t}, xTest{t}, opts);
+            [ y, time ] = BaseLearner(xTrain{t}, yTrain{t}, xTest{t}, opts);
             yTest{t} = y;
             Times(t) = time;
         end
