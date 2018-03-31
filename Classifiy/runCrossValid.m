@@ -4,11 +4,13 @@ images = '../images/MultiClf/KTWSVM';
 DataSets = Artificial;
 DataSetIndices = [1 2 4 6];
 % 构造分类器
-Clf1 = CSVM(1136.5, 'rbf', 1136.5, 3.6);
-Clf2 = TWSVM(1.2, 1.2);
-Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
-Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
-Clf5 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5, 3.6);
+Params0 = struct('Kernel', 'rbf', 'p1', 1136.5);
+Params1 = struct('Name', 'CSVM', 'C', 1136.5, 'Kernel', Params0); 
+% Clf1 = CSVM(1136.5, 'rbf', 1136.5, 3.6);
+% Clf2 = TWSVM(1.2, 1.2);
+% Clf3 = KTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+% Clf4 = LSTWSVM(1.2, 1.2, 'rbf', 1136.5, 3.6);
+% Clf5 = KNNSTWSVM(1.1, 1.3, 1.5, 1.7, 'rbf', 1136.5, 3.6);
 Clf = Clf5;
 % 输出结果
 nD = length(DataSetIndices);
