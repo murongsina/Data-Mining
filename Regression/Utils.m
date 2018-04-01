@@ -16,7 +16,7 @@ classdef Utils
         %     A     -µ÷Õûºó¾ØÕó
 
             if (abs(cond(H)) > 1e+10)
-                A = H + 0.0001*eye(size(H));
+                A = H + 0.000001*eye(size(H));
             else
                 A = H;
             end

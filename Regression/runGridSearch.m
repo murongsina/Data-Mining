@@ -25,7 +25,7 @@ for i = 1 : nD
     % 构造多任务数据集
     [X, Y, ValInd] = MultiTask(DataSet, 4);
     % 交叉验证索引
-    opts = struct('Kfold', 5, 'ValInd', ValInd);
+    opts = struct('TaskNum', 4, 'Kfold', 5, 'ValInd', ValInd);
     % 对每一组实验参数
     for j = 1 : nP
         % 网格搜索、交叉验证

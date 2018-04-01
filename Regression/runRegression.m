@@ -9,20 +9,26 @@ load('LabIParams.mat', 'LabIParams');
 load('Colors.mat', 'Colors');
 
 % run regression
-kernel = struct('kernel', 'rbf', 'p1', 1888.2);
-opts1 = struct('Name', 'TWSVR', 'C1', 2, 'C2', 2, 'C3', 2, 'C4', 2, 'eps1', 0.4, 'eps2', 0.4, 'Kernel', kernel);
-opts2 = struct('Name', 'MTL_TWSVR', 'C1', 2, 'C2', 2, 'eps1', 0.34, 'eps2', 0.34, 'Kernel', kernel);
-opts = {opts1, opts2};
+kernel = struct('kernel', 'rbf', 'p1', 36.2);
+
+C1 = 1; C2 = 1; C3 = 1; C4 = 1;
+eps1 = 0.2; eps2 = 0.2;
+opts1 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', eps1, 'eps2', eps2, 'Kernel', kernel);
+opts2 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', eps1, 'eps2', eps2, 'Kernel', kernel);
+opts3 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', eps1, 'eps2', eps2, 'Kernel', kernel);
+opts4 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', eps1, 'eps2', eps2, 'Kernel', kernel);
+
+opts = {opts1, opts2, opts3, opts4};
 
 perf = zeros(4, 5);
 h = figure('Visible', 'on');
 % 对每一个数据集
 for i = [4]
     DataSet = LabUCIReg(i);
-    [X, Y] = MultiTask(DataSet, 4);
+    [X, Y, ~] = MultiTask(DataSet, 4, 5);
 %     [X, Y] = Normalize(X, Y);
     % 对每一组MTL参数
-    for j = [1 2]
+    for j = [1 2 3 4]
         % 多任务学习
         opt = opts{j};
         [ y, Time] = MTL(X, Y, X, opt);
