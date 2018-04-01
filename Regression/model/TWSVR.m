@@ -1,31 +1,17 @@
-function [ yTest, Time ] = TWSVR(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
 %TWSVR 此处显示有关此类的摘要
 % Twin Support Vector Machine
-% 
+% see:Improvements on Twin Support Vector Machines
 %   此处显示详细说明
 
 %% Parse opts
-    names = fieldnames(opts);
-    [m, ~] = size(names);
-    for i = 1 : m
-        name = names{i};
-        switch(name)
-            case {'C1'}
-                C1 = opts.C1;
-            case {'C2'}
-                C2 = opts.C2;
-            case {'C3'}
-                C3 = opts.C3;
-            case {'C4'}
-                C4 = opts.C4;
-            case {'eps1'}
-                eps1 = opts.eps1;
-            case {'eps2'}
-                eps2 = opts.eps2;
-            case {'Kernel'}
-                kernel = opts.Kernel;
-        end
-    end
+    C1 = opts.C1;
+    C2 = opts.C2;
+    C3 = opts.C3;
+    C4 = opts.C4;
+    eps1 = opts.eps1;
+    eps2 = opts.eps2;
+    kernel = opts.Kernel;
     
 %% Fit
     tic;

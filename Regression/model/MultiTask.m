@@ -1,4 +1,4 @@
-function [ TX, TY, TK ] = MultiTask( DataSet, TaskNum )
+function [ TX, TY, TK ] = MultiTask( DataSet, TaskNum, Kfold )
 %MULTITASK 此处显示有关此函数的摘要
 % 转换多任务数据集，构造一组任务
 %   此处显示详细说明
@@ -13,6 +13,6 @@ function [ TX, TY, TK ] = MultiTask( DataSet, TaskNum )
         TX{t} = X(idx==t,:);
         TY{t} = Y(idx==t,:);
         N = sum(idx==t);
-        TK{t} = crossvalind('Kfold', N, K);
+        TK{t} = crossvalind('Kfold', N, Kfold);
     end
 end

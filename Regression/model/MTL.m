@@ -3,9 +3,15 @@ function [ yTest, Time ] = MTL(xTrain, yTrain, xTest, opts)
 % Multi-Task Learning
 %   此处显示详细说明
 
-    Names = { 'SVR', 'PSVR', 'TWSVR', 'MTL_PSVR', 'MTL_TWSVR' };
-    Learners = { @SVR, @PSVR, @TWSVR, @MTL_PSVR, @MTL_TWSVR };
-    IsMTL = [ 0 0 0 1 1 ];
+    Names = {
+        'SVR', 'PSVR', 'TWSVR', 'TWSVR_Xu',...
+        'MTL_PSVR', 'MTL_TWSVR', 'MTL_TWSVR_Xu'
+    };
+    Learners = {
+        @SVR, @PSVR, @TWSVR, @TWSVR_Xu,...
+        @MTL_PSVR, @MTL_TWSVR, @MTL_TWSVR_Xu
+    };
+    IsMTL = [ 0 0 0 0 1 1 1 ];
     
 %% Parse opts
     N = length(Learners);
