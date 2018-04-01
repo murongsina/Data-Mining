@@ -10,6 +10,7 @@ function [ yTest, Time ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
     eps1 = opts.eps1;
     eps2 = opts.eps2;
     kernel = opts.Kernel;
+    solver = opts.solver;
 
 %% Fit
     tic;
@@ -29,10 +30,10 @@ function [ yTest, Time ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
     lb = zeros(m, 1);
     % TWSVR1
     ub1 = e*C1;
-    Alpha = quadprog(H,(Y+eps1)-HTY,[],[],[],[],lb,ub1,[]);
+    Alpha = quadprog(H,(Y+eps1)-HTY,[],[],[],[],lb,ub1,[],solver);
     % TWSVR2
     ub2 = e*C2;
-    Gamma = quadprog(H,HTY-(Y-eps2),[],[],[],[],lb,ub2,[]);
+    Gamma = quadprog(H,HTY-(Y-eps2),[],[],[],[],lb,ub2,[],solver);
     % µÃµ½u,v
     u = GGG*(Y-Alpha);
     v = GGG*(Y+Gamma);

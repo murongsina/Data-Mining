@@ -5,11 +5,12 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
 %   此处显示详细说明
 
 %% Parse opts
-    C1 = opts.C1;         % 参数1
-    C2 = opts.C2;         % 参数2
-    eps1 = opts.eps1;     % 参数3
-    eps2 = opts.eps2;     % 参数4
-    kernel = opts.Kernel; % 核函数参数
+    C1 = opts.C1;
+    C2 = opts.C2;
+    eps1 = opts.eps1;
+    eps2 = opts.eps2;
+    kernel = opts.Kernel;
+    solver = opts.solver;
     
 %% Prepare
     tic;
@@ -46,7 +47,9 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
         P = blkdiag(P, Pt);
     end
     % 二次规划的H矩阵
-    AAA = (A'*A)\A';
+    AA = A'*A;
+    AA = Utils.Cond(AA);
+    AAA = AA\A';
     H = A*AAA + P;
     
 %% Fit
@@ -54,13 +57,12 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     [m, ~] = size(T);
     e = ones(m, 1);
     lb = zeros(m, 1);
-%     H = Utils.Cond(H);
     % MTL_TWSVR1
     ub1 = e*C1;
-    Alpha = quadprog(H,g-H'*f,[],[],[],[],lb,ub1,[]);
+    Alpha = quadprog(H,g-H'*f,[],[],[],[],lb,ub1,[],solver);
     % MTL_TWSVR2
     ub2 = e*C2;
-    Gamma = quadprog(H,H'*g-f,[],[],[],[],lb,ub2,[]);
+    Gamma = quadprog(H,H'*g-f,[],[],[],[],lb,ub2,[],solver);
     
 %% GetWeight
     W = cell(TaskNum, 1);

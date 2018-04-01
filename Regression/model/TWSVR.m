@@ -12,6 +12,7 @@ function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
     eps1 = opts.eps1;
     eps2 = opts.eps2;
     kernel = opts.Kernel;
+    solver = opts.solver;
     
 %% Fit
     tic;
@@ -35,10 +36,10 @@ function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
     lb = zeros(m, 1);
     % TWSVR1
     ub1 = e*C1;
-    Alpha = quadprog(-Q1,Q1'*f-g,[],[],[],[],lb,ub1,[]);
+    Alpha = quadprog(-Q1,Q1'*f-g,[],[],[],[],lb,ub1,[],solver);
     % TWSVR2
     ub2 = e*C2;
-    Gamma = quadprog(-Q2,f-Q2'*g,[],[],[],[],lb,ub2,[]);
+    Gamma = quadprog(-Q2,f-Q2'*g,[],[],[],[],lb,ub2,[],solver);
     % µÃµ½u,v
     u = Hu*(f-Alpha);
     v = Hv*(g+Gamma);
