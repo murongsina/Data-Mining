@@ -36,12 +36,11 @@ function [ yTest, Time ] = MTL_TWSVR_Xu( xTrain, yTrain, xTest, opts )
 %% 得到P矩阵
     A = [Kernel(A, C, kernel) e]; % 非线性变换
     P = [];
-    TaskNum = 5;
-    Rts = cell(TaskNum, 1);
+    AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        Rts{t} = (At'*At)\At';
-        Pt = At*Rts{t};
+        AAAt{t} = (At'*At)\At';
+        Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
     % 二次规划的H矩阵
@@ -69,8 +68,8 @@ function [ yTest, Time ] = MTL_TWSVR_Xu( xTrain, yTrain, xTest, opts )
     V = AAA*(Y + Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = Rts{t}*(Y(Tt,:) - Alpha(Tt,:));
-        Vt = Rts{t}*(Y(Tt,:) + Gamma(Tt,:));
+        Ut = AAAt{t}*(Y(Tt,:) - Alpha(Tt,:));
+        Vt = AAAt{t}*(Y(Tt,:) + Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;
@@ -84,8 +83,8 @@ function [ yTest, Time ] = MTL_TWSVR_Xu( xTrain, yTrain, xTest, opts )
         At = xTest{t};
         [m, ~] = size(At);
         et = ones(m, 1);
-        KAte = [Kernel(At, C, opts.Kernel) et];
-        yTest{t} = KAte * W{t};
+        KAt = [Kernel(At, C, kernel) et];
+        yTest{t} = KAt * W{t};
     end
     
 end

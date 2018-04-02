@@ -15,8 +15,8 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
 %% Prepare
     tic;
     % 得到所有的样本和标签以及任务编号
-    [ TaskNum, ~ ] = size(xTrain);  
     A = []; Y = []; T = [];
+    [ TaskNum, ~ ] = size(xTrain);  
     for t = 1 : TaskNum
         % 得到任务i的H矩阵
         Xt = xTrain{t};
@@ -38,7 +38,6 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     g = Y - eps1;
     % 得到P矩阵
     P = [];
-    TaskNum = 5;
     Rts = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
@@ -85,8 +84,8 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
         At = xTest{t};
         [m, ~] = size(At);
         et = ones(m, 1);
-        KAte = [Kernel(At, C, opts.Kernel) et];
-        yTest{t} = KAte * W{t};
+        KAt = [Kernel(At, C, kernel) et];
+        yTest{t} = KAt * W{t};
     end
     
 end
