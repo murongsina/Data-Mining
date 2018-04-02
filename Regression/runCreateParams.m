@@ -1,18 +1,26 @@
+addpath(genpath('./utils'));
+
 % 核函数参数
-RangeP1 = 2.^(1:1:6)';
-Params0 = struct('kernel', 'rbf', 'p1', RangeP1);
+RangeP1 = 2.^(1:2:10)';
+kernel = struct('kernel', 'rbf', 'p1', RangeP1);
 % 分类器网格搜索参数
-C = 2.^(1:1:6)';
-C1 = 2.^(1:1:6)';
-C2 = 2.^(1:1:6)';
-EPS1 = (1:2:16)';
-EPS2 = (1:2:16)';
-Params1 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', Params0);
+C = 2.^(1:2:10)';
+C1 = 2.^(1:2:10)';
+C2 = 2.^(1:2:10)';
+C3 = 2.^(1:2:6)';
+C4 = 2.^(1:2:6)';
+EPS1 = 2.^(1:2:6)';
+EPS2 = 2.^(1:2:6)';
+Params0 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
+Params1 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
+Params2 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
+Params3 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
 % 转换参数表
-OParams = {Params1};
+OParams = {Params0,Params1,Params2,Params3};
 nParams = length(OParams);
 for i = 1 : nParams
     % 初始化参数表
+    fprintf('Params\n')
     IParams{i, 1} = Classifier.CreateParams(OParams{i});
 end
 % 保存参数表

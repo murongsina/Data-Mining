@@ -15,6 +15,7 @@ Kfold = 5;
 nD = length(DataSetIndices);
 nP = length(ParamIndices);
 Outputs = cell(nD, 8);
+solver = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'interior-point');
 
 % 开启绘图模式
 fprintf('runGridSearch\n');
@@ -23,9 +24,9 @@ for i = 1 : nD
     DataSet = LabUCIReg(DataSetIndices(i));
     fprintf('runGridSearch: %s\n', DataSet.Name);
     % 构造多任务数据集
-    [X, Y, ValInd] = MultiTask(DataSet, 4);
+    [X, Y, ValInd] = MultiTask(DataSet, 4, 5);
     % 交叉验证索引
-    opts = struct('TaskNum', 4, 'Kfold', 5, 'ValInd', ValInd);
+    opts = struct('TaskNum', 4, 'Kfold', 5, 'ValInd', ValInd, 'solver', solver);
     % 对每一组实验参数
     for j = 1 : nP
         % 网格搜索、交叉验证
