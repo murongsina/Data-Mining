@@ -70,7 +70,7 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd
         for t = 1 : TaskNum
             for k = 1 : 4
                 Func = Funcs{k};
-                OStat(k, t) = Func(y{t}-yTest{t});%, y{t}, yTest{t});
+                OStat(k, t) = Func(y{t}-yTest{t});
             end
         end
     end
