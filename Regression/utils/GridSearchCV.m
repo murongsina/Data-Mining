@@ -51,7 +51,11 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, opts )
         xTest = cell(TaskNum, 1);
         yTest = cell(TaskNum, 1);
         for t = 1 : TaskNum
-            [ xTrain{t}, yTrain{t}, xTest{t}, yTest{t} ] = TrainTest(X{t}, Y{t}, ValInd{t}, Kfold);
+            [ xTr, yTr, xTe, yTe ] = TrainTest(X{t}, Y{t}, ValInd{t}, Kfold);
+            xTrain(t) = xTr;
+            yTrain(t) = yTr;
+            xTest(t) = xTe;
+            yTest(t) = yTe;
         end
     end
 

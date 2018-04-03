@@ -1,18 +1,17 @@
 addpath(genpath('./utils'));
 
 % 核函数参数
-RangeP1 = 2.^(1:2:9)';
+RangeP1 = 2.^(1:3:10)';
 kernel = struct('kernel', 'rbf', 'p1', RangeP1);
 % 分类器网格搜索参数
-C = 2.^(1:2:9)';
-C1 = 2.^(1:2:9)';
-C2 = 2.^(1:2:9)';
-C3 = 2.^(1:2:9)';
-C4 = 2.^(1:2:9)';
-EPS1 = 2.^(1:2:9)';
-EPS2 = 2.^(1:2:9)';
-RHO = 2.^(1:3:10)';
-LAMBDA = 2.^(1:3:10)';
+C1 = 2.^(1:3:10)';
+C2 = 2.^(1:3:10)';
+C3 = 2.^(1:3:10)';
+C4 = 2.^(1:3:10)';
+EPS1 = 2.^(1:3:7)';
+EPS2 = 2.^(1:3:7)';
+RHO = 2.^(1:3:7)';
+LAMBDA = 2.^(1:3:7)';
 Params0 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
 Params1 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
 Params2 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'Kernel', kernel);
