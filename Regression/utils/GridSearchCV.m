@@ -16,42 +16,62 @@ function [ Output ] = GridSearchCV( Learner, X, Y, IParams, opts )
     ValInd = opts.ValInd;
 
     nParams = length(IParams);
-    Output = zeros(nParams, 4);
+    Output = zeros(nParams, 5);
     for i = 1 : nParams
         fprintf('GridSearchCV: %d', i);
+        TaskStat = zeros(Kfold, 4, TaskNum);
         Params = IParams(i);
         for j = 1 : Kfold
-            fprintf('CrossValid: %d', j);
-            test = (ValInd == j);
-            train = ~test;
-            MTL_TrainTest
-%             [ y, Time ] = Learner(X(train,:), Y(train,:), X(test,:), Params);
-%             [ Stat ]  = Wrapper(Learner, TaskNum, X(train,:), Y(train,:), xTest, yTest, Params);
+            fprintf('CrossValid: %d', kj);
+            % 分割训练集和测试集
+            [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, j, ValInd);
+            % 在一组任务上训练和预测
+            [ y, ~ ] = Learner(xTrain, yTrain, xTest, Params);
+            % 统计多任务学习数据
+            TaskStat(j,:,:) = Statistics(y, yTest, TaskNum);
         end
+        Output(i,:) = MTLStatistics(TaskStat);
     end
     
 %% Statistics
-    function [ XT, YT ] = MTL_TrainTest(X, Y, TaskNum, ValInd, Kfold)
-        XT = cell(TaskNum, 1);
-        YT = cell(TaskNum, 1);
-        for ii = 1 : TaskNum
-            Xt = X{t};
-            Yt = Y{t};
-            Vt = ValInd{t};
-            XT{ii} = Xt(Vt==Kfold);
-            YT{ii} = Yt(Vt==Kfold);
+    function [ xTrain, yTrain, xTest, yTest ] = TrainTest(X, Y, ValInd, Kfold)
+        test = ValInd==Kfold;
+        train = ~test;
+        xTrain = X(train,:);
+        yTrain = Y(train,:);
+        xTest = X(test,:);
+        yTest = Y(test,:);
+    end
+
+    function [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, ValInd, Kfold)
+        xTrain = cell(TaskNum, 1);
+        yTrain = cell(TaskNum, 1);
+        xTest = cell(TaskNum, 1);
+        yTest = cell(TaskNum, 1);
+        for t = 1 : TaskNum
+            [ xTrain{t}, yTrain{t}, xTest{t}, yTest{t} ] = TrainTest(X{t}, Y{t}, ValInd{t}, Kfold);
         end
     end
 
-    function [ Stat ]  = Wrapper(Learner, TaskNum, xTrain, yTrain, xTest, yTest, Params)
-        Stats = {@mae, @mse, @sae, @sse}
-        [ y, Time ] = Learner(xTrain, yTrain, xTest, Params);
-        Stat = zeros(TaskNum, 4);
-        for ii = 1 : TaskNum
-            for jj = 1 : 4
-                Func = Stats{jj};
-                Stat(ii, jj) = Func(y{i}-yTest{i}, y{i}, yTest{i});
+    function [ TaskStat ]  = Statistics(y, yTest, TaskNum)
+        % 统计指标
+        Funcs = {@mae, @mse, @sae, @sse};
+        TaskStat = zeros(TaskNum, 4);
+        for t = 1 : TaskNum
+            for k = 1 : 4
+                Func = Funcs{k};
+                TaskStat(k, t) = Func(y{t}-yTest{t}, y{t}, yTest{t});
             end
+        end
+    end
+
+    function [ OStat ] = MTLStatistics(TaskStat, TaskNum)
+        % 多任务统计指标
+        OStat = cell(TaskNum, 4);
+        for t = 1 : TaskNum
+            ITask = TaskStat(:,:,TaskNum);
+            % 得到K折平均值
+            OStat(t, :) = mean(ITask, 1);
         end
     end
 end
