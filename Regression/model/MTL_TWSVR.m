@@ -38,11 +38,11 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     g = Y - eps1;
     % 得到P矩阵
     P = [];
-    Rts = cell(TaskNum, 1);
+    AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        Rts{t} = (At'*At)\At';
-        Pt = At*Rts{t};
+        AAAt{t} = (At'*At)\At';
+        Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
     % 二次规划的H矩阵
@@ -69,8 +69,8 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     V = AAA*(g + Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = Rts{t}*(f(Tt,:) - Alpha(Tt,:));
-        Vt = Rts{t}*(g(Tt,:) + Gamma(Tt,:));
+        Ut = AAAt{t}*(f(Tt,:) - Alpha(Tt,:));
+        Vt = AAAt{t}*(g(Tt,:) + Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;

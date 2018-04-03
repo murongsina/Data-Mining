@@ -46,4 +46,5 @@ function [ yTest, Time ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
     [m, ~] = size(xTest);
     e = ones(m, 1);
     yTest = [Kernel(xTest, C, kernel), e]*w;
+    
 end
