@@ -16,7 +16,7 @@ Kfold = 3;
 nD = length(DataSetIndices);
 nP = length(ParamIndices);
 Outputs = cell(nD, nP);
-solver = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'interior-point');
+solver = optimoptions('fmincon', 'Display', 'off');%, 'Algorithm', 'interior-point');
 
 % ¿ªÆô»æÍ¼Ä£Ê½
 fprintf('runGridSearch\n');

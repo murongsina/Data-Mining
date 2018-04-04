@@ -25,7 +25,7 @@ opts = {opts1, opts2, opts3, opts4, opts5};
 perf = zeros(5, 5, 4);
 h = figure('Visible', 'on');
 % 对每一个数据集
-for i = [4]
+for i = [3 4]
     DataSet = LabUCIReg(i);
     [X, Y, ~] = MultiTask(DataSet, 4, 5);
 %     [X, Y] = Normalize(X, Y);
