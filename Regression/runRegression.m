@@ -22,12 +22,12 @@ solver = [];%optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'interior-po
 
 opts = {opts1, opts2, opts3, opts4, opts5};
 
-perf = zeros(5, 5, 4);
-h = figure('Visible', 'on');
+perf = zeros(5, 9, 4);
+% h = figure('Visible', 'on');
 % 对每一个数据集
 for i = [3 4]
     DataSet = LabUCIReg(i);
-    [X, Y, ~] = MultiTask(DataSet, 4, 5);
+    [X, Y, ~] = MultiTask(DataSet, 8, 4);
 %     [X, Y] = Normalize(X, Y);
     % 对每一组MTL参数
     for j = 1 : 5
@@ -35,17 +35,17 @@ for i = [3 4]
         opt = opts{j};
         opt.solver = solver;
         [ y, Time] = MTL(X, Y, X, opt);
-        clf(h);
+%         clf(h);
         % 绘制多任务学习结果
-        perf(j, 5, i) = Time;
-        for t = 1 : 4
+        perf(j, 9, i) = Time;
+        for t = 1 : 8
             perf(j, t, i) = mse(y{t}-Y{t}, Y(t), y(t));
-            PlotCurve( X{t}, Y{t}, ['Task-', num2str(t)], 2, 2, t, 1, Colors(1,:));
-            PlotCurve( X{t}, y{t}, ['Task-', num2str(t)], 2, 2, t, 2, Colors(2,:));
+%             PlotCurve( X{t}, Y{t}, ['Task-', num2str(t)], 2, 2, t, 1, Colors(1,:));
+%             PlotCurve( X{t}, y{t}, ['Task-', num2str(t)], 2, 2, t, 2, Colors(2,:));
         end
         % 保存图片
-        name = ['runRegression-', DataSet.Name, '-', opt.Name];
-        saveas(h, [images, name, '.png']);
-        savefig(h, [images, name]);
+%         name = ['runRegression-', DataSet.Name, '-', opt.Name];
+%         saveas(h, [images, name, '.png']);
+%         savefig(h, [images, name]);
     end
 end
