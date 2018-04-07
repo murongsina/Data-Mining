@@ -7,7 +7,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
     MTLStat = zeros(Kfold, 4, TaskNum);
     % 交叉验证
     for j = 1 : Kfold
-        fprintf('CrossValid: %d', j);
+        fprintf('CrossValid: %d\n', j);
         % 分割训练集和测试集
         [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, j, ValInd);
         % 在一组任务上训练和预测

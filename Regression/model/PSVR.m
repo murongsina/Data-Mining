@@ -12,7 +12,7 @@ function [ yTest, Time ] = PSVR( xTrain, yTrain, xTest, opts )
     A = xTrain;
     Y = yTrain;
     C = A;
-%     A = Kernel(A, C, kernel);
+    A = Kernel(A, C, kernel);
     e = ones(size(Y));
     alpha = (A*A'+1+1/nu)\Y;
     w = A'*alpha;
@@ -22,9 +22,8 @@ function [ yTest, Time ] = PSVR( xTrain, yTrain, xTest, opts )
     
 %% Predict
     B = xTest;
-%     B = Kernel(B, C, kernel);
+    B = Kernel(B, C, kernel);
     Y = B*w-gamma;
     yTest = Y;
     
 end
-
