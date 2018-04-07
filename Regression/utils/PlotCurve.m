@@ -16,7 +16,7 @@ function [  ] = PlotCurve( X, Y, name, m, n, i, sz, color )
     y = Y(idx,1);
     % »æÍ¼
     subplot(m, n, i);
-    title(['Dataset: ', name]);
+    title(name);
     xlabel('x');
     ylabel('y');
     plot(x, y, sz, color);
