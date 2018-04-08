@@ -32,7 +32,7 @@ function [ yTest, Time ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
 %% Fit
     e = cell(TaskNum);
     P = [];
-    for i = 1 : TaskNum
+    for t = 1 : TaskNum
         et = ones(size(Y(Tt,:)));
         At = A(T==t,:);
         Pt = At*At'+et*et'+1/nu*rate;

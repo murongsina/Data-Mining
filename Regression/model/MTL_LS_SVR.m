@@ -25,8 +25,6 @@ function  [ yTest, Time ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
         Tt = t*ones(m, 1);
         T = cat(1, T, Tt);
     end
-    [m, ~] = size(A);
-    e = ones(m, 1);
     C = A; % 保留核变换矩阵
     A = Kernel(A, C, kernel); % 非线性变换
     
