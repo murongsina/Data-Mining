@@ -23,7 +23,7 @@ Params5 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', 
 Params6 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
 Params7 = struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'rho', RHO, 'lambda', LAMBDA, 'kernel', kernel);
 % 转换参数表
-OParams = {Params1;Params2;Params3;Params4,Params5,Params6,Params7};
+OParams = {Params1;Params2;Params3;Params4;Params5;Params6;Params7};
 nParams = length(OParams);
 for i = 1 : nParams
     % 初始化参数表
