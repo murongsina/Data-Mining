@@ -9,11 +9,11 @@ load('LabIParams.mat');
 load('Colors.mat', 'Colors');
 
 % run regression
-kernel = struct('kernel', 'rbf', 'p1', 116.2, 'p2', 25, 'p3', 12);
+kernel = struct('kernel', 'rbf', 'p1', 4);
 
-C1 = 12; C2 = 12; C3 = 12; C4 = 12;
-eps1 = 0.4; eps2 = 0.4;
-lambda = 12; gamma = 12;
+C1 = 1; C2 = 1; C3 = 1; C4 = 1;
+eps1 = 1; eps2 = 1;
+lambda = 1; gamma = 1;
 opts1 = struct('Name', 'PSVR', 'nu', C1, 'kernel', kernel);
 opts2 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', eps1, 'eps2', eps2, 'kernel', kernel);
 opts3 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', eps1, 'eps2', eps2, 'kernel', kernel);
@@ -32,9 +32,10 @@ DataSet = LabUCIReg(3);
 [X, Y, ValInd] = MultiTask(DataSet, TaskNum, Kfold);
 Stat = zeros(7, 4, TaskNum);
 % 对每一组MTL参数
-for j = [ 2 3 4 5 6 7 ]
+for j = [ 1 2 3 4 5 6 7 ]
     % 多任务学习
     opt = opts{j};
     opt.solver = solver;
+    [X, Y] = Normalize(X, Y);
     Stat(j,:,:) = CrossValid( @MTL, X, Y, TaskNum, Kfold, ValInd, opt );
 end

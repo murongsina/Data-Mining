@@ -14,7 +14,7 @@ EPS2 = 2.^(1:2:9)';
 RHO = 2.^(1:3:10)';
 LAMBDA = 2.^(1:3:10)';
 GAMMA = 2.^(1:3:10)';
-% 任务参数
+% 任务参
 Params1 = struct('Name', 'PSVR', 'nu', C1, 'kernel', kernel);
 Params2 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
 Params3 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
