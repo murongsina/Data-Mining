@@ -25,6 +25,7 @@ Params7 = struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps
 % 转换参数表
 OParams = {Params1;Params2;Params3;Params4;Params5;Params6;Params7};
 nParams = length(OParams);
+IParams = cell(nParams, 1);
 for i = 1 : nParams
     % 初始化参数表
     fprintf('Params\n')
@@ -32,4 +33,4 @@ for i = 1 : nParams
 end
 
 % 保存参数表
-save('LabIParams.mat', IParams);
+save('LabIParams.mat', 'IParams');

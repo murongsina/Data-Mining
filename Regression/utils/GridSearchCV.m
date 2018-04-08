@@ -1,4 +1,4 @@
-function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, opts )
+function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd, opts )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 多任务的网格搜索交叉验证
 %   此处显示详细说明
@@ -11,9 +11,7 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, opts )
 % 输出：
 %     Output    -网格搜索、交叉验证结果
 
-    TaskNum = opts.TaskNum;
-    Kfold = opts.Kfold;
-    ValInd = opts.ValInd;
+    solver = opts.solver;
     nParams = length(IParams);
     CVStat = zeros(nParams, 4, TaskNum);
     % 网格搜索
