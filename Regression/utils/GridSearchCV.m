@@ -17,65 +17,16 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, opts )
     nParams = length(IParams);
     CVStat = zeros(nParams, 4, TaskNum);
     % 网格搜索
-    for i = 1 : nParams
-        fprintf('GridSearchCV: %d', i);
-        MTLStat = zeros(Kfold, 4, TaskNum);
-        Params = IParams(i);
+    for idx = 1 : nParams
+        fprintf('GridSearchCV: %d', idx);
+        % 设置参数
+        Params = IParams(idx);
+        Params.solver = solver;
         % 交叉验证
-        for j = 1 : Kfold
-            fprintf('CrossValid: %d', j);
-            % 分割训练集和测试集
-            [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, j, ValInd);
-            % 在一组任务上训练和预测
-            [ y, ~ ] = Learner(xTrain, yTrain, xTest, Params);
-            % 统计多任务学习数据
-            MTLStat(j,:,:) = TaskStatistics(TaskNum, y, yTest);
-        end
-        CVStat(i,:,:) = MTLStatistics(TaskNum, MTLStat);
+        CVStat(idx,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
     end
     Stat = CVStatistics(TaskNum, CVStat);
     
-%% Multi-Task GridSearchCV Statistics
-    function [ xTrain, yTrain, xTest, yTest ] = TrainTest(X, Y, ValInd, Kfold)
-        test = ValInd==Kfold;
-        train = ~test;
-        xTrain = X(train,:);
-        yTrain = Y(train,:);
-        xTest = X(test,:);
-        yTest = Y(test,:);
-    end
-
-    function [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, ValInd, Kfold)
-        xTrain = cell(TaskNum, 1);
-        yTrain = cell(TaskNum, 1);
-        xTest = cell(TaskNum, 1);
-        yTest = cell(TaskNum, 1);
-        for t = 1 : TaskNum
-            [ xTrain{t}, yTrain{t}, xTest{t}, yTest{t} ] = TrainTest(X{t}, Y{t}, ValInd{t}, Kfold);
-        end
-    end
-
-    function [ OStat ]  = TaskStatistics(TaskNum, y, yTest)
-        % 统计指标
-        Funcs = {@mae, @mse, @sae, @sse};
-        OStat = zeros(TaskNum, 4);
-        for t = 1 : TaskNum
-            for k = 1 : 4
-                Func = Funcs{k};
-                OStat(k, t) = Func(y{t}-yTest{t}, y{t}, yTest{t});
-            end
-        end
-    end
-
-    function [ OStat ] = MTLStatistics(TaskNum, IStat)
-        % 多任务统计
-        OStat = cell(4, TaskNum);
-        for t = 1 : TaskNum
-            % 得到K折平均值
-            OStat(:, t) = mean(IStat(:,:,t));
-        end
-    end
-
     function [ OStat ] = CVStatistics(TaskNum, IStat)
         % 交叉验证统计
         OStat = zeros(4, 2, TaskNum);

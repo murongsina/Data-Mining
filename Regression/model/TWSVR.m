@@ -1,7 +1,8 @@
 function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
 %TWSVR 此处显示有关此类的摘要
 % Twin Support Vector Machine
-% see:Improvements on Twin Support Vector Machines
+% see: Improvements on Twin Support Vector Machines
+% see: TWSVR: Regression via Twin Support Vector Machine
 %   此处显示详细说明
 
 %% Parse opts
@@ -11,7 +12,7 @@ function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
     C4 = opts.C4;
     eps1 = opts.eps1;
     eps2 = opts.eps2;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     solver = opts.solver;
     
 %% Fit
