@@ -9,7 +9,7 @@ load('LabIParams.mat');
 load('Colors.mat', 'Colors');
 
 % run regression
-kernel = struct('kernel', 'none', 'p1', 116.2, 'p2', 25, 'p3', 12);
+kernel = struct('kernel', 'rbf', 'p1', 116.2, 'p2', 25, 'p3', 12);
 
 C1 = 12; C2 = 12; C3 = 12; C4 = 12;
 eps1 = 0.4; eps2 = 0.4;
@@ -32,7 +32,7 @@ DataSet = LabUCIReg(3);
 [X, Y, ValInd] = MultiTask(DataSet, TaskNum, Kfold);
 Stat = zeros(7, 4, TaskNum);
 % 对每一组MTL参数
-for j = 1 : 7
+for j = [ 2 3 4 5 ]
     % 多任务学习
     opt = opts{j};
     opt.solver = solver;

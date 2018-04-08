@@ -38,15 +38,23 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         end
     end
 
+    function [ MAE, RMSE, SSE, SSR, SST ] = Statistics(y, yTest)
+        y_bar = mean(yTest);
+        E = yTest-y;
+        E2 = E.^2;
+        MAE = mean(abs(E));
+        RMSE = sqrt(mean(E2));
+        SSE = sum(E2);
+        SST = sum((yTest-y_bar).^2);
+        SSR = sum((y-y_bar).^2);
+    end
+
     function [ OStat ]  = TaskStatistics(TaskNum, y, yTest)
-        % 统计指标
-        Funcs = {@mae, @mse, @sae, @sse};
+        % 统计数据
         OStat = zeros(4, TaskNum);
         for t = 1 : TaskNum
-            for k = 1 : 4
-                Func = Funcs{k};
-                OStat(k, t) = Func(y{t}-yTest{t});
-            end
+            [ MAE, RMSE, SSE, SSR, SST ] = Statistics(y{t}, yTest{t});
+            OStat(:, t) = [ MAE, RMSE, SSE/SST, SSR/SSE ];
         end
     end
 
