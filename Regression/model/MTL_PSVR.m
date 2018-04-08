@@ -33,9 +33,10 @@ function [ yTest, Time ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
     e = cell(TaskNum);
     P = [];
     for t = 1 : TaskNum
+        Tt = T==t;
+        At = A(Tt,:);
         et = ones(size(Y(Tt,:)));
-        At = A(T==t,:);
-        Pt = At*At'+et*et'+1/nu*rate;
+        Pt = At*At'+et*et'+1/(nu*rate);
         P = blkdiag(P, Pt);
         e{t} = et;
     end
