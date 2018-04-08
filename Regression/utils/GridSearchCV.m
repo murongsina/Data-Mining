@@ -16,7 +16,7 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd
     CVStat = zeros(nParams, 4, TaskNum);
     % 网格搜索
     for i = 1 : nParams
-        fprintf('GridSearchCV: %d', i);
+        fprintf('GridSearchCV: %d\n', i);
         % 设置参数
         Params = IParams(i);
         Params.solver = solver;
