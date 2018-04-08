@@ -4,9 +4,9 @@ function [ Params ] = CreateParams(root)
 %   此处显示详细说明
     
     nParams = GetParamsCount(root);
-    Params = [];
-    for index = 1 : nParams
-        Params = cat(2, Params, GetParams(root, index));
+    Params = repmat(GetParams(root, 1), nParams, 1);
+    for index = 2 : nParams
+        Params(index) = GetParams(root, index);
     end
     
     function [ Count ] = GetPropertyCount(root)
