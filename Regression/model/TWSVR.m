@@ -12,7 +12,7 @@ function [ yTest, Time ] = TWSVR( xTrain, yTrain, xTest, opts )
     C4 = opts.C4;
     eps1 = opts.eps1;
     eps2 = opts.eps2;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     solver = opts.solver;
     
 %% Fit

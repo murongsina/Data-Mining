@@ -11,7 +11,7 @@ function [ yTest, Time ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     eps2 = opts.eps2;
     rho = T/opts.rho;
     lambda = T/opts.lambda;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     solver = opts.solver;
     
 %% Prepare
@@ -67,7 +67,7 @@ function [ yTest, Time ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     ub2 = e*C2;
     Gamma = quadprog(H2, QPY-(Y-eps2),[],[],[],[],lb,ub2,[],solver);
     
-%% GetWeight
+%% Get W
     W = cell(TaskNum, 1);
     U = AAA*(Y - Alpha);
     V = AAA*(Y + Gamma);

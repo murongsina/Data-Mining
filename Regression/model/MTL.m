@@ -5,13 +5,15 @@ function [ yTest, Time ] = MTL(xTrain, yTrain, xTest, opts)
 
     Names = {
         'SVR', 'PSVR', 'TWSVR', 'TWSVR_Xu',...
+        'MTL_LS_SVR',...
         'MTL_PSVR', 'MTL_TWSVR', 'MTL_TWSVR_Xu', 'MTL_TWSVR_Mei'
     };
     Learners = {
         @SVR, @PSVR, @TWSVR, @TWSVR_Xu,...
+        @MTL_LS_SVR,...
         @MTL_PSVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
     };
-    IsMTL = [ 0 0 0 0 1 1 1 1 ];
+    IsMTL = [ 0 0 0 0 1 1 1 1 1 ];
     
 %% Parse opts
     str2func(opts.Name);

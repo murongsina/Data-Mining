@@ -6,17 +6,18 @@ function [ yTest, Time ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
 %% Parse opts
     lambda = opts.lambda;
     mu = opts.mu;
+    kernel = opts.kernel;
+    TaskNum = length(xTrain);
     
 %% Fit
-    [ T, ~ ] = size(xTrain);
     A = xTrain;
     Y = yTrain;
     e = ones(size(yTrain));
     P = [];
-    for i = 1 : T
-        Pt = At*At'+et*et'+(lambda/T*mu);
+    for i = 1 : TaskNum
+        Pt = At*At'+et*et'+(lambda/TaskNum*mu);
         P = blkdiag(P, Pt);
     end
     
-    Alpha = (A'*A+T/lambda*P)'*Y;
+    Alpha = (A'*A+TaskNum/lambda*P)'*Y;
 end

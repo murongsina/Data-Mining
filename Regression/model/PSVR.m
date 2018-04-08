@@ -5,7 +5,7 @@ function [ yTest, Time ] = PSVR( xTrain, yTrain, xTest, opts )
 
 %% Parse opts
     nu = opts.nu;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     
 %% Fit
     tic;

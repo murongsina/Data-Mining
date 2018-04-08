@@ -9,7 +9,7 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     C2 = opts.C2;
     eps1 = opts.eps1;
     eps2 = opts.eps2;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     solver = opts.solver;
     
 %% Prepare
