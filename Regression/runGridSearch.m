@@ -34,7 +34,7 @@ for i = 1 : nD
         % 网格搜索、交叉验证
         CVStat = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
         % 保存网格搜索交叉验证的结果
-        Output = struct(DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat);
+        Output = {DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat};
         Outputs(i, j) = Output;
     end
 end
