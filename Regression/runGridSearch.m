@@ -1,4 +1,4 @@
-images = '../images/CSVM/GridSearch/';
+images = './images/';
 
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
@@ -7,8 +7,8 @@ load('LabUCIReg.mat', 'LabUCIReg');
 load('LabIParams.mat', 'IParams');
 
 % 数据集
-DataSetIndices = [3 4];
-ParamIndices = [1 2 3 4 5];
+DataSetIndices = [1 3 4];
+ParamIndices = [1 2 3 4 5 6 7 8];
 % 实验设置
 TaskNum = 4;
 Kfold = 5;
@@ -34,9 +34,12 @@ for i = 1 : nD
         % 网格搜索、交叉验证
         CVStat = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
         % 保存网格搜索交叉验证的结果
-        Outputs(i, j) = {
-            DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat
-        };
+        Output = struct(...
+            'Name', DataSet.Name,...
+            'Instances', DataSet.Instances,...
+            'Attributes', DataSet.Attributes,...
+            'CVStat', CVStat);
+        Outputs(i, j) = Output;
     end
 end
 

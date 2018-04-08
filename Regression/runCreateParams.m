@@ -14,16 +14,18 @@ EPS2 = 2.^(1:2:9)';
 RHO = 2.^(1:3:10)';
 LAMBDA = 2.^(1:3:10)';
 GAMMA = 2.^(1:3:10)';
+Nu = 2.^(1:3:10)';
 % 任务参
-Params1 = struct('Name', 'PSVR', 'nu', C1, 'kernel', kernel);
+Params1 = struct('Name', 'PSVR', 'nu', Nu, 'kernel', kernel);
 Params2 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
 Params3 = struct('Name', 'TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
-Params4 = struct('Name', 'MTL_LS_SVR', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);
-Params5 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
-Params6 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
-Params7 = struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'rho', RHO, 'lambda', LAMBDA, 'kernel', kernel);
+Params4 = struct('Name', 'MTL_PSVR', 'lambda', LAMBDA, 'nu', Nu, 'kernel', kernel);
+Params5 = struct('Name', 'MTL_LSSVR', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);
+Params6 = struct('Name', 'MTL_TWSVR', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
+Params7 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
+Params8 = struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'rho', RHO, 'lambda', LAMBDA, 'kernel', kernel);
 % 转换参数表
-OParams = {Params1;Params2;Params3;Params4;Params5;Params6;Params7};
+OParams = {Params1;Params2;Params3;Params4;Params5;Params6;Params7;Params8};
 nParams = length(OParams);
 IParams = cell(nParams, 1);
 for i = 1 : nParams

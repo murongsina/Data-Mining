@@ -11,12 +11,12 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     eps2 = opts.eps2;
     kernel = opts.kernel;
     solver = opts.solver;
+    TaskNum = length(xTrain);  
     
 %% Prepare
     tic;
     % 得到所有的样本和标签以及任务编号
     A = []; Y = []; T = [];
-    [ TaskNum, ~ ] = size(xTrain);  
     for t = 1 : TaskNum
         % 得到任务i的H矩阵
         Xt = xTrain{t};

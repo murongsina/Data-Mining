@@ -15,22 +15,26 @@ function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd
     nParams = length(IParams);
     CVStat = zeros(nParams, 4, TaskNum);
     % 网格搜索
-    for idx = 1 : nParams
-        fprintf('GridSearchCV: %d', idx);
+    for i = 1 : nParams
+        fprintf('GridSearchCV: %d', i);
         % 设置参数
-        Params = IParams(idx);
+        Params = IParams(i);
         Params.solver = solver;
         % 交叉验证
-        CVStat(idx,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
+        CVStat(i,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
     end
     Stat = CVStatistics(TaskNum, CVStat);
     
     function [ OStat ] = CVStatistics(TaskNum, IStat)
         % 交叉验证统计
         OStat = zeros(4, 2, TaskNum);
+        % 对每一个任务
         for t = 1 : TaskNum
+            % 对每一个统计量
             for k = 1 : 4
-                 OStat(k,:,t) = max(IStat(:,k,t));                 
+                % 找出最小值
+                [val, idx] = min(IStat(:,k,t));
+                OStat(k,:,t) = [val, idx];
             end
         end
     end
