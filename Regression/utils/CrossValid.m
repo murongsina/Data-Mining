@@ -4,7 +4,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
 %   此处显示详细说明
 
     % 多任务交叉验证统计
-    MTLStat = zeros(Kfold, 4, TaskNum);
+    MTLStat = zeros(Kfold, 5, TaskNum);
     % 交叉验证
     for j = 1 : Kfold
         fprintf('CrossValid: %d\n', j);
