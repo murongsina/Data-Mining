@@ -9,7 +9,7 @@ load('LabIParams.mat', 'IParams');
 load('Outputs.mat', 'Outputs');
 % 数据集
 DataSetIndices = [3 4];
-ParamIndices = [1 3 6 7];
+ParamIndices = [4 5];
 % 实验设置
 TaskNum = 8;
 Kfold = 3;
@@ -31,7 +31,7 @@ for i = DataSetIndices
         % 得到算法信息
         method = OParams{j};
         % 网格搜索、交叉验证
-        [ Stat, CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
+        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
         % 保存网格搜索交叉验证的结果
         Output = {DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat};
         Outputs{i, j} = Output;
