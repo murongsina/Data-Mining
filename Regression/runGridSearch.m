@@ -9,7 +9,7 @@ load('LabIParams.mat', 'IParams');
 load('Outputs.mat', 'Outputs');
 % 数据集
 DataSetIndices = [3 4];
-ParamIndices = [1 3 6 7];
+ParamIndices = [4 5];
 % 实验设置
 TaskNum = 8;
 Kfold = 3;
