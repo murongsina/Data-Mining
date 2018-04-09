@@ -12,9 +12,9 @@ C4 = 2.^(1:2:9)';
 EPS1 = 2.^(1:3:10)';
 EPS2 = 2.^(1:3:10)';
 RHO = 2.^(1:3:10)';
-LAMBDA = 2.^(1:3:10)';
-GAMMA = 2.^(1:3:10)';
-Nu = 2.^(1:3:10)';
+LAMBDA = 2.^(-1:2:11)';
+GAMMA = 2.^(-1:2:11)';
+Nu = 2.^(-1:2:11)';
 % ÈÎÎñ²Î
 Params1 = struct('Name', 'PSVR', 'nu', Nu, 'kernel', kernel);
 Params2 = struct('Name', 'TWSVR', 'C1', C1, 'C2', C2, 'C3', C3, 'C4', C4, 'eps1', EPS1, 'eps2', EPS2, 'kernel', kernel);
