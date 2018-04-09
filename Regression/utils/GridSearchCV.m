@@ -1,4 +1,4 @@
-function [ Stat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd, opts )
+function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd, opts )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 多任务的网格搜索交叉验证
 %   此处显示详细说明

@@ -5,18 +5,14 @@ addpath(genpath('./utils'));
 
 load('LabUCIReg.mat', 'LabUCIReg');
 load('LabIParams.mat', 'IParams');
-
+load('Outputs.mat', 'Outputs');
 % 数据集
 DataSetIndices = [3];
-ParamIndices = [4];
+ParamIndices = [4 5];
 % 实验设置
 TaskNum = 8;
 Kfold = 3;
 solver = []; % optimoptions('fmincon', 'Display', 'off');
-% 输出结果
-nD = length(LabUCIReg);
-nP = length(IParams);
-Outputs = cell(nD, nP);
 
 % 开启绘图模式
 fprintf('runGridSearch\n');
@@ -32,11 +28,14 @@ for i = DataSetIndices
     % 对每一种算法
     for j = ParamIndices
         % 网格搜索、交叉验证
-        CVStat = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
+        [ Stat, CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
         % 保存网格搜索交叉验证的结果
         Output = {DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat};
         Outputs{i, j} = Output;
+        save('Outputs.mat', 'Outputs');
+        save([DataSet.Name, '-Stat.mat'], 'Stat');
+        save([DataSet.Name, '-CVStat.mat'], 'CVStat');
     end
 end
 
-% save('runGridSearch.mat', Output);
+save('Outputs.mat', 'Outputs');
