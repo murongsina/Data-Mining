@@ -10,8 +10,6 @@ load('LabParams.mat');
 DataSetIndices = [3 4];
 ParamIndices = [4 5];
 % 实验设置
-TaskNum = 8;
-Kfold = 3;
 solver = []; % optimoptions('fmincon', 'Display', 'off');
 % 实验开始
 fprintf('runGridSearch\n');

@@ -16,4 +16,3 @@ function [ X, Y, ValInd ] = GetMultiTask( DataSet )
         ValInd{t} = DataSet.ValInd(T,:);
     end
 end
-
