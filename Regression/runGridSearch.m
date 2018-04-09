@@ -7,8 +7,8 @@ load('LabUCIReg.mat', 'LabUCIReg');
 load('LabIParams.mat', 'IParams');
 
 % 数据集
-DataSetIndices = [3 4];
-ParamIndices = [4 5];
+DataSetIndices = [1 3 4];
+ParamIndices = [2 3 4 5 6 7];
 % 实验设置
 TaskNum = 4;
 Kfold = 3;
