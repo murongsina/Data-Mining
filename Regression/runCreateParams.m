@@ -35,4 +35,5 @@ for i = 1 : nParams
 end
 
 % 保存参数表
+save('LabOParams.mat', 'OParams');
 save('LabIParams.mat', 'IParams');
