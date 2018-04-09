@@ -7,7 +7,7 @@ addpath(genpath('./utils'));
 load('LabUCIReg.mat');
 load('LabParams.mat');
 % 数据集
-DataSetIndices = [3 4];
+DataSetIndices = [3];
 ParamIndices = [4 5];
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
@@ -16,8 +16,8 @@ fprintf('runGridSearch\n');
 for i = DataSetIndices
     DataSet = LabUCIReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
-    [ X, Y, ValInd ] = GetMultiTask( DataSet );
-    [ X ] = Normalize( X );
+    [ X, Y, ValInd ] = GetMultiTask(DataSet);
+    [ X ] = Normalize(X);
     opts = struct('solver', solver);
     for j = ParamIndices
         Method = OParams{j};
