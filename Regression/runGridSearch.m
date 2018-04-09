@@ -1,9 +1,9 @@
 images = './images/';
 data = './data/';
-
+% 添加搜索路径
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
-
+% 加载数据集和网格搜索参数
 load('LabUCIReg.mat');
 load('LabParams.mat');
 % 数据集
@@ -13,27 +13,17 @@ ParamIndices = [4 5];
 TaskNum = 8;
 Kfold = 3;
 solver = []; % optimoptions('fmincon', 'Display', 'off');
-
-% 开启绘图模式
+% 实验开始
 fprintf('runGridSearch\n');
-% 对每一个数据集
 for i = DataSetIndices
     DataSet = LabUCIReg(i);
-    fprintf('runGridSearch: %s\n', DataSet.Name);
-    % 构造多任务数据集
-    [X, Y, ValInd] = MultiTask(DataSet, TaskNum, Kfold);
-    [X, Y] = Normalize(X, Y);
-    % 交叉验证索引
+    fprintf('DataSet: %s\n', DataSet.Name);
+    [ X, Y, ValInd ] = GetMultiTask( DataSet );
+    [ X ] = Normalize( X );
     opts = struct('solver', solver);
-    % 对每一种算法
     for j = ParamIndices
-        % 得到算法信息
         Method = OParams{j};
-        % 网格搜索、交叉验证
-        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, TaskNum, Kfold, ValInd, opts);
-        % 保存网格搜索交叉验证的结果
-        Output = {DataSet.Name, DataSet.Instances, DataSet.Attributes, CVStat};
-        save('Outputs.mat', 'Outputs');
+        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
         save([data, DataSet.Name, '-', Method.Name, '.mat'], 'Stat', 'CVStat');
     end
 end

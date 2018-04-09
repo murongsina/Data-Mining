@@ -16,19 +16,7 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
 %% Prepare
     tic;
     % 得到所有的样本和标签以及任务编号
-    A = []; Y = []; T = [];
-    for t = 1 : TaskNum
-        % 得到任务i的H矩阵
-        Xt = xTrain{t};
-        A = cat(1, A, Xt);
-        % 得到任务i的Y矩阵
-        Yt = yTrain{t};
-        Y = cat(1, Y, Yt);
-        % 分配任务下标
-        [m, ~] = size(Yt);
-        Tt = t*ones(m, 1);
-        T = cat(1, T, Tt);
-    end
+    [ A, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
     [m, ~] = size(A);
     e = ones(m, 1);
     C = A; % 保留核变换矩阵

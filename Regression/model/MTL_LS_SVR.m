@@ -9,22 +9,10 @@ function  [ yTest, Time ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     kernel = opts.kernel;
     TaskNum = length(xTrain);
     
-%% Prepare    
+%% Prepare
     tic;
     % 得到所有的样本和标签以及任务编号
-    A = []; Y = []; T = [];  
-    for t = 1 : TaskNum
-        % 得到任务i的H矩阵
-        Xt = xTrain{t};
-        A = cat(1, A, Xt);
-        % 得到任务i的Y矩阵
-        Yt = yTrain{t};
-        Y = cat(1, Y, Yt);
-        % 分配任务下标
-        [m, ~] = size(Yt);
-        Tt = t*ones(m, 1);
-        T = cat(1, T, Tt);
-    end
+    [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
     C = A; % 保留核变换矩阵
     A = Kernel(A, C, kernel); % 非线性变换
     
