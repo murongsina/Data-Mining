@@ -8,10 +8,6 @@ load('LabUCIReg.mat');
 load('LabParams.mat');
 load('Colors.mat', 'Colors');
 
-%optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'interior-point');
-
-opts = {opts1, opts2, opts3, opts4, opts5, opts6, opts7};
-
 TaskNum = 4;
 Kfold = 3;
 DataSet = LabUCIReg(2);
