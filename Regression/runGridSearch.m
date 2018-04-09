@@ -7,15 +7,15 @@ load('LabUCIReg.mat', 'LabUCIReg');
 load('LabIParams.mat', 'IParams');
 
 % 数据集
-DataSetIndices = [1 3 4];
-ParamIndices = [2 3 4 5 6 7];
+DataSetIndices = [3];
+ParamIndices = [4];
 % 实验设置
-TaskNum = 4;
+TaskNum = 8;
 Kfold = 3;
 solver = []; % optimoptions('fmincon', 'Display', 'off');
 % 输出结果
-nD = length(DataSetIndices);
-nP = length(ParamIndices);
+nD = length(LabUCIReg);
+nP = length(IParams);
 Outputs = cell(nD, nP);
 
 % 开启绘图模式
