@@ -14,6 +14,7 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
     solver = opts.solver;
     nParams = GetParamsCount(IParams);
     CVStat = zeros(nParams, 4, TaskNum);
+    fprintf('GridSearchCV: %d Params\n', nParams);
     % Íø¸ñËÑË÷
     for i = 1 : nParams
         fprintf('GridSearchCV: %d\n', i);

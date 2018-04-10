@@ -34,7 +34,12 @@ OParams = cell(nParams, 1);
 
 % 初始化参数表
 for i = 1 : nParams
-    fprintf('Params\n')
+    nParams = GetParamsCount(IParams{i});
+    Method = IParams{i};
+    tic
+    Params = GetParams(Method, 1);
+    Time = toc;
+    fprintf('%s:%d params %.2f.\n', Method.Name, nParams, nParams*Time);
     OParams{i, 1} = CreateParams(IParams{i});
 end
 
