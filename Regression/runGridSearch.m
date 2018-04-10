@@ -9,9 +9,18 @@ addpath(genpath('./utils/params/'));
 load('LabUCIReg.mat');
 load('LabIParams.mat');
 
+% PSVR:56 params 0.05.
+% TWSVR:165888 params 98.36.
+% TWSVR_Xu:4608 params 1.18.
+% MTL_PSVR:392 params 0.09.
+% MTL_LS_SVR:392 params 0.23.
+% MTL_TWSVR:4608 params 0.63.
+% MTL_TWSVR_Xu:4608 params 0.59.
+% MTL_TWSVR_Mei:129024 params 14.83.
+
 % 数据集
-DataSetIndices = [3];
-ParamIndices = [5];
+DataSetIndices = [4];
+ParamIndices = [4 7]; 
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');

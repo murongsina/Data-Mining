@@ -40,8 +40,8 @@ for i = 1 : nParams
     Params = GetParams(Method, 1);
     Time = toc;
     fprintf('%s:%d params %.2f.\n', Method.Name, nParams, nParams*Time);
-    OParams{i, 1} = CreateParams(IParams{i});
+%     OParams{i, 1} = CreateParams(IParams{i});
 end
 
 % 保存参数表
-save('LabParams.mat', 'IParams', 'OParams');
+% save('LabParams.mat', 'IParams', 'OParams');
