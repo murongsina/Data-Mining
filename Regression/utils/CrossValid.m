@@ -13,12 +13,13 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         % 在一组任务上训练和预测
         [ y, ~ ] = Learner(xTrain, yTrain, xTest, Params);
         % 统计多任务学习数据
-        MTLStat(j,:,:) = TaskStatistics(TaskNum, y, yTest);
+        MTLStat(j,:,:) = MTLStatistics(TaskNum, y, yTest);
     end
     
     % 统计多任务交叉验证结果
-    OStat = MTLStatistics(TaskNum, MTLStat);
-        
+    OStat = CVStatistics(TaskNum, MTLStat);
+
+%% 训练测试集
     function [ xTrain, yTrain, xTest, yTest ] = TrainTest(X, Y, Kfold, ValInd)
         test = ValInd==Kfold;
         train = ~test;
@@ -28,6 +29,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         yTest = Y(test,:);
     end
 
+%% 多任务训练测试集
     function [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, TaskNum, Kfold, ValInd)
         xTrain = cell(TaskNum, 1);
         yTrain = cell(TaskNum, 1);
@@ -38,6 +40,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         end
     end
 
+%% 统计数据
     function [ MAE, RMSE, SSE, SSR, SST ] = Statistics(y, yTest)
         y_bar = mean(yTest);
         E = yTest-y;
@@ -49,8 +52,8 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         SSR = sum((y-y_bar).^2);
     end
 
-    function [ OStat ]  = TaskStatistics(TaskNum, y, yTest)
-        % 统计数据
+%% 多任务统计数据
+    function [ OStat ]  = MTLStatistics(TaskNum, y, yTest)
         OStat = zeros(4, TaskNum);
         for t = 1 : TaskNum
             [ MAE, RMSE, SSE, SSR, SST ] = Statistics(y{t}, yTest{t});
@@ -58,12 +61,12 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         end
     end
 
-    function [ OStat ] = MTLStatistics(TaskNum, IStat)
-        % 多任务统计
+%% 交叉验证多任务统计
+    function [ OStat ] = CVStatistics(TaskNum, IStat)
         OStat = zeros(4, TaskNum);
+        MStat = mean(IStat);
         for t = 1 : TaskNum
-            % 得到K折平均值
-            OStat(:, t) = mean(IStat(:,:,t));
+            OStat(:, t) = MStat(1,:,t);
         end
     end
 

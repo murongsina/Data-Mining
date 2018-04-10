@@ -23,14 +23,15 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
         % 交叉验证
         CVStat(i,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
     end
-    Stat = CVStatistics(TaskNum, CVStat);
+    Stat = GSStatistics(TaskNum, CVStat);
     
-    function [ OStat ] = CVStatistics(TaskNum, IStat)
-        % 交叉验证统计每一个任务
+%% 多任务网格搜索统计
+    function [ OStat ] = GSStatistics(TaskNum, IStat)
         OStat = zeros(TaskNum, 4, 2);
-        for t = 1 : TaskNum
-            [V, I] = min(IStat(:,:,t));
-            OStat(t,:,:) = [V, I];
-        end
+        [ MIN, IDX ] = min(IStat);
+        OStat(:,:,1) = MIN(1,:,:);
+        OStat(:,:,2) = IDX(1,:,:);
+        OStat = permute(OStat, [2 1 3]);
     end
+
 end
