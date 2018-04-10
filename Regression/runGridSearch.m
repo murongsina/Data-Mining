@@ -6,7 +6,7 @@ addpath(genpath('./utils'));
 addpath(genpath('./utils/params/'));
 
 % 加载数据集和网格搜索参数
-load('LabUCIReg.mat');
+load('LabMulti.mat');
 load('LabIParams.mat');
 
 % PSVR:56 params 0.05.
@@ -19,8 +19,8 @@ load('LabIParams.mat');
 % MTL_TWSVR_Mei:129024 params 14.83.
 
 % 数据集
-DataSetIndices = [4];
-ParamIndices = [4 7]; 
+DataSetIndices = [5 6 7 8 9 10 11];
+ParamIndices = [3 5 6 7]; 
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
@@ -29,7 +29,7 @@ opts = struct('solver', solver);
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
-    DataSet = LabUCIReg(i);
+    DataSet = LabMulti(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
