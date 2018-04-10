@@ -5,11 +5,11 @@ RangeP1 = 2.^(1:3:10)';
 kernel = struct('kernel', 'rbf', 'p1', RangeP1);
 
 % 分类器网格搜索参数
-C = 2.^(1:2:9)';
-C1 = 2.^(1:2:9)';
-C2 = 2.^(1:2:9)';
-C3 = 2.^(1:2:9)';
-C4 = 2.^(1:2:9)';
+C = 2.^(1:2:11)';
+C1 = 2.^(1:2:11)';
+C2 = 2.^(1:2:11)';
+C3 = 2.^(1:2:11)';
+C4 = 2.^(1:2:11)';
 EPS1 = 2.^(1:3:10)';
 EPS2 = 2.^(1:3:10)';
 RHO = 2.^(1:3:10)';
@@ -33,10 +33,10 @@ nParams = length(IParams);
 OParams = cell(nParams, 1);
 
 % 初始化参数表
-% for i = 1 : nParams
-%     fprintf('Params\n')
-%     IParams{i, 1} = CreateParams(OParams{i});
-% end
+for i = 1 : nParams
+    fprintf('Params\n')
+    OParams{i, 1} = CreateParams(IParams{i});
+end
 
 % 保存参数表
-save('LabIParams.mat', 'IParams');
+save('LabParams.mat', 'IParams', 'OParams');
