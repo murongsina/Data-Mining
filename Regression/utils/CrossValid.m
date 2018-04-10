@@ -4,7 +4,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
 %   此处显示详细说明
 
     % 多任务交叉验证统计
-    MTLStat = zeros(Kfold, 4, TaskNum);
+    CVStat = zeros(Kfold, 4, TaskNum);
     % 交叉验证
     for j = 1 : Kfold
         fprintf('CrossValid: %d\n', j);
@@ -13,11 +13,11 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
         % 在一组任务上训练和预测
         [ y, ~ ] = Learner(xTrain, yTrain, xTest, Params);
         % 统计多任务学习数据
-        MTLStat(j,:,:) = MTLStatistics(TaskNum, y, yTest);
+        CVStat(j,:,:) = MTLStatistics(TaskNum, y, yTest);
     end
     
     % 统计多任务交叉验证结果
-    OStat = CVStatistics(MTLStat);
+    OStat = CVStatistics(CVStat);
 
 %% 训练测试集
     function [ xTrain, yTrain, xTest, yTest ] = TrainTest(X, Y, Kfold, ValInd)

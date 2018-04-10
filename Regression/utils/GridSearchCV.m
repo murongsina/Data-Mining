@@ -12,13 +12,14 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
 %     Output    -网格搜索、交叉验证结果
 
     solver = opts.solver;
-    nParams = length(IParams);
+    nParams = GetParamsCount(IParams);
     CVStat = zeros(nParams, 4, TaskNum);
+    fprintf('GridSearchCV: %d Params\n', nParams);
     % 网格搜索
     for i = 1 : nParams
         fprintf('GridSearchCV: %d\n', i);
         % 设置参数
-        Params = IParams(i);
+        Params = GetParams(IParams, i);
         Params.solver = solver;
         % 交叉验证
         CVStat(i,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
