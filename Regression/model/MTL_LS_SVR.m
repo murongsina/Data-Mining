@@ -20,28 +20,25 @@ function  [ yTest, Time ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     B = [];
     E = [];
     for t = 1 : TaskNum
-        At = A(T==t,:);
+        Tt = T==t;
+        At = A(Tt,:);
         B = blkdiag(B, At*At');
-        E = blkdiag(E, ones(size(Y(T==t,:))));
+        E = blkdiag(E, ones(sum(Tt),1));
     end
-    z = zeros(TaskNum, 1);
-    Z = diag(z);
-    O = A*A';
+    o = zeros(TaskNum, 1);
+    O = diag(o);
     I = diag(ones(size(Y)));
-    H = O + TaskNum/lambda*B + 1/gamma*I;
-    G = [Z E';E H];
-    P = [z; Y];
-    D = G\P;
-    B = D(1:TaskNum,:);
-    Alpha = D(TaskNum+1:end,:);
+    H = A*A' + 1/gamma*I + TaskNum/lambda*B;
+    X = [O E';E H]\[o; Y];
+    D = X(1:TaskNum,:);
+    Alpha = X(TaskNum+1:end,:);
     
 %% Get W
     W0 = A'*Alpha;
     W = cell(TaskNum, 1);
     for t = 1 : TaskNum
         Tt = T==t;
-        Wt = W0 + (TaskNum/lambda)*A(Tt,:)'*Alpha(Tt,:);
-        W{t} = [Wt; B(t)];
+        W{t} = W0 + (TaskNum/lambda)*A(Tt,:)'*Alpha(Tt,:);
     end
     Time = toc;
     
@@ -49,11 +46,8 @@ function  [ yTest, Time ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     [ TaskNum, ~ ] = size(xTest);
     yTest = cell(TaskNum, 1);
     for t = 1 : TaskNum
-        At = xTest{t};
-        [m, ~] = size(At);
-        et = ones(m, 1);
-        KAt = [Kernel(At, C, kernel) et];
-        yTest{t} = KAt * W{t};
+        KAt = Kernel(xTest{t}, C, kernel);
+        yTest{t} = KAt * W{t} + D(t);
     end
     
 end
