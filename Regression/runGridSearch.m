@@ -26,7 +26,7 @@ for i = DataSetIndices
     [ X ] = Normalize(X);
     for j = ParamIndices
         Method = IParams{j};
-        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, IParams{j}, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
+        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
         save([data, DataSet.Name, '-', Method.Name, '.mat'], 'Stat', 'CVStat');
     end
 end
