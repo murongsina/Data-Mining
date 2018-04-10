@@ -27,7 +27,7 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
     
 %% 多任务网格搜索统计
     function [ OStat ] = GSStatistics(TaskNum, IStat)
-        OStat = zeros(TaskNum, 4, 2);
+        OStat = zeros(4, TaskNum, 2);
         [ MIN, IDX ] = min(IStat);
         OStat(:,:,1) = MIN(1,:,:);
         OStat(:,:,2) = IDX(1,:,:);
