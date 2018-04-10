@@ -9,14 +9,14 @@ addpath(genpath('./utils/params/'));
 load('LabMulti.mat');
 load('LabIParams.mat');
 
-% PSVR:56 params 0.05.
-% TWSVR:165888 params 98.36.
-% TWSVR_Xu:4608 params 1.18.
-% MTL_PSVR:392 params 0.09.
-% MTL_LS_SVR:392 params 0.23.
-% MTL_TWSVR:4608 params 0.63.
-% MTL_TWSVR_Xu:4608 params 0.59.
-% MTL_TWSVR_Mei:129024 params 14.83.
+% PSVR:28 params 0.04.
+% TWSVR:82944 params 38.24.
+% TWSVR_Xu:2304 params 0.35.
+% MTL_PSVR:196 params 0.10.
+% MTL_LS_SVR:196 params 0.14.
+% MTL_TWSVR:2304 params 0.22.
+% MTL_TWSVR_Xu:2304 params 0.13.
+% MTL_TWSVR_Mei:64512 params 3.84.
 
 % Êý¾Ý¼¯
 DataSetIndices = [5 6 7 8 9 10 11];

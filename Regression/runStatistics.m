@@ -22,7 +22,7 @@ for i = 1 : 2
         DataSet = DataSets(j);
         [ LabStat, HasStat ] = LabStatistics(Path, DataSet, IParams);
         if HasStat == 1
-            StatPath = [Path, 'LabStat-', DataSet.Name, '.mat'];
+            StatPath = ['./statistics/LabStat-', DataSet.Name, '.mat'];
             fprintf('save: %s\n', StatPath);
             save(StatPath, 'LabStat');
         end
