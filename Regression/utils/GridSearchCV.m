@@ -26,16 +26,11 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
     Stat = CVStatistics(TaskNum, CVStat);
     
     function [ OStat ] = CVStatistics(TaskNum, IStat)
-        % 交叉验证统计
+        % 交叉验证统计每一个任务
         OStat = zeros(TaskNum, 4, 2);
-        % 对每一个任务
         for t = 1 : TaskNum
-            % 对每一个统计量
-            for k = 1 : 4
-                % 找出最小值
-                [val, idx] = min(IStat(:,k,t));
-                OStat(t,k,:) = [val, idx];
-            end
+            [V, I] = min(IStat(:,:,t));
+            OStat(t,:,:) = [V, I];
         end
     end
 end
