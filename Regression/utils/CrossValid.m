@@ -17,7 +17,7 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
     end
     
     % 统计多任务交叉验证结果
-    OStat = CVStatistics(TaskNum, MTLStat);
+    OStat = CVStatistics(MTLStat);
 
 %% 训练测试集
     function [ xTrain, yTrain, xTest, yTest ] = TrainTest(X, Y, Kfold, ValInd)
@@ -62,12 +62,9 @@ function [ OStat ] = CrossValid( Learner, X, Y, TaskNum, Kfold, ValInd, Params )
     end
 
 %% 交叉验证多任务统计
-    function [ OStat ] = CVStatistics(TaskNum, IStat)
-        OStat = zeros(4, TaskNum);
+    function [ OStat ] = CVStatistics(IStat)
         MStat = mean(IStat);
-        for t = 1 : TaskNum
-            OStat(:, t) = MStat(1,:,t);
-        end
+        OStat = permute(MStat, [2 3 1]);
     end
 
 end
