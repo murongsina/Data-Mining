@@ -8,7 +8,7 @@ load('LabUCIReg.mat');
 load('LabParams.mat');
 % 数据集
 DataSetIndices = [3];
-ParamIndices = [5];
+ParamIndices = [4];
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
 % 实验开始
