@@ -28,11 +28,13 @@ Params7 = struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2
 Params8 = struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'C2', C2, 'eps1', EPS1, 'eps2', EPS2, 'rho', RHO, 'lambda', LAMBDA, 'kernel', kernel);
 
 % 转换参数表
-IParams = {Params1;Params2;Params3;Params4;Params5;Params6;Params7;Params8};
-nParams = length(IParams);
-OParams = cell(nParams, 1);
+IParams = {
+    Params1;Params2;Params3;Params4;
+    Params5;Params6;Params7;Params8
+};
 
-% 初始化参数表
+% 输出参数表信息
+nParams = length(IParams);
 for i = 1 : nParams
     nParams = GetParamsCount(IParams{i});
     Method = IParams{i};
@@ -40,8 +42,7 @@ for i = 1 : nParams
     Params = GetParams(Method, 1);
     Time = toc;
     fprintf('%s:%d params %.2f.\n', Method.Name, nParams, nParams*Time);
-%     OParams{i, 1} = CreateParams(IParams{i});
 end
 
 % 保存参数表
-% save('LabParams.mat', 'IParams', 'OParams');
+save('LabIParams.mat', 'IParams');
