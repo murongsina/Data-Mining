@@ -6,7 +6,7 @@ function [ yTest, Time ] = LSTWSVM(xTrain, yTrain, xTest, opts)
 %% Parse opts
     C1 = opts.C1;
     C2 = opts.C2;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
     
 %% Fit
     % ¼ÆÊ±

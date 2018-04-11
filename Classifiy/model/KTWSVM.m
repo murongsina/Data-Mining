@@ -28,7 +28,7 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     S2 = S'*S;
     R2 = R'*R;
     % KDTWSVM1
-    S2 = Utils.Cond(S2);
+%     S2 = Utils.Cond(S2);
     H1 = R/S2*R';
     lb1 = zeros(m2, 1);
     ub1 = ones(m2, 1)*C1;
@@ -37,7 +37,7 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     u1 = z1(1:n);
     b1 = z1(end);
     % KDTWSVM2
-    R2 = Utils.Cond(R2);
+%     R2 = Utils.Cond(R2);
     H2 = S/R2*S';
     lb2 = zeros(m1, 1);
     ub2 = ones(m1, 1)*C2;

@@ -12,7 +12,7 @@ nD = length(DataSetIndices);
 Output = cell(nD, 6);
 % 构造基分类器
 Params0 = struct('kernel', 'rbf', 'p1', 1136.5);
-Params1 = struct('Name', 'KTWSVM', 'C1', 2, 'C2', 2, 'Kernel', Params0); 
+Params1 = struct('Name', 'KTWSVM', 'C1', 2, 'C2', 2, 'kernel', Params0); 
 % 开启绘图模式
 % h = figure('Visible', 'on');
 fprintf('runMultiClf\n');

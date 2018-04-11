@@ -5,7 +5,7 @@ function [ yTest, Time ] = CSVM(xTrain, yTrain, xTest, opts)
     
 %% Parse opts
     C = opts.C;            % 参数
-    kernel = opts.Kernel;  % 核函数
+    kernel = opts.kernel;  % 核函数
 
 %% Fit
     tic
