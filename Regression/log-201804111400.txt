@@ -1,8 +1,0 @@
-save: ./data/bodyfat-TWSVR_Xu.mat
-save: ./data/bodyfat-MTL_LS_SVR.mat
-save: ./data/bodyfat-MTL_TWSVR.mat
-save: ./data/bodyfat-MTL_TWSVR_Xu.mat
-Exception in housing-TWSVR_Xu
-Exception in housing-MTL_LS_SVR
-Exception in housing-MTL_TWSVR
-Exception in housing-MTL_TWSVR_Xu
