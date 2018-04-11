@@ -29,7 +29,7 @@ function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        AAAt{t} = (At'*At)\At';
+        AAAt{t} = (At'*At)\(At');
         Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
