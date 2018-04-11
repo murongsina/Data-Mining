@@ -3,7 +3,7 @@ function [  ] = SaveStatitics( Path, DataSet, LabStat )
 %   此处显示详细说明
 
     % 保存统计数据
-    StatPath = [Path, '/statistics/LabStat', DataSet.Name, '.mat'];
+    StatPath = [Path, '/statistics/LabStat-', DataSet.Name, '.mat'];
     save(StatPath, 'LabStat');
     fprintf('save: %s\n', StatPath);
     % 保存图表
