@@ -26,7 +26,7 @@ for i = 1 : m
             StatPath = ['./statistics/', FileName, '.mat'];
             fprintf('save: %s\n', StatPath);
             save(StatPath, 'LabStat');
-            bar(LabStat, 'DisplayName', FileName);
+            bar(LabStat(:,:,1), 'DisplayName', FileName);
             savefig(['./figures/', FileName, '.fig']);
         end
     end
