@@ -1,13 +1,14 @@
-load('LabUCIReg.mat');
+addpath('./utils/');
+load('LabSVMReg.mat');
 
 % 数据集
-DataSetIndices = 1: 17;
+DataSetIndices = 1: 5;
 TaskNum = 5;
 Kfold = 3;
 
 % 构造多任务交叉验证
 for i = DataSetIndices
-    UCI(i) = MultiTask( UCI(i), TaskNum, Kfold );
+    LabSVMReg(i) = MultiTask( LabSVMReg(i), TaskNum, Kfold );
 end
 
-save('LabMulti.mat', 'LabMulti');
+save('LabSVMReg.mat', 'LabSVMReg');

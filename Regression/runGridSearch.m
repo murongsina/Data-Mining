@@ -1,12 +1,13 @@
 images = './images/';
 data = './data/';
+
 % 添加搜索路径
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
 addpath(genpath('./utils/params/'));
 
 % 加载数据集和网格搜索参数
-load('LabMulti.mat');
+load('LabSVMReg.mat');
 load('LabIParams.mat');
 
 % PSVR:28 params 0.04.
@@ -19,7 +20,7 @@ load('LabIParams.mat');
 % MTL_TWSVR_Mei:64512 params 3.84.
 
 % 数据集
-DataSetIndices = [1 2 3 4 5 6 7 8 9 10 11 12 13];
+DataSetIndices = [1 2 3 4 5];
 ParamIndices = [3 5 6 7]; 
 
 % 实验设置
@@ -29,7 +30,7 @@ fd = fopen(['log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
-    DataSet = LabMulti(i);
+    DataSet = LabSVMReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
