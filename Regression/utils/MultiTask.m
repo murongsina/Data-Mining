@@ -3,6 +3,11 @@ function [ DataSet ] = MultiTask( DataSet, TaskNum, Kfold )
 % 转换多任务数据集，构造一组任务
 %   此处显示详细说明
 
+    [m, n] = size(DataSet.Data);
+    DataSet.Instances = m;
+    DataSet.Attributes = n-1;
+    DataSet.Output = 1;
+    % 得到数据集基本信息
     Task = crossvalind('Kfold', DataSet.Instances, TaskNum);
     ValInd = zeros(DataSet.Instances, 1);
     for t = 1 : TaskNum
