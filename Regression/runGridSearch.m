@@ -19,13 +19,13 @@ load('LabIParams.mat');
 % MTL_TWSVR_Mei:64512 params 3.84.
 
 % 数据集
-DataSetIndices = [1 2 3 4 11 12 13];
+DataSetIndices = [1 2 3 4 5 6 7 8 9 10 11 12 13];
 ParamIndices = [3 5 6 7]; 
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
 opts = struct('solver', solver);
-
+fd = fopen('log.txt', 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
@@ -35,7 +35,20 @@ for i = DataSetIndices
     [ X ] = Normalize(X);
     for j = ParamIndices
         Method = IParams{j};
-        [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
-        save([data, DataSet.Name, '-', Method.Name, '.mat'], 'Stat', 'CVStat');
+        Name = [DataSet.Name, '-', Method.Name];
+        StatPath = [data, Name, '.mat'];
+        if exist(StatPath, 'file') == 2
+            fprintf(fd, 'skip: %s\n', StatPath);
+            continue;
+        else
+            try
+                [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
+                save(StatPath, 'Stat', 'CVStat');
+                fprintf(fd, 'save: %s\n', StatPath);
+            catch Exception
+                fprintf(fd, 'Exception in %s\n', Name);
+            end
+        end
     end
 end
+fclose(fd);
