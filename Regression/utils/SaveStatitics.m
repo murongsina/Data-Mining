@@ -19,7 +19,7 @@ function [  ] = SaveStatitics( Path, DataSet, LabStat )
         fprintf('save: %s\n', StatPath);
         % save as .eps
         StatPath = [Path, '/eps/', FileName];
-        saveas(gcf, StatPath, 'eps');
+        saveas(gcf, StatPath, 'epsc');
         fprintf('save: %s\n', StatPath);
     end
 end
