@@ -7,7 +7,7 @@ addpath(genpath('./utils'));
 addpath(genpath('./utils/params/'));
 
 % 加载数据集和网格搜索参数
-load('LabSVMReg.mat');
+load('LabUCIReg.mat');
 load('LabIParams.mat');
 
 % PSVR:28 params 0.04.
@@ -30,7 +30,7 @@ fd = fopen(['log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
-    DataSet = LabSVMReg(i);
+    DataSet = LabUCIReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
