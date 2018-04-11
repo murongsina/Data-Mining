@@ -1,0 +1,52 @@
+skip: ./data/Soybean-TWSVR_Xu.mat
+skip: ./data/Soybean-MTL_LS_SVR.mat
+skip: ./data/Soybean-MTL_TWSVR.mat
+skip: ./data/Soybean-MTL_TWSVR_Xu.mat
+skip: ./data/Hayes-TWSVR_Xu.mat
+skip: ./data/Hayes-MTL_LS_SVR.mat
+skip: ./data/Hayes-MTL_TWSVR.mat
+skip: ./data/Hayes-MTL_TWSVR_Xu.mat
+skip: ./data/Iris-TWSVR_Xu.mat
+skip: ./data/Iris-MTL_LS_SVR.mat
+Exception in Iris-MTL_TWSVR
+Exception in Iris-MTL_TWSVR_Xu
+save: ./data/Teach-TWSVR_Xu.mat
+save: ./data/Teach-MTL_LS_SVR.mat
+Exception in Teach-MTL_TWSVR
+Exception in Teach-MTL_TWSVR_Xu
+skip: ./data/Wine-TWSVR_Xu.mat
+skip: ./data/Wine-MTL_LS_SVR.mat
+skip: ./data/Wine-MTL_TWSVR.mat
+skip: ./data/Wine-MTL_TWSVR_Xu.mat
+skip: ./data/Seeds-TWSVR_Xu.mat
+skip: ./data/Seeds-MTL_LS_SVR.mat
+skip: ./data/Seeds-MTL_TWSVR.mat
+skip: ./data/Seeds-MTL_TWSVR_Xu.mat
+skip: ./data/Glass-TWSVR_Xu.mat
+skip: ./data/Glass-MTL_LS_SVR.mat
+skip: ./data/Glass-MTL_TWSVR.mat
+skip: ./data/Glass-MTL_TWSVR_Xu.mat
+skip: ./data/Ecoli-TWSVR_Xu.mat
+skip: ./data/Ecoli-MTL_LS_SVR.mat
+skip: ./data/Ecoli-MTL_TWSVR.mat
+skip: ./data/Ecoli-MTL_TWSVR_Xu.mat
+skip: ./data/Dermatology-TWSVR_Xu.mat
+skip: ./data/Dermatology-MTL_LS_SVR.mat
+skip: ./data/Dermatology-MTL_TWSVR.mat
+skip: ./data/Dermatology-MTL_TWSVR_Xu.mat
+skip: ./data/PageBlocks-TWSVR_Xu.mat
+skip: ./data/PageBlocks-MTL_LS_SVR.mat
+Exception in PageBlocks-MTL_TWSVR
+Exception in PageBlocks-MTL_TWSVR_Xu
+save: ./data/Balance-TWSVR_Xu.mat
+save: ./data/Balance-MTL_LS_SVR.mat
+Exception in Balance-MTL_TWSVR
+Exception in Balance-MTL_TWSVR_Xu
+save: ./data/Contraceptive-TWSVR_Xu.mat
+save: ./data/Contraceptive-MTL_LS_SVR.mat
+Exception in Contraceptive-MTL_TWSVR
+Exception in Contraceptive-MTL_TWSVR_Xu
+save: ./data/Car-TWSVR_Xu.mat
+save: ./data/Car-MTL_LS_SVR.mat
+save: ./data/Car-MTL_TWSVR.mat
+save: ./data/Car-MTL_TWSVR_Xu.mat
