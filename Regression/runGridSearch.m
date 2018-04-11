@@ -20,8 +20,8 @@ load('LabIParams.mat');
 % MTL_TWSVR_Mei:64512 params 3.84.
 
 % 数据集
-DataSetIndices = [2 3 4];
-ParamIndices = [3 5 6 7]; 
+DataSetIndices = [3 4];
+ParamIndices = [3 5 6 7];
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
