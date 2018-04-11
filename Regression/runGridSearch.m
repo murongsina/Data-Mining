@@ -26,7 +26,7 @@ ParamIndices = [6 7];
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
 opts = struct('solver', solver);
-fd = fopen(['log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
+fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
