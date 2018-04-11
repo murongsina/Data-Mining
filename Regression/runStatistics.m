@@ -1,3 +1,4 @@
+Root = cd;
 Path = './data/';
 
 % Ìí¼ÓËÑË÷Â·¾¶
@@ -24,12 +25,7 @@ for i = 1 : m
         DataSet = DataSets(j);
         [ LabStat, HasStat ] = LabStatistics(Path, DataSet, IParams);
         if HasStat == 1
-            FileName = ['LabStat-', DataSet.Name];
-            StatPath = ['./statistics/', FileName, '.mat'];
-            fprintf('save: %s\n', StatPath);
-            save(StatPath, 'LabStat');
-            bar(LabStat(:,:,1), 'DisplayName', FileName);
-            saveas(h, ['./figures/', FileName], 'eps');
+            SaveStatitics( Root, DataSet, LabStat )
         end
     end
 end
