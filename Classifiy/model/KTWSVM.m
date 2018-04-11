@@ -6,7 +6,7 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
 %% Parse opts
     C1 = opts.C1;
     C2 = opts.C2;
-    kernel = opts.Kernel;
+    kernel = opts.kernel;
 
 %% Fit
     % ¼ÆÊ±
@@ -28,8 +28,8 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     S2 = S'*S;
     R2 = R'*R;
     % KDTWSVM1
+    S2 = Utils.Cond(S2);
     H1 = R/S2*R';
-    H1 = Utils.Cond(H1);
     lb1 = zeros(m2, 1);
     ub1 = ones(m2, 1)*C1;
     Alpha = quadprog(H1,-e2,[],[],[],[],lb1,ub1,[],options);
@@ -37,8 +37,8 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     u1 = z1(1:n);
     b1 = z1(end);
     % KDTWSVM2
+    R2 = Utils.Cond(R2);
     H2 = S/R2*S';
-    H2 = Utils.Cond(H2);
     lb2 = zeros(m1, 1);
     ub2 = ones(m1, 1)*C2;
     Mu = quadprog(H2,-e1,[],[],[],[],lb2,ub2,[],options);
