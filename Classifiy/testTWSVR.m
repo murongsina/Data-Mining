@@ -32,6 +32,7 @@ for C1 = 2.^[-5:5]
                 train = ~test;
                 y = KTWSVM(X(train,3),Y(train),X(test,3),opts);
                 % updates the CP object with the current classification results
+                y(y==0) = 1;
                 y(y~=1) = 0;
                 classperf(cp, y, test);
             end
