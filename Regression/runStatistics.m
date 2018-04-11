@@ -22,9 +22,12 @@ for i = 1 : 2
         DataSet = DataSets(j);
         [ LabStat, HasStat ] = LabStatistics(Path, DataSet, IParams);
         if HasStat == 1
-            StatPath = ['./statistics/LabStat-', DataSet.Name, '.mat'];
+            FileName = ['LabStat-', DataSet.Name];
+            StatPath = ['./statistics/', FileName, '.mat'];
             fprintf('save: %s\n', StatPath);
             save(StatPath, 'LabStat');
+            plot(LabStat, 'DisplayName', FileName);
+            savefig(['./figures/', FileName, '.fig']);
         end
     end
 end
