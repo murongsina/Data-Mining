@@ -13,6 +13,8 @@ load('LabIParams.mat');
 
 % 实验数据集
 LabDataSets = {LabSVMReg, LabUCIReg, LabMulti};
+
+h = figure();
 % 统计每个数据集上的多任务实验数据
 m = length(LabDataSets);
 for i = 1 : m
@@ -27,7 +29,7 @@ for i = 1 : m
             fprintf('save: %s\n', StatPath);
             save(StatPath, 'LabStat');
             bar(LabStat(:,:,1), 'DisplayName', FileName);
-            savefig(['./figures/', FileName, '.fig']);
+            saveas(h, ['./figures/', FileName], 'eps');
         end
     end
 end
