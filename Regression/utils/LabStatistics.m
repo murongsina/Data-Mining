@@ -8,7 +8,7 @@ function [ LabStat, HasStat ] = LabStatistics(Path, DataSet, IParams)
     LabStat = zeros(nParams, DataSet.TaskNum, 4);
     for k = 1 : nParams
         Method = IParams{k};
-        StatPath = [Path, DataSet.Name, '-', Method.Name, '.mat'];
+        StatPath = [Path, './data/', DataSet.Name, '-', Method.Name, '.mat'];
         if exist(StatPath, 'file') == 2
             load(StatPath);
             LabStat(k,:,:) = Stat(:,:,1);
