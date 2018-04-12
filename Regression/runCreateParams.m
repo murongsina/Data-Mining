@@ -2,19 +2,19 @@ addpath(genpath('./utils/'));
 
 
 % 核函数参数
-P1 = 2.^(-1:2:11)';
+P1 = 2.^(-3:1:8)';
 % 分类器网格搜索参数
-C = 2.^(-1:2:11)';
-C1 = 2.^(-1:2:11)';
-C2 = 2.^(-1:2:11)';
-C3 = 2.^(-1:2:11)';
-C4 = 2.^(-1:2:11)';
-EPS1 = 2.^(-1:2:11)';
-EPS2 = 2.^(-1:2:11)';
-RHO = 2.^(-1:2:11)';
-LAMBDA = 2.^(-1:2:11)';
-GAMMA = 2.^(-1:2:11)';
-NU = 2.^(-1:2:11)';
+C = 2.^(-3:2:8)';
+C1 = 2.^(-3:1:8)';
+C2 = 2.^(-3:1:8)';
+C3 = 2.^(-3:1:8)';
+C4 = 2.^(-3:1:8)';
+EPS1 = [0.01;0.02;0.05;0.1];
+EPS2 = [0.01;0.02;0.05;0.1];
+RHO = 2.^(-3:1:8)';
+LAMBDA = 2.^(-3:1:8)';
+GAMMA = 2.^(-3:1:8)';
+NU = 2.^(-3:1:8)';
 
 % 核函数
 kernel = struct('kernel', 'rbf', 'p1', P1);
@@ -44,7 +44,7 @@ for i = 1 : nParams
     tic
     Params = GetParams(Method, 1);
     Time = toc;
-    fprintf('%s:%d params %.2f.\n', Method.Name, nParams, nParams*Time);
+    fprintf('%s:%d params %.2fs.\n', Method.Name, nParams, nParams*Time);
 end
 
 % 保存参数表

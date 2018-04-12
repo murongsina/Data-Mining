@@ -1,6 +1,6 @@
 function [ yTest, Time, w ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
 %TWSVR_XU 此处显示有关此函数的摘要
-% Twin Support Vector Machine
+% Twin Support Vector Regression
 % Xu's model
 %   此处显示详细说明
 

@@ -9,7 +9,7 @@ function [ yTest, Time, W ] = MTL(xTrain, yTrain, xTest, opts)
     };
     Learners = {
         @SVR, @PSVR, @TWSVR, @TWSVR_Xu, @LS_TWSVR...
-        @MTL_PSVR, @MTL_LS_SVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
+        @MTL_LS_SVR, @MTL_PSVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
     };
     IsMTL = [ 0 0 0 0 0 1 1 1 1 1 ];
     

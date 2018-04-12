@@ -5,7 +5,7 @@ function [ LabStat, HasStat ] = LabStatistics(Path, DataSet, IParams)
 
     HasStat = 0;
     nParams = length(IParams);
-    LabStat = zeros(nParams, DataSet.TaskNum, 4);
+    LabStat = zeros(nParams, DataSet.TaskNum, 8);
     for k = 1 : nParams
         Method = IParams{k};
         StatPath = [Path, './data/', DataSet.Name, '-', Method.Name, '.mat'];

@@ -8,12 +8,12 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabXuReg.mat');
+load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [3 4 10 11 12];
-ParamIndices = [7];
+DataSetIndices = [1 2 3];
+ParamIndices = [2 3 4 5 6 7 8 9];
 BestParams = 1;
 
 % 实验设置
@@ -23,7 +23,7 @@ opts = struct('solver', solver);
 % 实验开始
 fprintf('runCrossValid\n');
 for i = DataSetIndices
-    DataSet = LabMulti(i);
+    DataSet = LabReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);

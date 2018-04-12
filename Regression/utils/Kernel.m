@@ -1,4 +1,4 @@
-function [ Y ] = Kernel(U, V, opts)
+function [ Y ] = Kernel(tstX, X, opts)
 %KERNEL 此处显示有关此类的摘要
 % 核函数
 %   此处显示详细说明
@@ -10,7 +10,9 @@ function [ Y ] = Kernel(U, V, opts)
     % Parse opts
     p1 = opts.p1;
     % Kernel
-    Y = exp(-(repmat(sum(U.*U,2)',m,1)+repmat(sum(V.*V,2),1,m1) - 2*V*U')/(2*p1^2));
+    [ m, ~ ] = size(X);
+    [ n, ~ ] = size(tstX);
+    Y = exp(-(repmat(sum(tstX.*tstX,2)',m,1)+repmat(sum(X.*X,2),1,n) - 2*X*tstX')/(2*p1^2));
     Y = Y';
 
 end
