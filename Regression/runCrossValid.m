@@ -1,11 +1,11 @@
-images = './images/';
 data = './data/';
+images = './images/';
 
 % 添加搜索路径
-addpath(genpath('./datasets/'));
-addpath(genpath('./params/'));
-addpath(genpath('./model/'));
-addpath(genpath('./utils/'));
+addpath(genpath('./datasets'));
+addpath(genpath('./params'));
+addpath(genpath('./model'));
+addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMulti.mat');
