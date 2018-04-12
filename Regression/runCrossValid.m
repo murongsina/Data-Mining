@@ -39,14 +39,14 @@ for i = DataSetIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
         StatPath = [data, Name, '-Test.mat'];
-%         try
+        try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
             CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
             save(StatPath, 'CVStat');
             fprintf('save: %s\n', StatPath);
-%         catch Exception
-%             fprintf('Exception in %s\n', Name);
-%         end
+        catch Exception
+            fprintf('Exception in %s\n', Name);
+        end
     end
 end

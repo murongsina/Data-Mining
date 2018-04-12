@@ -1,4 +1,4 @@
-function [ yTest, Time ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
+function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
 %MTL_TWSVR 此处显示有关此类的摘要
 % Multi-Task Twin Support Vector Machine
 % MTL Peng's model
