@@ -1,4 +1,4 @@
-addpath(genpath('./utils'));
+addpath(genpath('./utils/'));
 
 % 核函数参数
 RangeP1 = 2.^(-3:2:11)';
@@ -45,4 +45,4 @@ for i = 1 : nParams
 end
 
 % 保存参数表
-save('LabIParams.mat', 'IParams');
+save('./params/LabIParams.mat', 'IParams');

@@ -1,10 +1,11 @@
-images = './images/';
 data = './data/';
+images = './images/';
 
 % 添加搜索路径
+addpath(genpath('./datasets'));
+addpath(genpath('./params'));
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
-addpath(genpath('./utils/params/'));
 
 % 加载数据集和网格搜索参数
 load('LabMulti.mat');
@@ -20,8 +21,8 @@ load('LabIParams.mat');
 % MTL_TWSVR_Mei:64512 params 3.84.
 
 % 数据集
-DataSetIndices = [3 4 10 11 12];
-ParamIndices = [4 8 11 14];
+DataSetIndices = [4 8 11 14];
+ParamIndices = [3 5 6 7];
 BestParams = 1;
 
 % 实验设置
@@ -37,15 +38,19 @@ for i = DataSetIndices
     [ X ] = Normalize(X);
     for j = ParamIndices
         Method = IParams{j};
-        Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [data, Name, '-Test.mat'];
+        Name = [ DataSet.Name, '-', Method.Name, '-W' ];
+        StatPath = [ data , Name ];
         try
+            % 多任务学习
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
+            [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, DataSet.TaskNum, 1, ValInd);
             [~, ~, W] = MTL(xTrain, yTrain, xTest, Params);
-%             CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
-            save(StatPath, 'CVStat');
-            fprintf('save: %s\n', StatPath);
+            % 任务相关性对比
+%             imshow(TaskRelation(W), 'InitialMagnification', 'fit');
+%             imsave(gcf, StatPath, 'png');
+            % save as mat
+            save([StatPath, '.mat'], W);
         catch Exception
             fprintf('Exception in %s\n', Name);
         end

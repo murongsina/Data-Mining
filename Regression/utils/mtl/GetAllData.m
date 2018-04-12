@@ -11,4 +11,3 @@ function [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum )
         T = cat(1, T, Tt);
     end
 end
-

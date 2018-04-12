@@ -1,4 +1,6 @@
 addpath('./utils/');
+addpath('./datasets/');
+
 load('LabMulti.mat');
 
 % Êý¾Ý¼¯
@@ -11,4 +13,4 @@ for i = DataSetIndices
     LabMulti(i) = MultiTask( LabMulti(i), TaskNum, Kfold );
 end
 
-save('LabMulti.mat', 'LabMulti');
+save('./datasets/LabMulti.mat', 'LabMulti');
