@@ -9,10 +9,10 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams.mat');
+load('LabIParams-Large.mat');
 
 % 数据集
-DataSetIndices = [1 2 3];
+DataSetIndices = [2];
 ParamIndices = [2 3 4 5 6 7 8 9];
 BestParams = 1;
 

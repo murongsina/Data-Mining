@@ -6,9 +6,9 @@ function [ yTest, Time, w ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
 
 %% Parse opts
     C1 = opts.C1;
-    C2 = opts.C2;
+    C2 = opts.C1;
     eps1 = opts.eps1;
-    eps2 = opts.eps2;
+    eps2 = opts.eps1;
     kernel = opts.kernel;
     solver = opts.solver;
 

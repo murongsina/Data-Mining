@@ -6,11 +6,11 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
 %% Parse opts
     T = length(xTrain);
     C1 = opts.C1;
-    C2 = opts.C2;
+    C2 = opts.C1;
     eps1 = opts.eps1;
-    eps2 = opts.eps2;
+    eps2 = opts.eps1;
     rho = T/opts.rho;
-    lambda = T/opts.lambda;
+    lambda = T/opts.rho;
     kernel = opts.kernel;
     solver = opts.solver;
     TaskNum = length(xTrain);

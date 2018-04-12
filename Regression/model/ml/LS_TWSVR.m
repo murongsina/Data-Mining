@@ -5,7 +5,7 @@ function [ yTest, Time, w ] = LS_TWSVR( xTrain, yTrain, xTest, opts )
 
 %% Parse opts
     eps1 = opts.eps1;
-    eps2 = opts.eps2;
+    eps2 = opts.eps1;
     kernel = opts.kernel;
     
 %% Fit
