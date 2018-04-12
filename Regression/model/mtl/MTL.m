@@ -4,16 +4,14 @@ function [ yTest, Time, W ] = MTL(xTrain, yTrain, xTest, opts)
 %   此处显示详细说明
 
     Names = {
-        'SVR', 'PSVR', 'TWSVR', 'TWSVR_Xu',...
-        'MTL_LS_SVR',...
-        'MTL_PSVR', 'MTL_TWSVR', 'MTL_TWSVR_Xu', 'MTL_TWSVR_Mei'
+        'SVR', 'PSVR', 'TWSVR', 'TWSVR_Xu', 'LS_TWSVR'...
+        'MTL_LS_SVR', 'MTL_PSVR', 'MTL_TWSVR', 'MTL_TWSVR_Xu', 'MTL_TWSVR_Mei'
     };
     Learners = {
-        @SVR, @PSVR, @TWSVR, @TWSVR_Xu,...
-        @MTL_LS_SVR,...
-        @MTL_PSVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
+        @SVR, @PSVR, @TWSVR, @TWSVR_Xu, @LS_TWSVR...
+        @MTL_PSVR, @MTL_LS_SVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
     };
-    IsMTL = [ 0 0 0 0 1 1 1 1 1 ];
+    IsMTL = [ 0 0 0 0 0 1 1 1 1 1 ];
     
 %% Parse opts
     str2func(opts.Name);
