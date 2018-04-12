@@ -24,7 +24,7 @@ for i = 1 : m
         DataSet = DataSets(j);
         [ LabStat, HasStat ] = LabStatistics(Root, DataSet, IParams);
         if HasStat == 1
-            SaveStatitics( Root, DataSet, LabStat )
+            SaveStatistics(Root, DataSet, LabStat);
         end
     end
 end

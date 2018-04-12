@@ -5,7 +5,7 @@ function [ OStat ]  = MTLStatistics(TaskNum, y, yTest)
 
     OStat = zeros(4, TaskNum);
     for t = 1 : TaskNum
-        [ MAE, RMSE, SSE, SSR, SST ] = Statistics(y{t}, yTest{t});
-        OStat(:, t) = [ MAE, RMSE, SSE/SST, SSR/SSE ];
+        [ MAE, RMSE, SSET, SSRT ] = Statistics(y{t}, yTest{t});
+        OStat(:, t) = [ MAE, RMSE, SSET, SSRT ];
     end
 end

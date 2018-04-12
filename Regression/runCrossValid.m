@@ -8,7 +8,7 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMulti.mat');
+load('LabXuReg.mat');
 load('LabIParams.mat');
 
 % 数据集

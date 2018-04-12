@@ -8,7 +8,7 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMulti.mat');
+load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
@@ -23,7 +23,7 @@ fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
-    DataSet = LabMulti(i);
+    DataSet = LabReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
