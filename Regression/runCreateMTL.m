@@ -1,12 +1,12 @@
-addpath('./utils/');
-addpath('./datasets/');
+addpath(genpath('./datasets'));
+addpath(genpath('./utils'));
 
-load('LabReg.mat');
+% load('LabReg.mat');
 
 % 数据集
-DataSetIndices = 13;
-TaskNum = 20;
-Kfold = 3;
+DataSetIndices = 1:5;
+TaskNum = 2;
+Kfold = 5;
 
 % 构造多任务交叉验证
 for i = DataSetIndices

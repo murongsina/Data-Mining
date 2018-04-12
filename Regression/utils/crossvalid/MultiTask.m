@@ -6,7 +6,7 @@ function [ DataSet ] = MultiTask( DataSet, TaskNum, Kfold )
     [m, n] = size(DataSet.Data);
     DataSet.Instances = m;
     DataSet.Attributes = n-1;
-    DataSet.Output = 1;
+    DataSet.Output = n;
     % 得到数据集基本信息
     Task = crossvalind('Kfold', DataSet.Instances, TaskNum);
     ValInd = zeros(DataSet.Instances, 1);
