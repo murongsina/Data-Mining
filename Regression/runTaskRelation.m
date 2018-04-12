@@ -8,12 +8,12 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabReg.mat');
-load('LabIParams-Large.mat');
+load('LabMulti.mat');
+load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [2];
-ParamIndices = [2 3 4 5 6 7 8 9];
+DataSetIndices = [4 8 11 14];
+ParamIndices = [4];
 BestParams = 1;
 
 % 实验设置
@@ -21,22 +21,27 @@ solver = []; % optimoptions('fmincon', 'Display', 'off');
 opts = struct('solver', solver);
 
 % 实验开始
-fprintf('runCrossValid\n');
+fprintf('runTaskRelation\n');
 for i = DataSetIndices
-    DataSet = LabReg(i);
+    DataSet = LabMulti(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
     for j = ParamIndices
         Method = IParams{j};
-        Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [data, Name, '-Test.mat'];
+        Name = [ DataSet.Name, '-', Method.Name, '-W' ];
+        StatPath = [ data , Name ];
         try
+            % 多任务学习
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
-            CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
-            save(StatPath, 'CVStat');
-            fprintf('save: %s\n', StatPath);
+            [ xTrain, yTrain, xTest, yTest ] = MTLTrainTest(X, Y, DataSet.TaskNum, 1, ValInd);
+            [~, ~, W] = MTL(xTrain, yTrain, xTest, Params);
+            % 任务相关性对比
+%             imshow(TaskRelation(W), 'InitialMagnification', 'fit');
+%             imsave(gcf, StatPath, 'png');
+            % save as mat
+            save([StatPath, '.mat'], W);
         catch Exception
             fprintf('Exception in %s\n', Name);
         end

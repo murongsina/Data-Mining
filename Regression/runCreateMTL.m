@@ -1,14 +1,16 @@
 addpath('./utils/');
-load('LabMulti.mat');
+addpath('./datasets/');
+
+load('LabReg.mat');
 
 % 数据集
-DataSetIndices = 9 : 11;
-TaskNum = 4;
+DataSetIndices = 13;
+TaskNum = 20;
 Kfold = 3;
 
 % 构造多任务交叉验证
 for i = DataSetIndices
-    LabMulti(i) = MultiTask( LabMulti(i), TaskNum, Kfold );
+    LabReg(i) = MultiTask( LabReg(i), TaskNum, Kfold );
 end
 
-save('LabMulti.mat', 'LabMulti');
+save('./datasets/LabReg.mat', 'LabReg');
