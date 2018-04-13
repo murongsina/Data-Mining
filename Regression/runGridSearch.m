@@ -12,7 +12,7 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = 2 : 14;
+DataSetIndices = 10 : 14;
 ParamIndices = [1,3:7];
 
 % 实验设置

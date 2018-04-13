@@ -7,14 +7,11 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMulti.mat');
 load('LabReg.mat');
-load('LabSVMReg.mat');
-load('LabUCIReg.mat');
 load('LabIParams.mat');
 
 % 实验数据集
-LabDataSets = {LabMulti, LabReg, LabSVMReg, LabUCIReg};
+LabDataSets = {LabReg};
 
 % 统计每个数据集上的多任务实验数据
 m = length(LabDataSets);
