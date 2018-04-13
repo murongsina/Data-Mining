@@ -16,11 +16,11 @@ function [ yTest, Time, W ] = MTL(xTrain, yTrain, xTest, opts)
 %% Parse opts
     Name = opts.Name;
     % ∂‡»ŒŒÒ
-    if IsMTL.(Name) == 1
-        Learner = str2func(Name);
-    else
+    if IsMTL.(Name) == 0
         BaseLearner = str2func(Name);
         Learner = @MTLearner;
+    else
+        Learner = str2func(Name);
     end
     
     [ yTest, Time, W ] = Learner(xTrain, yTrain, xTest, opts);
