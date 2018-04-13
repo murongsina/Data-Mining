@@ -36,15 +36,18 @@ IParams = {
 };
 
 % 输出参数表信息
-nParams = length(IParams);
-for i = 1 : nParams
-    nParams = GetParamsCount(IParams{i});
+n = length(IParams);
+nParams = zeros(n, 1);
+for i = 1 : n
+    nParams(i, 1) = GetParamsCount(IParams{i});
     Method = IParams{i};
     tic
     Params = GetParams(Method, 1);
     Time = toc;
-    fprintf('%s:%d params %.2fs.\n', Method.Name, nParams, nParams*Time);
+    fprintf('%s:%d params %.2fs.\n', Method.Name, nParams(i, 1), nParams(i, 1)*Time);
 end
 
+[~, IDX] = sort(nParams);
+IParams = IParams(IDX);
 % 保存参数表
-save('./params/LabIParams-Large.mat', 'IParams');
+save('./params/LabIParams.mat', 'IParams');
