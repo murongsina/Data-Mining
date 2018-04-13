@@ -1,31 +1,5 @@
 1. LabIParams
 % 核函数参数
-P1 = 2.^(1:3:10)';
-% 分类器网格搜索参数
-C = 2.^(1:2:11)';
-C1 = 2.^(1:2:11)';
-C2 = 2.^(1:2:11)';
-C3 = 2.^(1:2:11)';
-C4 = 2.^(1:2:11)';
-EPS1 = 2.^(1:3:10)';
-EPS2 = 2.^(1:3:10)';
-RHO = 2.^(-1:2:11)';
-LAMBDA = 2.^(-1:2:11)';
-GAMMA = 2.^(-1:2:11)';
-NU = 2.^(-1:2:11)';
-% 计算时间
-PSVR:28 params 0.00.
-TWSVR:82944 params 14.23.
-TWSVR_Xu:2304 params 0.90.
-LS_TWSVR:64 params 0.04.
-MTL_PSVR:196 params 0.04.
-MTL_LS_SVR:196 params 0.05.
-MTL_TWSVR:2304 params 0.64.
-MTL_TWSVR_Xu:2304 params 0.56.
-MTL_TWSVR_Mei:112896 params 20.39.
-
-2. LabIParams-Large
-% 核函数参数
 P1 = 2.^(-3:1:8)';
 % 分类器网格搜索参数
 C = 2.^(-3:1:8)';
@@ -40,12 +14,14 @@ LAMBDA = 2.^(-3:1:8)';
 GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
 % 计算时间
+SVR:48 params 0.01.
 LS_TWSVR:48 params 0.01.
-PSVR:144 params 0.01.
-TWSVR_Xu:576 params 0.11.
-MTL_TWSVR:576 params 0.09.
-MTL_TWSVR_Xu:576 params 0.10.
-MTL_PSVR:1728 params 0.31.
-MTL_LS_SVR:1728 params 0.33.
-TWSVR:6912 params 1.46.
-MTL_TWSVR_Mei:6912 params 1.37.
+LS_SVR:144 params 0.07.
+PSVR:144 params 0.04.
+TWSVR_Xu:576 params 0.61.
+MTL_TWSVR:576 params 0.14.
+MTL_TWSVR_Xu:576 params 0.13.
+MTL_LS_SVR:1728 params 0.38.
+MTL_PSVR:1728 params 0.40.
+TWSVR:6912 params 1.67.
+MTL_TWSVR_Mei:6912 params 1.31.

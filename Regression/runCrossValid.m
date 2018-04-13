@@ -9,11 +9,11 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams-Large.mat');
+load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [2];
-ParamIndices = [2 3 4 5 6 7 8 9];
+DataSetIndices = [1: 5];
+ParamIndices = [3];
 BestParams = 1;
 
 % 实验设置

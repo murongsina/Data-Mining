@@ -3,30 +3,24 @@ function [ yTest, Time, W ] = MTL(xTrain, yTrain, xTest, opts)
 % Multi-Task Learning
 %   此处显示详细说明
 
-    Names = {
-        'SVR', 'PSVR', 'TWSVR', 'TWSVR_Xu', 'LS_TWSVR'...
-        'MTL_LS_SVR', 'MTL_PSVR', 'MTL_TWSVR', 'MTL_TWSVR_Xu', 'MTL_TWSVR_Mei'
-    };
-    Learners = {
-        @SVR, @PSVR, @TWSVR, @TWSVR_Xu, @LS_TWSVR...
-        @MTL_LS_SVR, @MTL_PSVR, @MTL_TWSVR, @MTL_TWSVR_Xu, @MTL_TWSVR_Mei
-    };
-    IsMTL = [ 0 0 0 0 0 1 1 1 1 1 ];
+%% Multi Task Flag
+    persistent IsMTL;
+    if isempty(IsMTL)
+        IsMTL = struct('SVR', 0, 'LS_SVR', 0, 'PSVR', 0,...
+            'TWSVR', 0, 'LS_TWSVR', 0,...
+            'MTL_LS_SVR', 1, 'MTL_PSVR', 1,...
+            'MTL_TWSVR', 1, 'MTL_TWSVR_Xu', 1,...
+            'MTL_TWSVR_Mei', 1);
+    end
     
 %% Parse opts
-    str2func(opts.Name);
-    N = length(Learners);
-    for i = 1 : N
-        if strcmp(Names{i}, opts.Name)
-            if IsMTL(i)
-                % 设置学习器
-                Learner = Learners{i};
-            else
-                % 设置多任务的学习器
-                BaseLearner = Learners{i};
-                Learner = @MTLearner;
-            end
-        end
+    Name = opts.Name;
+    % 多任务
+    if IsMTL.(Name) == 0
+        BaseLearner = str2func(Name);
+        Learner = @MTLearner;
+    else
+        Learner = str2func(Name);
     end
     
     [ yTest, Time, W ] = Learner(xTrain, yTrain, xTest, opts);
