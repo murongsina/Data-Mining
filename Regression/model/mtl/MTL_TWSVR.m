@@ -11,7 +11,7 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     eps2 = opts.eps1;
     kernel = opts.kernel;
     solver = opts.solver;
-    TaskNum = length(xTrain);  
+    TaskNum = length(xTrain);
     
 %% Prepare
     tic;
