@@ -28,8 +28,7 @@ function [ yTest, Time, w ] = LS_TWSVR( xTrain, yTrain, xTest, opts )
     
 %% Predict
     [m, ~] = size(xTest);
-    e = ones(m, 1);
-    yTest = [Kernel(xTest, A, kernel), e]*w;
+    yTest = [Kernel(xTest, A, kernel), ones(m, 1)]*w;
     
 end
 

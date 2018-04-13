@@ -21,8 +21,7 @@ function [ yTest, Time, w ] = LS_SVR(xTrain, yTrain, xTest, opts)
     Time = toc;
     
 %% Predict
-    e = ones(length(xTest));
-    yTest = [Kernel(xTest, X, kernel) e]*w;
+    [m, ~] = size(xTest);
+    yTest = [Kernel(xTest, X, kernel) ones(m, 1)]*w;
     
 end
-
