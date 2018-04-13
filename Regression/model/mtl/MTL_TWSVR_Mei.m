@@ -25,20 +25,22 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     A = [Kernel(A, C, kernel) e]; % 非线性变换
     
     %% 得到Q,P矩阵
-    % 得到Q矩阵
-    AA = A'*A;
-    AA = Utils.Cond(AA);
-    AAA = AA\A';
-    Q = A*AAA;
     % 得到P矩阵
     P = [];
     AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        AAAt{t} = (At'*At)\At';
+        AtAt = At'*At;
+        AtAt = Utils.Cond(AtAt);
+        AAAt{t} = AtAt\At';
         Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
+    % 得到Q矩阵
+    AA = A'*A;
+    AA = Utils.Cond(AA);
+    AAA = AA\A';
+    Q = A*AAA;
     
 %% Fit
     % 求解两个二次规划

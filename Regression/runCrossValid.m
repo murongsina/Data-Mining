@@ -12,8 +12,8 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [1: 5];
-ParamIndices = [3];
+DataSetIndices = [1 2 3];
+ParamIndices = [6 7 11];
 BestParams = 1;
 
 % 实验设置
