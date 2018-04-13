@@ -1,4 +1,0 @@
-skip: ./data/Linear3D-MTL_TWSVR.mat
-skip: ./data/Linear3D-MTL_TWSVR_Xu.mat
-skip: ./data/Linear4D-MTL_TWSVR.mat
-skip: ./data/Linear4D-MTL_TWSVR_Xu.mat

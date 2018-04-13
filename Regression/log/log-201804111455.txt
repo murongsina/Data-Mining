@@ -1,6 +1,0 @@
-save: ./data/housing-TWSVR_Xu.mat
-save: ./data/housing-MTL_LS_SVR.mat
-save: ./data/housing-MTL_TWSVR.mat
-save: ./data/housing-MTL_TWSVR_Xu.mat
-save: ./data/mg-TWSVR_Xu.mat
-save: ./data/mg-MTL_LS_SVR.mat
