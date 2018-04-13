@@ -3,16 +3,20 @@ function [ yTest, Time, W ] = MTL(xTrain, yTrain, xTest, opts)
 % Multi-Task Learning
 %   此处显示详细说明
 
-    IsMTL = struct(...
-            'SVR', 0, 'LS_SVR', 0, 'PSVR', 0,...
+%% Multi Task Flag
+    persistent IsMTL;
+    if isempty(IsMTL)
+        IsMTL = struct('SVR', 0, 'LS_SVR', 0, 'PSVR', 0,...
             'TWSVR', 0, 'LS_TWSVR', 0,...
             'MTL_LS_SVR', 1, 'MTL_PSVR', 1,...
-            'MTL_TWSVR', 1, 'MTL_TWSVR_Xu', 1, 'MTL_TWSVR_Mei', 1);
-        
+            'MTL_TWSVR', 1, 'MTL_TWSVR_Xu', 1,...
+            'MTL_TWSVR_Mei', 1);
+    end
+    
 %% Parse opts
     Name = opts.Name;
     % 多任务
-    if IsMTL.(Name) == 0
+    if IsMTL.(Name) == 1
         Learner = str2func(Name);
     else
         BaseLearner = str2func(Name);
