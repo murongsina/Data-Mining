@@ -9,10 +9,13 @@ TaskNum = 2;
 Kfold = 5;
 
 % 构造多任务交叉验证
-Size = zeros(14, 1);
 for i = DataSetIndices
     LabReg(i) = MultiTask( LabReg(i), TaskNum, Kfold );
-    % 计算数据集任务大小
+end
+
+% 计算数据集任务大小
+Size = zeros(14, 1);
+for i = 1 : 14
     [ m, n ] = size(LabReg(i).Data);
     TaskNum = LabReg(i).TaskNum;
     Kfold = LabReg(i).Kfold;
