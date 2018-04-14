@@ -18,17 +18,18 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
     A = Kernel(A, C, kernel); % 非线性变换
     
 %% Fit
-    e = cell(TaskNum);
-    P = [];
+    e = cell(TaskNum, 1);
+    P = cell(TaskNum, 1);
+    PP = [];
     for t = 1 : TaskNum
         Tt = T==t;
         At = A(Tt,:);
         et = ones(size(Y(Tt,:)));
-        Pt = At*At'+et*et'+1/(nu*rate);
-        P = blkdiag(P, Pt);
+        P{t} = At*At'+et*et'+1/(rate*nu)*diag(et);
+        PP = blkdiag(PP, P{t});
         e{t} = et;
     end
-    Alpha = Cond(A'*A+rate*P)\Y;
+    Alpha = Cond(A'*A+rate*PP)\Y;
     
 %% Get W
     W = cell(TaskNum, 1);
@@ -38,8 +39,8 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
         A_t = A(Tt,:);
         Alpha_t = Alpha(Tt,:);
         Wt = W0 + rate*A_t'*Alpha_t;
-        Gamma = -rate*Alpha_t'*e{t};
-        W{t} = [Wt; Gamma];
+        Gamma_t = -rate*Alpha_t'*e{t};
+        W{t} = [Wt; Gamma_t];
     end
     Time = toc;
     
@@ -49,8 +50,7 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
     for t = 1 : TaskNum
         At = xTest{t};
         [m, ~] = size(At);
-        et = ones(m, 1);
-        KAt = [Kernel(At, C, kernel) et];
+        KAt = [Kernel(At, C, kernel) ones(m, 1)];
         yTest{t} = KAt * W{t};
     end
     

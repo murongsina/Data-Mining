@@ -30,8 +30,7 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     for t = 1 : TaskNum
         At = A(T==t,:);
         AAAt{t} = Cond(At'*At)\At';
-        Pt = At*AAAt{t};
-        P = blkdiag(P, Pt);
+        P = blkdiag(P, At*AAAt{t});
     end
     % µ√µΩQæÿ’Û
     AAA = Cond(A'*A)\A';
@@ -42,15 +41,13 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     [m, ~] = size(T);
     e = ones(m, 1);
     lb = zeros(m, 1);
-    H1 = Q+rho*P;
-    H2 = Q+lambda*P;
     QPY = (Q+P)'*Y;
     % MTL_TWSVR1
     ub1 = e*C1;
-    Alpha = quadprog(H1,(Y+eps1)-QPY,[],[],[],[],lb,ub1,[],solver);
+    Alpha = quadprog(Q+rho*P,(Y+eps1)-QPY,[],[],[],[],lb,ub1,[],solver);
     % MTL_TWSVR2
     ub2 = e*C2;
-    Gamma = quadprog(H2, QPY-(Y-eps2),[],[],[],[],lb,ub2,[],solver);
+    Gamma = quadprog(Q+lambda*P, QPY-(Y-eps2),[],[],[],[],lb,ub2,[],solver);
     
 %% Get W
     W = cell(TaskNum, 1);

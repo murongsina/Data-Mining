@@ -12,9 +12,9 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [1 2 3 4 5];
-ParamIndices = [2 3 4 5 6 7 8 9 10 11];
-BestParams = 16;
+DataSetIndices = [5:9];
+ParamIndices = [11];
+BestParams = 6912;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
