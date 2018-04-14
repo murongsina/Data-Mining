@@ -16,7 +16,7 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams)
             [ Stat, Time ] = GSStatistics(DataSet.TaskNum, CVStat, CVTime);
             % ±£´æÊý¾Ý
             LabStat(k,:,:) = Stat(:,:,1);
-            LabTime(k,:) = Time;
+            LabTime(k,:) = Time(1,:);
             HasStat = 1;
         end
     end

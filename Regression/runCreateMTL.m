@@ -1,11 +1,11 @@
 addpath(genpath('./datasets'));
 addpath(genpath('./utils'));
 
-load('LabReg.mat');
+% load('LabReg.mat');
 
 % 数据集
-DataSetIndices = 11;
-TaskNum = 5;
+DataSetIndices = 14;
+TaskNum = 41;
 Kfold = 5;
 
 % 构造多任务交叉验证
@@ -14,8 +14,9 @@ for i = DataSetIndices
 end
 
 % 计算数据集任务大小
-Size = zeros(14, 1);
-for i = 1 : 14
+[m, ~] = size(LabReg);
+Size = zeros(m, 1);
+for i = 1 : m
     [ m, n ] = size(LabReg(i).Data);
     TaskNum = LabReg(i).TaskNum;
     Kfold = LabReg(i).Kfold;
