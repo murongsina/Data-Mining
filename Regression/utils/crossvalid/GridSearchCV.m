@@ -1,4 +1,4 @@
-function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd, opts )
+function [ OStat, OTime, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold, ValInd, opts )
 %GRIDSEARCHCV 此处显示有关此函数的摘要
 % 多任务的网格搜索交叉验证
 %   此处显示详细说明
@@ -14,18 +14,15 @@ function [ Stat, CVStat ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfold
     solver = opts.solver;
     nParams = GetParamsCount(IParams);
     CVStat = zeros(nParams, 8, TaskNum);
-    fprintf('GridSearchCV: %d Params\n', nParams);
+    CVTime = zeros(nParams, 2);
     
-    % 网格搜索
+    fprintf('GridSearchCV: %d Params\n', nParams);
     for i = 1 : nParams
         fprintf('GridSearchCV: %d\n', i);
-        % 设置参数
         Params = GetParams(IParams, i);
         Params.solver = solver;
-        % 交叉验证
-        CVStat(i,:,:) = CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
+        [CVStat(i,:,:), CVTime(i,:)]= CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
     end
     
-    Stat = GSStatistics(TaskNum, CVStat);
-
+    [ OStat, OTime ] = GSStatistics(TaskNum, CVStat, CVTime);
 end
