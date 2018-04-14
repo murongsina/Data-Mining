@@ -35,7 +35,7 @@ for i = DataSetIndices
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
             CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
-            save(StatPath, 'CVStat');
+%             save(StatPath, 'CVStat');
             fprintf('save: %s\n', StatPath);
         catch Exception
             fprintf('Exception in %s\n', Name);
