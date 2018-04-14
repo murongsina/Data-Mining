@@ -8,12 +8,10 @@ function [ yTest, Time, w ] = TWSVR( xTrain, yTrain, xTest, opts )
 %% Parse opts
     C1 = opts.C1;
     C2 = opts.C1;
-%     C3 = opts.C3;
-%     C4 = opts.C3;
+    C3 = opts.C3;
+    C4 = opts.C3;
     eps1 = opts.eps1;
     eps2 = opts.eps1;
-    C3 = eps1;
-    C4 = eps1;
     kernel = opts.kernel;
     solver = opts.solver;
     
