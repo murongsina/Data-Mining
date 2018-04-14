@@ -16,9 +16,7 @@ function [ yTest, Time, w ] = LS_TWSVR( xTrain, yTrain, xTest, opts )
     G = [Kernel(A, A, kernel) e];
     f = Y - eps1;
     h = Y + eps2;
-    
-    GG = G'*G;
-    GG = Utils.Cond(GG);
+    GG = Cond(G'*G);
     % LS_TWSVR1
     u1 = GG\G'*f;
     % LS_TWSVR2

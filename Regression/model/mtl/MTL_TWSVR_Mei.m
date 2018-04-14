@@ -4,16 +4,15 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
 %   此处显示详细说明
 
 %% Parse opts
-    T = length(xTrain);
+    TaskNum = length(xTrain);
     C1 = opts.C1;
     C2 = opts.C1;
     eps1 = opts.eps1;
     eps2 = opts.eps1;
-    rho = T/opts.rho;
-    lambda = T/opts.rho;
+    rho = TaskNum/opts.rho;
+    lambda = TaskNum/opts.rho;
     kernel = opts.kernel;
     solver = opts.solver;
-    TaskNum = length(xTrain);
     
 %% Prepare
     tic;
@@ -30,16 +29,12 @@ function [ yTest, Time, W ] = MTL_TWSVR_Mei( xTrain, yTrain, xTest, opts )
     AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        AtAt = At'*At;
-        AtAt = Utils.Cond(AtAt);
-        AAAt{t} = AtAt\At';
+        AAAt{t} = Cond(At'*At)\At';
         Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
     % 得到Q矩阵
-    AA = A'*A;
-    AA = Utils.Cond(AA);
-    AAA = AA\A';
+    AAA = Cond(A'*A)\A';
     Q = A*AAA;
     
 %% Fit

@@ -29,16 +29,12 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
-        AtAt = At'*At;
-        AtAt = Utils.Cond(AtAt);
-        AAAt{t} = AtAt\(At');
+        AAAt{t} = Cond(At'*At)\(At');
         Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
     % 二次规划的H矩阵
-    AA = A'*A;
-    AA = Utils.Cond(AA);
-    AAA = AA\A';
+    AAA = Cond(A'*A)\A';
     H = A*AAA + P;
     
 %% Fit

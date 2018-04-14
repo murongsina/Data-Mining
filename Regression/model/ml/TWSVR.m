@@ -25,9 +25,10 @@ function [ yTest, Time, w ] = TWSVR( xTrain, yTrain, xTest, opts )
     f = yTrain + eps2;
     g = yTrain - eps1;
     % 得到Hu,Hv
+    I = diag(e);
     H2 = H'*H;
-    Hu = (H2+C3)\H';
-    Hv = (H2+C4)\H';
+    Hu = (H2+C3*I)\H';
+    Hv = (H2+C4*I)\H';
     % 得到Q1，Q2
     Q1 = H*Hu;
     Q2 = H*Hv;

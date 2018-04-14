@@ -29,9 +29,7 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
         P = blkdiag(P, Pt);
         e{t} = et;
     end
-    H = (A'*A+rate*P);
-    H = Utils.Cond(H);
-    Alpha = H\Y;
+    Alpha = Cond(A'*A+rate*P)\Y;
     
 %% Get W
     W = cell(TaskNum, 1);

@@ -19,9 +19,7 @@ function [ yTest, Time, w ] = TWSVR_Xu( xTrain, yTrain, xTest, opts )
     C = xTrain;
     Y = yTrain;
     G = [Kernel(xTrain, C, kernel) e];
-    GG = G'*G;
-    GG = Utils.Cond(GG);
-    GGG = GG\G';
+    GGG = Cond(G'*G)\G';
     H = G*GGG;
     HTY = H'*Y;
     % 求解两个二次规划
