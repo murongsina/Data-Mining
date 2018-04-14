@@ -20,9 +20,9 @@ for i = 1 : m
     n = length(DataSets);
     for j = 1 : n
         DataSet = DataSets(j);
-        [ LabStat, HasStat ] = LabStatistics(Root, DataSet, IParams);
+        [ LabStat, LabTime, HasStat ] = LabStatistics(Root, DataSet, IParams);
         if HasStat == 1
-            SaveStatistics(Root, DataSet, LabStat);
+            SaveStatistics(Root, DataSet, LabStat, LabTime);
         end
     end
 end
