@@ -36,8 +36,8 @@ for i = DataSetIndices
             continue;
         else
             try
-                [ Stat, Time, CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
-                save(StatPath, 'Stat', 'Time', 'CVStat');
+                [ CVStat, CVTime ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
+                save(StatPath, 'CVStat', 'CVTime');
                 fprintf(fd, 'save: %s\n', StatPath);
             catch Exception
                 fprintf(fd, 'Exception in %s\n', Name);
