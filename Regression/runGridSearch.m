@@ -13,7 +13,7 @@ load('LabIParams.mat');
 
 % 数据集
 DataSetIndices = 1 : 14;
-ParamIndices = [11];
+ParamIndices = 2 : 11;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
@@ -36,8 +36,8 @@ for i = DataSetIndices
             continue;
         else
             try
-                [ Stat,  CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
-                save(StatPath, 'Stat', 'CVStat');
+                [ Stat, Time, CVStat ] = GridSearchCV(@MTL, X, Y, Method, DataSet.TaskNum, DataSet.Kfold, ValInd, opts);
+                save(StatPath, 'Stat', 'Time', 'CVStat');
                 fprintf(fd, 'save: %s\n', StatPath);
             catch Exception
                 fprintf(fd, 'Exception in %s\n', Name);

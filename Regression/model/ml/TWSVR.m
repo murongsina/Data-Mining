@@ -26,8 +26,9 @@ function [ yTest, Time, w ] = TWSVR( xTrain, yTrain, xTest, opts )
     g = yTrain - eps1;
     % 得到Hu,Hv
     H2 = H'*H;
-    Hu = (H2+C3)\H';
-    Hv = (H2+C4)\H';
+    I = eye(size(H2));
+    Hu = (H2+C3*I)\H';
+    Hv = (H2+C4*I)\H';
     % 得到Q1，Q2
     Q1 = H*Hu;
     Q2 = H*Hv;
