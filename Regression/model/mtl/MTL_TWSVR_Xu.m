@@ -15,21 +15,18 @@ function [ yTest, Time, W ] = MTL_TWSVR_Xu( xTrain, yTrain, xTest, opts )
     
 %% Prepare
     tic;
-    % 得到所有的样本和标签以及任务编号
     [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
     [m, ~] = size(A);
     e = ones(m, 1);
-    C = A; % 保留核变换矩阵
-    
-%% 得到P矩阵
-    A = [Kernel(A, C, kernel) e]; % 非线性变换
+    C = A;
+    % 得到P矩阵
+    A = [Kernel(A, C, kernel) e];
     P = [];
     AAAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
         At = A(T==t,:);
         AAAt{t} = Cond(At'*At)\At';
-        Pt = At*AAAt{t};
-        P = blkdiag(P, Pt);
+        P = blkdiag(P, At*AAAt{t});
     end
     % 二次规划的H矩阵
     AAA = Cond(A'*A)\A';

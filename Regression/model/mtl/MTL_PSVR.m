@@ -12,24 +12,22 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
     
 %% Prepare
     tic;
-    % 得到所有的样本和标签以及任务编号
     [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
-    C = A; % 保留核变换矩阵
-    A = Kernel(A, C, kernel); % 非线性变换
+    C = A;
+    A = Kernel(A, C, kernel);
     
 %% Fit
     e = cell(TaskNum, 1);
-    P = cell(TaskNum, 1);
-    PP = [];
+    P = [];
     for t = 1 : TaskNum
         Tt = T==t;
         At = A(Tt,:);
         et = ones(size(Y(Tt,:)));
-        P{t} = At*At'+et*et'+1/(rate*nu)*diag(et);
-        PP = blkdiag(PP, P{t});
+        Pt = At*At'+et*et'+1/(rate*nu)*diag(et);
+        P = blkdiag(P, Pt);
         e{t} = et;
     end
-    Alpha = Cond(A'*A+rate*PP)\Y;
+    Alpha = Cond(A'*A+rate*P)\Y;
     
 %% Get W
     W = cell(TaskNum, 1);

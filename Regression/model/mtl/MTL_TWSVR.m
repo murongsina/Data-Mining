@@ -19,8 +19,8 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     [ A, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
     [m, ~] = size(A);
     e = ones(m, 1);
-    C = A; % 保留核变换矩阵
-    A = [Kernel(A, C, kernel) e]; % 非线性变换
+    C = A;
+    A = [Kernel(A, C, kernel) e];
     % 得到f和g
     f = Y + eps2;
     g = Y - eps1;

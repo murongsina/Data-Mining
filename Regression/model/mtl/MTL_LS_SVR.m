@@ -11,10 +11,9 @@ function  [ yTest, Time, W ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     
 %% Prepare
     tic;
-    % 得到所有的样本和标签以及任务编号
     [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
-    C = A; % 保留核变换矩阵
-    A = Kernel(A, C, kernel); % 非线性变换
+    C = A;
+    A = Kernel(A, C, kernel);
     
 %% Fit
     B = [];
