@@ -12,9 +12,9 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [5:9];
-ParamIndices = [11];
-BestParams = 6912;
+DataSetIndices = [3:5];
+ParamIndices = [4];
+BestParams = 23;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
@@ -31,14 +31,14 @@ for i = DataSetIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
         StatPath = [data, Name, '-Test.mat'];
-        try
+%         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
             CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
-%             save(StatPath, 'CVStat');
+            save(StatPath, 'CVStat');
             fprintf('save: %s\n', StatPath);
-        catch Exception
-            fprintf('Exception in %s\n', Name);
-        end
+%         catch Exception
+%             fprintf('Exception in %s\n', Name);
+%         end
     end
 end
