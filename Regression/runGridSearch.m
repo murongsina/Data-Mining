@@ -12,8 +12,8 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = 1:14;
-ParamIndices = [2:6,9 10 11];
+DataSetIndices = [ 1:14 ];
+ParamIndices = [ 1 2 3 5 6 ];
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');

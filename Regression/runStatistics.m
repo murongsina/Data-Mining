@@ -20,9 +20,13 @@ for i = 1 : m
     n = length(DataSets);
     for j = 1 : n
         DataSet = DataSets(j);
-        [ LabStat, LabTime, HasStat ] = LabStatistics(Root, DataSet, IParams);
-        if HasStat == 1
-            SaveStatistics(Root, DataSet, LabStat, LabTime);
+        try
+            [ LabStat, LabTime, HasStat ] = LabStatistics(Root, DataSet, IParams);
+            if HasStat == 1
+               SaveStatistics(Root, DataSet, LabStat, LabTime);
+            end
+        catch MException
+            fprintf(['Exception in: ', DataSet.Name, '\n']);
         end
     end
 end
