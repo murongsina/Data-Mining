@@ -7,20 +7,6 @@ classdef Utils
     end
     
     methods (Static)
-        function [ A ] = Cond( H )
-        %COND 此处显示有关此函数的摘要
-        % 调整核矩阵
-        %   此处显示详细说明
-        % 参数：
-        %     H     -核矩阵
-        %     A     -调整后矩阵
-
-            if (abs(cond(H)) > 1e+10)
-                A = H + 1e-5*eye(size(H));
-            else
-                A = H;
-            end
-        end
         function [ idx, dist, M ] = KnnGraph( X, k )
         %MKNN 此处显示有关此函数的摘要
         % Mutual K Nearest Neighbours
