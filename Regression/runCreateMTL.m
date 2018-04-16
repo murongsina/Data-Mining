@@ -4,8 +4,8 @@ addpath(genpath('./utils'));
 % load('LabReg.mat');
 
 % 数据集
-DataSetIndices = 14;
-TaskNum = 41;
+DataSetIndices = 9;
+TaskNum = 4;
 Kfold = 5;
 
 % 构造多任务交叉验证
