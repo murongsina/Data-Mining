@@ -6,17 +6,13 @@ function [ yTest, Time ] = MultiClf(xTrain, yTrain, xTest, opts)
 %% Parse opts
     Classes = opts.Classes;     % 分类数
     Labels = opts.Labels;       % 真实标签
-    Params = opts.Params;       % 学习器参数
+    Params = opts.Params;       % 学习器参数 
     
     %% 基学习器
-    Names = { 'SVM', 'CSVM', 'TWSVM', 'KTWSVM', 'LSTWSVM', 'KNNSTWSVM', 'AdaBoost' };
-    Learners = { @SVM, @CSVM, @TWSVM, @KTWSVM, @LSTWSVM, @KNNSTWSVM, @AdaBoost };
-    
-    N = length(Learners);
-    for k = 1 : N
-        if strcmp(Names{k}, Params.Name)
-            BaseLearner = Learners{k};
-        end
+    try
+       BaseLearner = str2func(Params.Name);
+    catch Exception
+        throw(MException('MultiClf', 'unresolved function:%s', Params.Name));
     end
     
     %% 训练模式
