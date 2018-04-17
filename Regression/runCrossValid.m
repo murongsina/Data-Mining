@@ -1,4 +1,4 @@
-data = './data/';
+cv = './cv/';
 images = './images/';
 
 % 添加搜索路径
@@ -12,9 +12,9 @@ load('LabReg.mat');
 load('LabIParams.mat');
 
 % 数据集
-DataSetIndices = [3:5];
-ParamIndices = [11];
-BestParams = 23;
+DataSetIndices = [1:10];
+ParamIndices = [9 12];
+BestParams = 666;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
@@ -30,7 +30,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [data, Name, '-Test.mat'];
+        StatPath = [cv, Name, '.mat'];
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
