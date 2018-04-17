@@ -39,7 +39,7 @@ function [ yTest, Time, W ] = MTL_TWSVR_New(xTrain, yTrain, xTest, opts)
     % 二次规划的H矩阵
     AAA = Cond(A'*A)\A';
     Q = A*AAA;
-    H = A*AAA + P;
+    H = Q + P;
     
 %% Fit
     % 求解两个二次规划
