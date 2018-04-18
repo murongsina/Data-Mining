@@ -1,0 +1,14 @@
+save: ./data/Concrete-Compressive-Strength-LS_TWSVR.mat
+save: ./data/Concrete-Compressive-Strength-TWSVR_Xu.mat
+Exception in Concrete-Compressive-Strength-MTL_TWSVR
+Exception in Concrete-Compressive-Strength-MTL_TWSVR_Xu
+save: ./data/Concrete-Compressive-Strength-MTL_PSVR.mat
+save: ./data/Concrete-Compressive-Strength-MTL_LS_SVR.mat
+skip: ./data/Air-Foil-Self-Noise-LS_TWSVR.mat
+skip: ./data/Air-Foil-Self-Noise-TWSVR_Xu.mat
+save: ./data/Air-Foil-Self-Noise-MTL_TWSVR.mat
+save: ./data/Air-Foil-Self-Noise-MTL_TWSVR_Xu.mat
+save: ./data/Air-Foil-Self-Noise-MTL_PSVR.mat
+save: ./data/Air-Foil-Self-Noise-MTL_LS_SVR.mat
+save: ./data/mg-LS_TWSVR.mat
+save: ./data/mg-TWSVR_Xu.mat

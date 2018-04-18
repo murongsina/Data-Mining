@@ -1,0 +1,14 @@
+save: ./data/Diabetes-LS_SVR.mat
+save: ./data/Chwirut-LS_SVR.mat
+save: ./data/Cons-LS_SVR.mat
+save: ./data/Pyrimidibes-LS_SVR.mat
+save: ./data/Machine-Cpu-LS_SVR.mat
+save: ./data/Auto-Price-LS_SVR.mat
+save: ./data/Body Fat-LS_SVR.mat
+save: ./data/housing-LS_SVR.mat
+save: ./data/Triazines-LS_SVR.mat
+save: ./data/Concrete-Compressive-Strength-LS_SVR.mat
+save: ./data/Air-Foil-Self-Noise-LS_SVR.mat
+save: ./data/mg-LS_SVR.mat
+save: ./data/spacega-LS_SVR.mat
+save: ./data/abaalone-LS_SVR.mat

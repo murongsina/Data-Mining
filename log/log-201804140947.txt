@@ -1,0 +1,6 @@
+save: ./data/Diabetes-MTL_TWSVR_Mei.mat
+save: ./data/Chwirut-MTL_TWSVR_Mei.mat
+save: ./data/Cons-MTL_TWSVR_Mei.mat
+save: ./data/Pyrimidibes-MTL_TWSVR_Mei.mat
+save: ./data/Machine-Cpu-MTL_TWSVR_Mei.mat
+save: ./data/Auto-Price-MTL_TWSVR_Mei.mat

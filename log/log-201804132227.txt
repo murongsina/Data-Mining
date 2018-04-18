@@ -1,0 +1,87 @@
+skip: ./data/Diabetes-LS_TWSVR.mat
+skip: ./data/Diabetes-LS_SVR.mat
+save: ./data/Diabetes-PSVR.mat
+skip: ./data/Diabetes-TWSVR_Xu.mat
+skip: ./data/Diabetes-MTL_TWSVR.mat
+skip: ./data/Diabetes-MTL_TWSVR_Xu.mat
+skip: ./data/Diabetes-MTL_LS_SVR.mat
+save: ./data/Diabetes-MTL_PSVR.mat
+skip: ./data/Chwirut-LS_TWSVR.mat
+skip: ./data/Chwirut-LS_SVR.mat
+save: ./data/Chwirut-PSVR.mat
+skip: ./data/Chwirut-TWSVR_Xu.mat
+skip: ./data/Chwirut-MTL_TWSVR.mat
+skip: ./data/Chwirut-MTL_TWSVR_Xu.mat
+skip: ./data/Chwirut-MTL_LS_SVR.mat
+save: ./data/Chwirut-MTL_PSVR.mat
+skip: ./data/Cons-LS_TWSVR.mat
+skip: ./data/Cons-LS_SVR.mat
+save: ./data/Cons-PSVR.mat
+skip: ./data/Cons-TWSVR_Xu.mat
+skip: ./data/Cons-MTL_TWSVR.mat
+skip: ./data/Cons-MTL_TWSVR_Xu.mat
+skip: ./data/Cons-MTL_LS_SVR.mat
+save: ./data/Cons-MTL_PSVR.mat
+skip: ./data/Pyrimidibes-LS_TWSVR.mat
+skip: ./data/Pyrimidibes-LS_SVR.mat
+save: ./data/Pyrimidibes-PSVR.mat
+skip: ./data/Pyrimidibes-TWSVR_Xu.mat
+skip: ./data/Pyrimidibes-MTL_TWSVR.mat
+skip: ./data/Pyrimidibes-MTL_TWSVR_Xu.mat
+skip: ./data/Pyrimidibes-MTL_LS_SVR.mat
+save: ./data/Pyrimidibes-MTL_PSVR.mat
+skip: ./data/Machine-Cpu-LS_TWSVR.mat
+skip: ./data/Machine-Cpu-LS_SVR.mat
+save: ./data/Machine-Cpu-PSVR.mat
+skip: ./data/Machine-Cpu-TWSVR_Xu.mat
+skip: ./data/Machine-Cpu-MTL_TWSVR.mat
+skip: ./data/Machine-Cpu-MTL_TWSVR_Xu.mat
+skip: ./data/Machine-Cpu-MTL_LS_SVR.mat
+save: ./data/Machine-Cpu-MTL_PSVR.mat
+skip: ./data/Auto-Price-LS_TWSVR.mat
+skip: ./data/Auto-Price-LS_SVR.mat
+save: ./data/Auto-Price-PSVR.mat
+skip: ./data/Auto-Price-TWSVR_Xu.mat
+skip: ./data/Auto-Price-MTL_TWSVR.mat
+skip: ./data/Auto-Price-MTL_TWSVR_Xu.mat
+skip: ./data/Auto-Price-MTL_LS_SVR.mat
+save: ./data/Auto-Price-MTL_PSVR.mat
+skip: ./data/Body Fat-LS_TWSVR.mat
+skip: ./data/Body Fat-LS_SVR.mat
+save: ./data/Body Fat-PSVR.mat
+skip: ./data/Body Fat-TWSVR_Xu.mat
+save: ./data/Body Fat-MTL_TWSVR.mat
+save: ./data/Body Fat-MTL_TWSVR_Xu.mat
+skip: ./data/Body Fat-MTL_LS_SVR.mat
+save: ./data/Body Fat-MTL_PSVR.mat
+skip: ./data/housing-LS_TWSVR.mat
+skip: ./data/housing-LS_SVR.mat
+save: ./data/housing-PSVR.mat
+skip: ./data/housing-TWSVR_Xu.mat
+save: ./data/housing-MTL_TWSVR.mat
+save: ./data/housing-MTL_TWSVR_Xu.mat
+skip: ./data/housing-MTL_LS_SVR.mat
+save: ./data/housing-MTL_PSVR.mat
+skip: ./data/Triazines-LS_TWSVR.mat
+skip: ./data/Triazines-LS_SVR.mat
+save: ./data/Triazines-PSVR.mat
+skip: ./data/Triazines-TWSVR_Xu.mat
+save: ./data/Triazines-MTL_TWSVR.mat
+save: ./data/Triazines-MTL_TWSVR_Xu.mat
+skip: ./data/Triazines-MTL_LS_SVR.mat
+save: ./data/Triazines-MTL_PSVR.mat
+skip: ./data/Concrete-Compressive-Strength-LS_TWSVR.mat
+skip: ./data/Concrete-Compressive-Strength-LS_SVR.mat
+save: ./data/Concrete-Compressive-Strength-PSVR.mat
+skip: ./data/Concrete-Compressive-Strength-TWSVR_Xu.mat
+save: ./data/Concrete-Compressive-Strength-MTL_TWSVR.mat
+save: ./data/Concrete-Compressive-Strength-MTL_TWSVR_Xu.mat
+skip: ./data/Concrete-Compressive-Strength-MTL_LS_SVR.mat
+save: ./data/Concrete-Compressive-Strength-MTL_PSVR.mat
+skip: ./data/Air-Foil-Self-Noise-LS_TWSVR.mat
+skip: ./data/Air-Foil-Self-Noise-LS_SVR.mat
+save: ./data/Air-Foil-Self-Noise-PSVR.mat
+skip: ./data/Air-Foil-Self-Noise-TWSVR_Xu.mat
+Exception in Air-Foil-Self-Noise-MTL_TWSVR
+save: ./data/Air-Foil-Self-Noise-MTL_TWSVR_Xu.mat
+skip: ./data/Air-Foil-Self-Noise-MTL_LS_SVR.mat
