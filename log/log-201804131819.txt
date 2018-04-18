@@ -1,5 +1,0 @@
-save: ./data/Diabetes-MTL_TWSVR_Mei.mat
-Exception in Chwirut-MTL_TWSVR_Mei
-save: ./data/Cons-MTL_TWSVR_Mei.mat
-Exception in Pyrimidibes-MTL_TWSVR_Mei
-Exception in Machine-Cpu-MTL_TWSVR_Mei

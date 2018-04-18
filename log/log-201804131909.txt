@@ -1,4 +1,0 @@
-skip: ./data/mg-LS_TWSVR.mat
-skip: ./data/mg-PSVR.mat
-skip: ./data/mg-TWSVR_Xu.mat
-save: ./data/mg-MTL_TWSVR.mat

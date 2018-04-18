@@ -1,2 +1,0 @@
-skip: ./data/Air-Foil-Self-Noise-LS_TWSVR.mat
-skip: ./data/Air-Foil-Self-Noise-TWSVR_Xu.mat

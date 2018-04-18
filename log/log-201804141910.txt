@@ -1,9 +1,0 @@
-skip: ./data/Diabetes-MTL_TWSVR_Mei.mat
-skip: ./data/Chwirut-MTL_TWSVR_Mei.mat
-skip: ./data/Cons-MTL_TWSVR_Mei.mat
-skip: ./data/Pyrimidibes-MTL_TWSVR_Mei.mat
-skip: ./data/Machine-Cpu-MTL_TWSVR_Mei.mat
-skip: ./data/Auto-Price-MTL_TWSVR_Mei.mat
-skip: ./data/Body Fat-MTL_TWSVR_Mei.mat
-skip: ./data/housing-MTL_TWSVR_Mei.mat
-skip: ./data/Triazines-MTL_TWSVR_Mei.mat

@@ -1,7 +1,0 @@
-skip: ./data/Diabetes-LS_TWSVR.mat
-skip: ./data/Diabetes-PSVR.mat
-Exception in Diabetes-SVR
-skip: ./data/Diabetes-TWSVR.mat
-skip: ./data/Diabetes-TWSVR_Xu.mat
-skip: ./data/Diabetes-MTL_LS_SVR.mat
-skip: ./data/Diabetes-MTL_PSVR.mat

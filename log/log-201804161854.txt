@@ -1,2 +1,0 @@
-skip: ./data/Diabetes-MTL_LS_SVR.mat
-skip: ./data/Diabetes-MTL_PSVR.mat

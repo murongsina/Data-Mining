@@ -1,6 +1,0 @@
-save: ./data/Diabetes-LS_TWSVR.mat
-save: ./data/Diabetes-TWSVR_Xu.mat
-save: ./data/Diabetes-MTL_TWSVR.mat
-save: ./data/Diabetes-MTL_TWSVR_Xu.mat
-save: ./data/Diabetes-MTL_PSVR.mat
-save: ./data/Diabetes-MTL_LS_SVR.mat

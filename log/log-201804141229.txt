@@ -1,8 +1,0 @@
-Exception in Diabetes-LS_TWSVR
-Exception in Diabetes-PSVR
-save: ./data/Diabetes-LS_SVR.mat
-save: ./data/Diabetes-TWSVR.mat
-Exception in Diabetes-TWSVR_Xu
-Exception in Chwirut-LS_TWSVR
-Exception in Chwirut-PSVR
-save: ./data/Chwirut-LS_SVR.mat

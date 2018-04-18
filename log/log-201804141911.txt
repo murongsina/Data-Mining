@@ -1,3 +1,0 @@
-save: ./data/Diabetes-MTL_TWSVR_Mei.mat
-save: ./data/Chwirut-MTL_TWSVR_Mei.mat
-save: ./data/Cons-MTL_TWSVR_Mei.mat
