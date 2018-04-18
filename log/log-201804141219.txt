@@ -1,3 +1,0 @@
-save: ./data/Diabetes-LS_TWSVR.mat
-save: ./data/Diabetes-PSVR.mat
-save: ./data/Diabetes-LS_SVR.mat

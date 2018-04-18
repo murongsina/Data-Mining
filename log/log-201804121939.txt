@@ -1,6 +1,0 @@
-save: ./data/Diabetes-TWSVR_Xu.mat
-save: ./data/Diabetes-MTL_TWSVR.mat
-save: ./data/Pyrimidibes-TWSVR_Xu.mat
-save: ./data/Pyrimidibes-MTL_TWSVR.mat
-save: ./data/Cons-TWSVR_Xu.mat
-save: ./data/Cons-MTL_TWSVR.mat

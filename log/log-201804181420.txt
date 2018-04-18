@@ -1,5 +1,0 @@
-Exception in Diabetes-MTL_PSVR
-Exception in Chwirut-MTL_PSVR
-Exception in Servo-MTL_PSVR
-Exception in Cons-MTL_PSVR
-Exception in Pyrimidibes-MTL_PSVR
