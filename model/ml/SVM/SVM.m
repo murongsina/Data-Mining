@@ -17,11 +17,12 @@ function [ yTest, Time ] = SVM(xTrain, yTrain, xTest, opts)
     H = diag(yTrain)*Kernel(xTrain, xTrain, kernel)*diag(yTrain);
     H = Utils.Cond(H);
     [ Alpha ] = quadprog(H, f, [], [], [], [], lb, ub, [], []);
+    svi = Alpha > 0 & Alpha < C;
     % Í£Ö¹¼ÆÊ±
     Time = toc;
 
 %% Predict
-    yTest = sign(Kernel(xTest, xTrain, kernel)*diag(yTrain)*Alpha);
+    yTest = sign(Kernel(xTest, xTrain(svi), kernel)*diag(yTrain(svi))*Alpha(svi));
     yTest(yTest==0) = 1;
     
 end

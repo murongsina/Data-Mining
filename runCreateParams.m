@@ -30,7 +30,8 @@ IParams = {
     struct('Name', 'MTL_TWSVR', 'C1', C1, 'eps1', EPS1, 'kernel', kernel);...
     struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'kernel', kernel);...
     struct('Name', 'MTL_TWSVR_Mei', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel);...
-    struct('Name', 'MTL_TWSVR_New', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)
+    struct('Name', 'MTL_TWSVR_New', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel);
+    struct('Name', 'MTL_LS_TWSVR', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)
 };
 
 % 输出参数表信息

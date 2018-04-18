@@ -13,8 +13,8 @@ load('LabIParams.mat');
 
 % 数据集
 DataSetIndices = [3];
-ParamIndices = [1:6 9:12];
-BestParams = 2172;
+ParamIndices = [13];
+BestParams = 6000;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
