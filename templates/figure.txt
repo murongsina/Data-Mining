@@ -1,0 +1,7 @@
+This is figure of the $2.
+\begin{figure}[htbp!]
+\centering
+\includegraphics[width=0.7\textwidth]{$1}
+\caption{Illustration of the $2.}
+\label{fig_$3}
+\end{figure}

@@ -1,0 +1,2 @@
+% d3 = join(studentmat, studentpor, 'keys', {'school','sex','age','address','famsize','Pstatus','Medu','Fedu','Mjob','Fjob','reason','nursery','internet'});
+d3 = innerjoin(studentmat, studentpor, 'Keys', [1:11,20,22]);
