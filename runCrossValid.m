@@ -14,7 +14,7 @@ load('LabIParams.mat');
 % 数据集
 DataSetIndices = [3];
 ParamIndices = [13];
-BestParams = 6000;
+BestParams = 1;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
