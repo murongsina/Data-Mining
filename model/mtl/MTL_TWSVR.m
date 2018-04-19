@@ -9,6 +9,8 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     C2 = opts.C1;
     eps1 = opts.eps1;
     eps2 = opts.eps1;
+    rho = opts.rho;
+    lambda = opts.rho;
     kernel = opts.kernel;
     solver = opts.solver;
     TaskNum = length(xTrain);
@@ -35,7 +37,8 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     end
     % 二次规划的H矩阵
     AAA = Cond(A'*A)\A';
-    H = A*AAA + P;
+    Q = A*AAA;
+    H = Q + P;
     
 %% Fit
     % 求解两个二次规划
@@ -44,10 +47,10 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     lb = zeros(m, 1);
     % MTL_TWSVR1
     ub1 = e*C1;
-    Alpha = quadprog(H,g-H'*f,[],[],[],[],lb,ub1,[],solver);
+    Alpha = quadprog(Q+TaskNum/rho*P,g-H'*f,[],[],[],[],lb,ub1,[],solver);
     % MTL_TWSVR2
     ub2 = e*C2;
-    Gamma = quadprog(H,H'*g-f,[],[],[],[],lb,ub2,[],solver);
+    Gamma = quadprog(Q+TaskNum/lambda*P,H'*g-f,[],[],[],[],lb,ub2,[],solver);
     
 %% GetWeight
     W = cell(TaskNum, 1);
@@ -55,8 +58,8 @@ function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
     V = AAA*(g + Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = AAAt{t}*(f(Tt,:) - Alpha(Tt,:));
-        Vt = AAAt{t}*(g(Tt,:) + Gamma(Tt,:));
+        Ut = AAAt{t}*(f(Tt,:) - TaskNum/rho*Alpha(Tt,:));
+        Vt = AAAt{t}*(g(Tt,:) + TaskNum/lambda*Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;
