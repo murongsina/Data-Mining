@@ -42,19 +42,14 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
 %% Fit
     % 求解两个线性方程
     I = eye(size(H));
-%     e = ones(size(Y));
     % MTL-LS-TWSVR1
-%     H = Q + P - I;
-%     R1 = H*Y - eps1*e;
     L1 = Q + TaskNum/rho*P - 1/C1*I;
     R1 = g - H*f;
-    Alpha = Cond(L1)\R1;
+    Alpha = L1\R1;
     % MTL-LS-TWSVR2
-%     H = -H;
-%     R2 = H*Y - eps2*e;
     L2 = 1/C2*I - Q - TaskNum/lambda*P;
     R2 = f - H*g;
-    Gamma = Cond(L2)\R2;
+    Gamma = L2\R2;
     
 %% GetWeight
     W = cell(TaskNum, 1);
