@@ -57,8 +57,8 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
     V = AAA*(Y - Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = AAAt{t}*(Y(Tt,:) + Alpha(Tt,:));
-        Vt = AAAt{t}*(Y(Tt,:) - Gamma(Tt,:));
+        Ut = AAAt{t}*(Y(Tt,:) + TaskNum/rho*Alpha(Tt,:));
+        Vt = AAAt{t}*(Y(Tt,:) - TaskNum/lambda*Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;
