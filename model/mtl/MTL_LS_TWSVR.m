@@ -46,24 +46,24 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
     % MTL-LS-TWSVR1
 %     H = Q + P - I;
 %     R1 = H*Y - eps1*e;
-    R1 = H*f - g;
-    L1 = (Q + TaskNum/rho*P + 1/C1*I);
-    Alpha = L1\R1;
+    L1 = Q + TaskNum/rho*P - 1/C1*I;
+    R1 = g - H*f;
+    Alpha = Cond(L1)\R1;
     % MTL-LS-TWSVR2
 %     H = -H;
 %     R2 = H*Y - eps2*e;
-    R2 = H*g - f;
-    L2 = (Q + TaskNum/lambda*P + 1/C2*I);
-    Gamma = L2\R2;
+    L2 = 1/C2*I - Q - TaskNum/lambda*P;
+    R2 = f - H*g;
+    Gamma = Cond(L2)\R2;
     
 %% GetWeight
     W = cell(TaskNum, 1);
-    U = AAA*(Y - Alpha);
-    V = AAA*(Y + Gamma);
+    U = AAA*(Y + Alpha);
+    V = AAA*(Y - Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = AAAt{t}*(Y(Tt,:) - Alpha(Tt,:));
-        Vt = AAAt{t}*(Y(Tt,:) + Gamma(Tt,:));
+        Ut = AAAt{t}*(Y(Tt,:) + Alpha(Tt,:));
+        Vt = AAAt{t}*(Y(Tt,:) - Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;
