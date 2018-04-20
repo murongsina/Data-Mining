@@ -16,7 +16,8 @@ GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
 
 % 核函数
-kernel = struct('kernel', 'rbf', 'p1', P1);
+% kernel = struct('kernel', 'rbf', 'p1', P1);
+kernel = struct('kernel', 'linear');
 % 任务参数
 IParams = {
     struct('Name', 'SVR', 'C', C, 'eps', EPS1, 'kernel', kernel);...
@@ -50,4 +51,4 @@ end
 [~, IDX] = sort(nParams);
 IParams = IParams(IDX);
 % 保存参数表
-save('./params/LabIParams.mat', 'IParams');
+save('./params/LabIParams-Linear.mat', 'IParams');
