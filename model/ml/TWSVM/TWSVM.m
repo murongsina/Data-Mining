@@ -47,7 +47,7 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     b2 = z2(end);
     % Í£Ö¹¼ÆÊ±
     Time = toc;
-            
+    
 %% Predict
     K = Kernel(xTest, C, kernel);
     D1 = abs(K*u1+b1);
