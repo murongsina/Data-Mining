@@ -9,11 +9,11 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams.mat');
+load('LabIParams-Linear.mat');
 
 % 数据集
-DataSetIndices = [ 11:18 ];
-ParamIndices = [ 7 9 10 13 ];
+DataSetIndices = [ 14 15 16 17 18 ];
+ParamIndices = [ 1:14 ];
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
