@@ -1,6 +1,3 @@
-1. LabIParams
-% 核函数参数
-P1 = 2.^(-3:1:8)';
 % 分类器网格搜索参数
 C = 2.^(-3:1:8)';
 C1 = 2.^(-3:1:8)';
@@ -13,6 +10,9 @@ RHO = 2.^(-3:1:8)';
 LAMBDA = 2.^(-3:1:8)';
 GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
+1. LabIParams
+% 核函数参数
+P1 = 2.^(-3:1:8)';
 % 计算时间
 LS_TWSVR_Huang:48 params 0.01.
 PSVR:144 params 0.04.
@@ -28,3 +28,19 @@ MTL_TWSVR:6912 params 0.91.
 MTL_TWSVR_Xu:6912 params 0.88.
 MTL_LS_TWSVR:6912 params 0.94.
 MTL_LS_TWSVR_Xu:6912 params 0.81.
+2. LabIParams-Linear
+% 计算时间
+LS_TWSVR_Huang:4 params 0.00.
+PSVR:12 params 0.00.
+LS_SVR:12 params 0.00.
+SVR:48 params 0.01.
+TWSVR:48 params 0.01.
+TWSVR_Xu:48 params 0.01.
+LS_TWSVR_Mei:48 params 0.01.
+LS_TWSVR_Xu:48 params 0.01.
+MTL_LS_SVR:144 params 0.02.
+MTL_PSVR:144 params 0.02.
+MTL_TWSVR:576 params 0.09.
+MTL_TWSVR_Xu:576 params 0.08.
+MTL_LS_TWSVR:576 params 0.06.
+MTL_LS_TWSVR_Xu:576 params 0.06.

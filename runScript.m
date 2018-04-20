@@ -2,7 +2,7 @@
 addpath(genpath('./params'));
 
 % 初始化参数表
-load('LabIParams.mat');
+load('LabIParams-Linear.mat');
 nParams = length(IParams);
 for i = 1 : nParams
     nParams = GetParamsCount(IParams{i});

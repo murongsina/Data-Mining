@@ -1,6 +1,6 @@
-function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams)
-%STATISTIC 此处显示有关此函数的摘要
-% 统计单任务数据集
+function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, Mean)
+%LABSTATISTIC 此处显示有关此函数的摘要
+% 统计多任务实验数据
 %   此处显示详细说明
 
     HasStat = 0;
@@ -17,6 +17,10 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams)
                 ME = MException('LabStatistics', 'TaskNum miss match in %s\n', Method.Name);
                 throw(ME);
             else
+                % 取多任务平均值
+                if Mean
+                    CVStat = mean(CVStat, 2);
+                end
                 % 网格搜索结果
                 [ Stat, Time ] = GSStatistics(DataSet.TaskNum, CVStat, CVTime);
                 % 保存数据
