@@ -71,7 +71,9 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
         KAt = [Kernel(At, C, kernel) et];
         D1 = KAt * U{t};
         D2 = KAt * V{t};
-        yTest{t} = sign(D2-D1);
+        yt = sign(D2-D1);
+        yt(yt==0) = 1;
+        yTest{t} = yt;
     end
     
 end

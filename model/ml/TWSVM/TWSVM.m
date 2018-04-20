@@ -1,6 +1,6 @@
-function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
 %KTWSVM 此处显示有关此类的摘要
-% Kernel Twin Support Vector Machine
+% Twin Support Vector Machine
 %   此处显示详细说明
     
 %% Parse opts
