@@ -1,6 +1,6 @@
-function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
 %KTWSVM 此处显示有关此类的摘要
-% Kernel Twin Support Vector Machine
+% Twin Support Vector Machine
 %   此处显示详细说明
     
 %% Parse opts
@@ -47,7 +47,7 @@ function [ yTest, Time ] = KTWSVM(xTrain, yTrain, xTest, opts)
     b2 = z2(end);
     % 停止计时
     Time = toc;
-            
+    
 %% Predict
     K = Kernel(xTest, C, kernel);
     D1 = abs(K*u1+b1);

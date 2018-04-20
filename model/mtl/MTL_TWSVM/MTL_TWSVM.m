@@ -1,4 +1,4 @@
-function [ W, funcVal ] = MTL_TWSVC( X, Y, opts )
+function [ W, funcVal ] = MTL_TWSVM( X, Y, opts )
 %MTL_TWSVC 此处显示有关此函数的摘要
 %   此处显示详细说明
 
