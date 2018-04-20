@@ -1,4 +1,4 @@
-function [ U, V ] = MTL_AGO_TWSVC( X, Y, opts )
+function [ U, V ] = MTL_TWSVM_AGO( X, Y, opts )
 %MTL_AGO_TWSVC 此处显示有关此函数的摘要
 %   此处显示详细说明
 

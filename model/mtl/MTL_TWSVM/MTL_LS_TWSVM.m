@@ -50,10 +50,10 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
     Gamma = (R + TaskNum/lambda*S + 1/C2*I2)\e2;
 
 %% GetWeight
-    U = cell(TaskNum, 1);
-    V = cell(TaskNum, 1);
     u = -AAB*Alpha;
     v = BBA*Gamma;
+    U = cell(TaskNum, 1);
+    V = cell(TaskNum, 1);
     for t = 1 : TaskNum
         Tt = T==t;
         U{t} = u-TaskNum/rho*AABt{t}*Alpha(Tt,:);
