@@ -1,4 +1,4 @@
-function [ yTest, Time, w ] = PSVR( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = PSVR( xTrain, yTrain, xTest, opts )
 %PSVR 此处显示有关此函数的摘要
 % Proximal Support Vector Regression
 %   此处显示详细说明
@@ -9,13 +9,13 @@ function [ yTest, Time, w ] = PSVR( xTrain, yTrain, xTest, opts )
     
 %% Fit
     tic;
-    A = xTrain;
+    X = xTrain;
     Y = yTrain;
-    C = A;
-    A = Kernel(A, C, kernel);
+    C = X;
+    Z = Kernel(X, C, kernel);
     e = ones(size(Y));
-    alpha = Cond(A*A'+1+1/nu)\Y;
-    w = A'*alpha;
+    alpha = Cond(Z*Z'+1+1/nu*speye(size(Z)))\Y;
+    w = Z'*alpha;
     xi = alpha/nu;
     gamma = -e'*alpha;
     Time = toc;

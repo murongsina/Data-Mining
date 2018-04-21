@@ -1,4 +1,4 @@
-function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
 %MTL_LS_TWSVR 此处显示有关此函数的摘要
 % Multi-Task Least Square Support Vector Machine
 %   此处显示详细说明

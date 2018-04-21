@@ -1,12 +1,13 @@
 function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
-%KTWSVM 此处显示有关此类的摘要
+%TWSVM 此处显示有关此类的摘要
 % Twin Support Vector Machine
 %   此处显示详细说明
     
 %% Parse opts
     C1 = opts.C1;
-    C2 = opts.C2;
+    C2 = opts.C1;
     kernel = opts.kernel;
+    solver = opts.solver;
 
 %% Fit
     % 计时
@@ -19,30 +20,22 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
     n = m1 + m2;
     e1 = ones(m1, 1);
     e2 = ones(m2, 1);
-    % 最优化参数
-    options = optimset('Display', 'notify');
     % 构造核矩阵
     C = [A; B];
     S = [Kernel(A, C, kernel) e1];
     R = [Kernel(B, C, kernel) e2];
-    S2 = S'*S;
-    R2 = R'*R;
+    S2R = Cond(S'*S)\R';
+    R2S = Cond(R'*R)\S';
     % KDTWSVM1
-%     S2 = Utils.Cond(S2);
-    H1 = R/S2*R';
-    lb1 = zeros(m2, 1);
-    ub1 = ones(m2, 1)*C1;
-    Alpha = quadprog(H1,-e2,[],[],[],[],lb1,ub1,[],options);
-    z1 = -S2\R'*Alpha;
+    H1 = R*S2R;
+    Alpha = quadprog(H1,-e2,[],[],[],[],zeros(m2, 1),e2*C1,[],solver);
+    z1 = -S2R*Alpha;
     u1 = z1(1:n);
     b1 = z1(end);
     % KDTWSVM2
-%     R2 = Utils.Cond(R2);
-    H2 = S/R2*S';
-    lb2 = zeros(m1, 1);
-    ub2 = ones(m1, 1)*C2;
-    Mu = quadprog(H2,-e1,[],[],[],[],lb2,ub2,[],options);
-    z2 = -R2\S'*Mu;
+    H2 = S*R2S;
+    Mu = quadprog(H2,-e1,[],[],[],[],zeros(m1, 1),e1*C2,[],solver);
+    z2 = R2S*Mu;
     u2 = z2(1:n);
     b2 = z2(end);
     % 停止计时

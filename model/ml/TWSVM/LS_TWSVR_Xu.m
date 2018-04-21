@@ -1,4 +1,4 @@
-function [ yTest, Time, w ] = LS_TWSVR_Xu(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = LS_TWSVR_Xu(xTrain, yTrain, xTest, opts)
 %LS_TWSVR_XU 此处显示有关此函数的摘要
 % Ref:K-nearest neighbor-based weighted twin support vector regression
 %   此处显示详细说明
@@ -21,12 +21,8 @@ function [ yTest, Time, w ] = LS_TWSVR_Xu(xTrain, yTrain, xTest, opts)
     Q = A*AAA;
     I = eye(size(Q));
     E = ones(size(Y));
-    L1 = (Q + 1/C1*I);
-    R1 = (Q - I)*Y - eps1*E;
-    Alpha = L1\R1;
-    L2 = (Q + 1/C2*I);
-    R2 = (I - Q)*Y - eps2*E;
-    Gamma = L2\R2;
+    Alpha = Cond(Q + 1/C1*I)\((Q - I)*Y - eps1*E);
+    Gamma = Cond((Q + 1/C2*I))\((I - Q)*Y - eps2*E);
     u = AAA*(Y - Alpha);
     v = AAA*(Y + Gamma);
     w = (u + v)/2;

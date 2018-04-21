@@ -8,22 +8,24 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabReg.mat');
-load('LabIParams-Linear.mat');
+load('LabMTLReg.mat');
+load('LabRParams.mat');
+DataSets = LabMTLReg;
+IParams = RParams;
 
 % 数据集
-DataSetIndices = [17];
+DataSetIndices = [1];
 ParamIndices = [1:14];
 BestParams = 1;
 
 % 实验设置
-solver = []; % optimoptions('fmincon', 'Display', 'off');
+solver = [];
 opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 
 % 实验开始
 fprintf('runCrossValid\n');
 for i = DataSetIndices
-    DataSet = LabReg(i);
+    DataSet = DataSets(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);

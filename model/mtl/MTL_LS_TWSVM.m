@@ -1,4 +1,4 @@
-function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
 %MTL_LS_TWSVM 此处显示有关此函数的摘要
 % Multi-Task Least Square Support Vector Machine
 %   此处显示详细说明
@@ -15,12 +15,18 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
     tic;
     % 得到所有的样本和标签以及任务编号
     [ C, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
-    [m, ~] = size(C);
-    e = ones(m, 1);
-    A = C(Y==1);
-    B = C(Y==-1);
-    A = [Kernel(A, C, kernel) e];
-    B = [Kernel(B, C, kernel) e];
+    % 分割正负类点
+    Yp = Y==1;
+    Yn = Y==-1;
+    A = C(Yp,:);
+    B = C(Yn,:);
+    [m1, ~] = size(A);
+    [m2, ~] = size(B);
+    % 核函数
+    e1 = ones(m1, 1);
+    e2 = ones(m2, 1);
+    A = [Kernel(A, C, kernel) e1];
+    B = [Kernel(B, C, kernel) e2];
     % 得到Q矩阵
     AAB = Cond(A'*A)\B';
     BBA = Cond(B'*B)\A';
@@ -31,8 +37,8 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
     AABt = cell(TaskNum, 1);
     BBAt = cell(TaskNum, 1);
     for t = 1 : TaskNum
-        At = A(T==t,:);
-        Bt = B(T==t,:);
+        At = A(T(Yp)==t,:);
+        Bt = B(T(Yn)==t,:);
         AABt{t} = Cond(At'*At)\(Bt');
         BBAt{t} = Cond(Bt'*Bt)\(At');
         P = blkdiag(P, Bt*AABt{t});
@@ -43,13 +49,9 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
     
 %% Fit
     % MTL-LS-TWSVM1
-    e1 = ones(length(B), 1);
-    I1 = eye(size(Q));
-    Alpha = (Q + TaskNum/rho*P + 1/C1*I1)\e1;
+    Alpha = Cond(Q + TaskNum/rho*P + 1/C1*eye(size(Q)))\e2;
     % MTL-LS-TWSVM2
-    e2 = ones(length(A), 1);
-    I2 = eye(size(Q));    
-    Gamma = (R + TaskNum/lambda*S + 1/C2*I2)\e2;
+    Gamma = Cond(R + TaskNum/lambda*S + 1/C2*eye(size(R)))\e1;
 
 %% GetWeight
     u = -AAB*Alpha;
@@ -57,9 +59,8 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
     U = cell(TaskNum, 1);
     V = cell(TaskNum, 1);
     for t = 1 : TaskNum
-        Tt = T==t;
-        U{t} = u-TaskNum/rho*AABt{t}*Alpha(Tt,:);
-        V{t} = v+TaskNum/lambda*BBAt{t}*Gamma(Tt,:);
+        U{t} = u-TaskNum/rho*AABt{t}*Alpha(T(Yn)==t,:);
+        V{t} = v+TaskNum/lambda*BBAt{t}*Gamma(T(Yp)==t,:);
     end
     Time = toc;
     

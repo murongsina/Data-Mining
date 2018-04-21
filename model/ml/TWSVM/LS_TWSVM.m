@@ -5,7 +5,7 @@ function [ yTest, Time ] = LS_TWSVM(xTrain, yTrain, xTest, opts)
     
 %% Parse opts
     C1 = opts.C1;
-    C2 = opts.C2;
+    C2 = opts.C1;
     kernel = opts.kernel;
     
 %% Fit
@@ -26,11 +26,11 @@ function [ yTest, Time ] = LS_TWSVM(xTrain, yTrain, xTest, opts)
     E2 = E'*E;
     F2 = F'*F;
     % LS-TWSVM1
-    u1 = -(F2+1/C1*E2)\F'*e2;
+    u1 = -Cond(F2+1/C1*E2)\F'*e2;
     w1 = u1(1:n);
     b1 = u1(end);
     % LS-TWSVM2
-    u2 = +(E2+1/C2*F2)\E'*e1;
+    u2 = Cond(E2+1/C2*F2)\E'*e1;
     w2 = u2(1:n);
     b2 = u2(end);
     % Í£Ö¹¼ÆÊ±

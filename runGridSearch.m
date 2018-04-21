@@ -16,7 +16,7 @@ DataSetIndices = [ 12:17 ];
 ParamIndices = [ 1:7 9 10 13 ];
 
 %  µ—È…Ë÷√
-solver = []; % optimoptions('fmincon', 'Display', 'off');
+solver = [];
 opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 

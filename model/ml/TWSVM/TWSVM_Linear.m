@@ -1,4 +1,4 @@
-function [ yTest, Time ] = TWSVM(xTrain, yTrain, opts)
+function [ yTest, Time ] = TWSVM_Linear(xTrain, yTrain, xTest, opts)
 %TWSVM 此处显示有关此类的摘要
 % Twin Support Vector Machine
 %   此处显示详细说明
@@ -21,24 +21,22 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, opts)
     % 构造J,Q矩阵
     J = [A e1];
     Q = [B e2];
-    J2 = (J'*J);
-    Q2 = (Q'*Q);
+    J2Q = Cond(J'*J)\Q';
+    Q2J = Cond(Q'*Q)\J';
     % DTWSVM1
     lb1 = zeros(m2,1);
     ub1 = C1*ones(m2,1);
-    H1 = Q/J2*Q';
-    H1 = Utils.Cond(H1);
+    H1 = Q*J2Q;
     Alpha = quadprog(H1, -e2, [], [], [], [], lb1, ub1);
-    u = -J2\Q'*Alpha;
+    u = -J2Q*Alpha;
     w1 = u(1:n);
     b1 = u(end);
     % DTWSVM2
     lb2 = zeros(m1, 1);
     ub2 = C2*ones(m1, 1);
-    H2 = J/Q2*J';
-    H2 = Utils.Cond(H2);
+    H2 = J*Q2J;
     Beta = quadprog(H2, -e1, [], [], [], [], lb2, ub2);
-    v = -Q2\J'*Beta; 
+    v = -Q2J*Beta; 
     w2 = v(1:n, :);
     b2 = v(end);
     % 停止计时
