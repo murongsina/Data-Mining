@@ -1,6 +1,6 @@
-function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
+function [ yTest, Time, W ] = MTL_PSVM( xTrain, yTrain, xTest, opts )
 %MTL_PSVR 此处显示有关此函数的摘要
-% Multi-task proximal support vector regression
+% Multi-task proximal support vector machine
 % ref:Multi-task proximal support vector machine
 %   此处显示详细说明
 
@@ -19,26 +19,30 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
     
 %% Fit
     e = cell(TaskNum, 1);
+    D = diag(Y);
     P = [];
     for t = 1 : TaskNum
         Tt = T==t;
         At = A(Tt,:);
-        et = ones(size(Y(Tt,:)));
-        Pt = At*At'+et*et'+1/(rate*nu)*diag(et);
+        Dt = diag(Y(Tt));
+        Et = ones(size(Y(Tt,:)));
+        Pt = rate*Dt*(At*At'+Et*Et')*Dt+1/nu*eye(Et);
         P = blkdiag(P, Pt);
-        e{t} = et;
+        e{t} = Et;
     end
-    Alpha = Cond(A'*A+rate*P)\Y;
+    E = ones(size(Y));
+    Alpha = Cond(D*(A'*A)*D+P)\E;
     
 %% Get W
     W = cell(TaskNum, 1);
-    W0 = A'*Alpha;
+    W0 = A'*D*Alpha;
     for t = 1 : TaskNum
         Tt = T==t;
-        A_t = A(Tt,:);
+        At = A(Tt,:);
+        Dt = diag(Y(Tt));
         Alpha_t = Alpha(Tt,:);
-        Wt = W0 + rate*A_t'*Alpha_t;
-        Gamma_t = -rate*Alpha_t'*e{t};
+        Wt = W0 + rate*At'*Dt*Alpha_t;
+        Gamma_t = -rate*e{t}'*Dt*Alpha_t;
         W{t} = [Wt; Gamma_t];
     end
     Time = toc;
@@ -50,7 +54,9 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
         At = xTest{t};
         [m, ~] = size(At);
         KAt = [Kernel(At, C, kernel) ones(m, 1)];
-        yTest{t} = KAt * W{t};
+        yt = sign(KAt * W{t});
+        yt(yt==0) = 1;
+        yTest{t} = yt;
     end
     
 end
