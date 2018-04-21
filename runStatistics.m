@@ -8,7 +8,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams-Linear.mat');
+load('LabIParams.mat');
 
 % 实验数据集
 LabDataSets = {LabReg};
