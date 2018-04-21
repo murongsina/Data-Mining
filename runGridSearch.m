@@ -8,12 +8,14 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabReg.mat');
-load('LabIParams-Linear.mat');
+load('LabMTLClf.mat');
+load('LabCParams.mat');
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 12:17 ];
-ParamIndices = [ 1:7 9 10 13 ];
+DataSetIndices = [1:3];
+ParamIndices = [1 3:9];
 
 % 实验设置
 solver = [];
@@ -23,7 +25,7 @@ fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
-    DataSet = LabReg(i);
+    DataSet = DataSets(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
