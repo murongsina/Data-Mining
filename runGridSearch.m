@@ -9,14 +9,14 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams-Linear.mat');
+load('LabIParams.mat');
 
 % 数据集
 DataSetIndices = [ 14 15 16 17 18 ];
 ParamIndices = [ 1:14 ];
 
 % 实验设置
-solver = []; % optimoptions('fmincon', 'Display', 'off');
+solver = [];
 opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
