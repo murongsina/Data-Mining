@@ -25,9 +25,9 @@ opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 % 实验开始
 fprintf('runCrossValid\n');
 for i = DataSetIndices
-    DataSet = LabMTLReg(i);
+    DataSet = DataSets(i);
     fprintf('DataSet: %s\n', DataSet.Name);
-    [ X, Y, ValInd ] = GetClfMTL(DataSet);
+    [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
     for j = ParamIndices
         Method = IParams{j};
