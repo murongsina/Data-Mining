@@ -28,6 +28,7 @@ function [ yTest, Time, W ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
         P = blkdiag(P, Pt);
         e{t} = et;
     end
+    P = sparse(P);
     Alpha = Cond(A'*A+rate*P)\Y;
     
 %% Get W

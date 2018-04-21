@@ -1,6 +1,7 @@
-function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
-%MTL_LS_TWSVR 此处显示有关此函数的摘要
-% Multi-Task Least Square Support Vector Machine
+function [ yTest, Time, W ] = MTL_TWSVR(xTrain, yTrain, xTest, opts)
+%MTL_TWSVR 此处显示有关此类的摘要
+% Multi-Task Twin Support Vector Machine
+% MTL Peng's model
 %   此处显示详细说明
 
 %% Parse opts
@@ -11,6 +12,7 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
     rho = opts.rho;
     lambda = opts.rho;
     kernel = opts.kernel;
+    solver = opts.solver;
     TaskNum = length(xTrain);
     
 %% Prepare
@@ -24,9 +26,6 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
     % 得到f和g
     f = Y + eps2;
     g = Y - eps1;
-    % 得到Q矩阵
-    AAA = Cond(A'*A)\A';
-    Q = A*AAA;
     % 得到P矩阵
     P = [];
     AAAt = cell(TaskNum, 1);
@@ -36,29 +35,32 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
         Pt = At*AAAt{t};
         P = blkdiag(P, Pt);
     end
-    % 得到H矩阵
+    P = sparse(P);
+    % 二次规划的H矩阵
+    AAA = Cond(A'*A)\A';
+    Q = A*AAA;
     H = Q + P;
     
 %% Fit
-    % 求解两个线性方程
-    I = eye(size(H));
-    % MTL-LS-TWSVR1
-    L1 = Q + TaskNum/rho*P - 1/C1*I;
-    R1 = g - H*f;
-    Alpha = L1\R1;
-    % MTL-LS-TWSVR2
-    L2 = 1/C2*I - Q - TaskNum/lambda*P;
-    R2 = f - H*g;
-    Gamma = L2\R2;
+    % 求解两个二次规划
+    [m, ~] = size(T);
+    e = ones(m, 1);
+    lb = zeros(m, 1);
+    % MTL_TWSVR1
+    ub1 = e*C1;
+    Alpha = quadprog(Q+TaskNum/rho*P,g-H'*f,[],[],[],[],lb,ub1,[],solver);
+    % MTL_TWSVR2
+    ub2 = e*C2;
+    Gamma = quadprog(Q+TaskNum/lambda*P,H'*g-f,[],[],[],[],lb,ub2,[],solver);
     
 %% GetWeight
     W = cell(TaskNum, 1);
-    U = AAA*(Y + Alpha);
-    V = AAA*(Y - Gamma);
+    U = AAA*(f - Alpha);
+    V = AAA*(g + Gamma);
     for t = 1 : TaskNum
         Tt = T==t;
-        Ut = AAAt{t}*(Y(Tt,:) + TaskNum/rho*Alpha(Tt,:));
-        Vt = AAAt{t}*(Y(Tt,:) - TaskNum/lambda*Gamma(Tt,:));
+        Ut = AAAt{t}*(f(Tt,:) - TaskNum/rho*Alpha(Tt,:));
+        Vt = AAAt{t}*(g(Tt,:) + TaskNum/lambda*Gamma(Tt,:));
         Uts = U + Ut;
         Vts = V + Vt;
         W{t} = (Uts + Vts)/2;
@@ -75,4 +77,5 @@ function [ yTest, Time, W ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
         KAt = [Kernel(At, C, kernel) et];
         yTest{t} = KAt * W{t};
     end
+    
 end

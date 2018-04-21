@@ -1,6 +1,6 @@
-function  [ yTest, Time, W ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
-%MTL_LS_SVR 此处显示有关此函数的摘要
-% Multi-task least-squares support vector regression
+function  [ yTest, Time, W ] = MTL_LS_SVM(xTrain, yTrain, xTest, opts)
+%MTL_LS_SVM 此处显示有关此函数的摘要
+% Multi-task least-squares support vector machines
 % ref:Multi-task least-squares support vector machines
 %   此处显示详细说明
 
@@ -18,18 +18,21 @@ function  [ yTest, Time, W ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     
 %% Fit
     B = [];
-    E = [];
+    A = [];
     for t = 1 : TaskNum
         Tt = T==t;
         Zt = Z(Tt,:);
         B = blkdiag(B, Zt*Zt');
-        E = blkdiag(E, ones(sum(Tt),1));
+        A = blkdiag(A, Y(Tt,:));
     end
+    B = sparse(B);
+    A = sparse(A);
     o = zeros(TaskNum, 1);
     O = diag(o);
-    I = diag(ones(size(Y)));
+    E = ones(size(Y));
+    I = diag(E);
     H = Z*Z' + 1/gamma*I + TaskNum/lambda*B;
-    bAlpha = [O E';E H]\[o; Y];
+    bAlpha = [O A';A H]\[o; E];
     D = bAlpha(1:TaskNum,:);
     Alpha = bAlpha(TaskNum+1:end,:);
     
@@ -47,7 +50,9 @@ function  [ yTest, Time, W ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
     yTest = cell(TaskNum, 1);
     for t = 1 : TaskNum
         KAt = Kernel(xTest{t}, C, kernel);
-        yTest{t} = KAt * W{t} + D(t);
+        yt = sign(KAt * W{t} + D(t));
+        yt(yt==0) = 1;
+        yTest{t} = yt;
     end
     
 end

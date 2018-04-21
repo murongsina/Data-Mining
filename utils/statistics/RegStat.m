@@ -1,5 +1,5 @@
-function [ MAE, RMSE, SSET, SSRT ] = Statistics(y, yTest)
-%STATISTICS 此处显示有关此函数的摘要
+function [ Stat ] = RegStat(y, yTest)
+%REGSTAT 此处显示有关此函数的摘要
 % 统计数据
 %   此处显示详细说明
 
@@ -12,4 +12,5 @@ function [ MAE, RMSE, SSET, SSRT ] = Statistics(y, yTest)
     SSR = sum((y-Y).^2);
     SSET = SSE/SST;
     SSRT = SSR/SST;
+    Stat = [ MAE, RMSE, SSET, SSRT ];
 end

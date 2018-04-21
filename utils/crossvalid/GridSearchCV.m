@@ -5,7 +5,7 @@ function [ CVStat, CVTime ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfo
 
     solver = opts.solver;
     nParams = GetParamsCount(IParams);
-    CVStat = zeros(nParams, 8, TaskNum);
+    CVStat = zeros(nParams, 2*opts.IndexCount, TaskNum);
     CVTime = zeros(nParams, 2);
     
     fprintf('GridSearchCV: %d Params\n', nParams);
@@ -13,7 +13,7 @@ function [ CVStat, CVTime ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfo
         fprintf('GridSearchCV: %d\n', i);
         Params = GetParams(IParams, i);
         Params.solver = solver;
-        [CVStat(i,:,:), CVTime(i,:)]= CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params);
+        [CVStat(i,:,:), CVTime(i,:)]= CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params, opts);
     end
     
 end

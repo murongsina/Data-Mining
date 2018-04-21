@@ -39,6 +39,8 @@ function [ yTest, Time ] = MTL_TWSVM_Xie( xTrain, yTrain, xTest, opts )
         P = blkdiag(P, Ft*EEFt{t});
         S = blkdiag(S, Et*FFEt{t});
     end
+    P = sparse(P);
+    S = sparse(S);
 
 %% Fit
     % 求解两个二次规划

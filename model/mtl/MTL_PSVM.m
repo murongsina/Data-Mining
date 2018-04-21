@@ -31,6 +31,7 @@ function [ yTest, Time, W ] = MTL_PSVM( xTrain, yTrain, xTest, opts )
         e{t} = Et;
     end
     E = ones(size(Y));
+    P = sparse(P);
     Alpha = Cond(D*(A'*A)*D+P)\E;
     
 %% Get W

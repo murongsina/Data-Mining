@@ -38,6 +38,8 @@ function [ yTest, Time, U, V ] = MTL_LS_TWSVM(xTrain, yTrain, xTest, opts)
         P = blkdiag(P, Bt*AABt{t});
         S = blkdiag(S, At*BBAt{t});
     end
+    P = sparse(P);
+    S = sparse(S);
     
 %% Fit
     % MTL-LS-TWSVM1

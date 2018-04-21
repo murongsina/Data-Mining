@@ -17,7 +17,7 @@ ParamIndices = [ 1:14 ];
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
-opts = struct('solver', solver);
+opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
