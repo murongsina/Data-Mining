@@ -12,13 +12,13 @@ load('LabReg.mat');
 load('LabIParams-Linear.mat');
 
 % 数据集
-DataSetIndices = [15];
-ParamIndices = [5 7 9 13 14];
+DataSetIndices = [17];
+ParamIndices = [1:14];
 BestParams = 1;
 
 % 实验设置
 solver = []; % optimoptions('fmincon', 'Display', 'off');
-opts = struct('solver', solver);
+opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 
 % 实验开始
 fprintf('runCrossValid\n');
@@ -34,7 +34,7 @@ for i = DataSetIndices
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
-            CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params);
+            CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params, opts);
             save(StatPath, 'CVStat');
             fprintf('save: %s\n', StatPath);
         catch Exception
