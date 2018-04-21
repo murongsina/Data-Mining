@@ -23,7 +23,7 @@ for i = 1 : m
         StatPath = [Path, './statistics/LabStat-', DataSet.Name, '.mat'];
         if exist(StatPath, 'file') == 2
             load(StatPath);
-            SaveFigures(Path, DataSet, LabStat);
+            SaveFigures(Path, DataSet, LabStat, LabTime);
         end
     end
 end
