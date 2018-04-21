@@ -1,4 +1,4 @@
-function [ yTest, Time, W ] = MTL_LS_TWSVR_Xu( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = MTL_LS_TWSVR_Xu( xTrain, yTrain, xTest, opts )
 %MTL_LS_TWSVR_Xu 此处显示有关此函数的摘要
 % Ref:K-nearest neighbor-based weighted twin support vector regression
 %   此处显示详细说明

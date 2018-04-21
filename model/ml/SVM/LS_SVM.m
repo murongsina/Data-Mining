@@ -1,4 +1,4 @@
-function [ yTest, Time, w ] = LS_SVM( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = LS_SVM( xTrain, yTrain, xTest, opts )
 %LS_SVR 此处显示有关此函数的摘要
 % Least Square Support Vector Machine
 %   此处显示详细说明
@@ -21,8 +21,8 @@ function [ yTest, Time, w ] = LS_SVM( xTrain, yTrain, xTest, opts )
     Time = toc;
     
 %% Predict
-    e = ones(length(xTest));
-    yTest = sign([Kernel(xTest, X, kernel) e]*w);
+    [m, ~] = size(xTest);
+    yTest = sign([Kernel(xTest, X, kernel) ones(m, 1)]*w);
     
 end
 

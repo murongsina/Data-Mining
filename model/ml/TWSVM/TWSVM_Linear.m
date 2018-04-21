@@ -1,4 +1,4 @@
-function [ yTest, Time ] = TWSVM(xTrain, yTrain, opts)
+function [ yTest, Time ] = TWSVM_Linear(xTrain, yTrain, xTest, opts)
 %TWSVM 此处显示有关此类的摘要
 % Twin Support Vector Machine
 %   此处显示详细说明

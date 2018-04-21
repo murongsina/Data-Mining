@@ -1,4 +1,4 @@
-function [ yTest ] = MTL_SVM( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = MTL_SVM( xTrain, yTrain, xTest, opts )
 %MTL_SVM 此处显示有关此函数的摘要
 %   此处显示详细说明
 
