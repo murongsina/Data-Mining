@@ -26,7 +26,7 @@ function [ yTest, Time ] = MTL_PSVM( xTrain, yTrain, xTest, opts )
         At = A(Tt,:);
         Dt = diag(Y(Tt));
         Et = ones(size(Y(Tt,:)));
-        Pt = rate*Dt*(At*At'+Et*Et')*Dt+1/nu*eye(Et);
+        Pt = rate*Dt*(At*At'+Et*Et')*Dt+1/nu*diag(Et);
         P = blkdiag(P, Pt);
         e{t} = Et;
     end

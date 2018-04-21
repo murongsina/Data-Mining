@@ -5,8 +5,9 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
     
 %% Parse opts
     C1 = opts.C1;
-    C2 = opts.C2;
+    C2 = opts.C1;
     kernel = opts.kernel;
+    solver = opts.solver;
 
 %% Fit
     % 计时
@@ -19,8 +20,6 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
     n = m1 + m2;
     e1 = ones(m1, 1);
     e2 = ones(m2, 1);
-    % 最优化参数
-    options = optimset('Display', 'notify');
     % 构造核矩阵
     C = [A; B];
     S = [Kernel(A, C, kernel) e1];
@@ -29,17 +28,13 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
     R2S = Cond(R'*R)\S';
     % KDTWSVM1
     H1 = R*S2R;
-    lb1 = zeros(m2, 1);
-    ub1 = ones(m2, 1)*C1;
-    Alpha = quadprog(H1,-e2,[],[],[],[],lb1,ub1,[],options);
+    Alpha = quadprog(H1,-e2,[],[],[],[],zeros(m2, 1),e2*C1,[],solver);
     z1 = -S2R*Alpha;
     u1 = z1(1:n);
     b1 = z1(end);
     % KDTWSVM2
     H2 = S*R2S;
-    lb2 = zeros(m1, 1);
-    ub2 = ones(m1, 1)*C2;
-    Mu = quadprog(H2,-e1,[],[],[],[],lb2,ub2,[],options);
+    Mu = quadprog(H2,-e1,[],[],[],[],zeros(m1, 1),e1*C2,[],solver);
     z2 = R2S*Mu;
     u2 = z2(1:n);
     b2 = z2(end);

@@ -9,7 +9,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTL_Small.mat');
-load('LabCParams-Linear.mat');
+load('LabCParams.mat');
 
 % 数据集
 DataSetIndices = [1 2 3];
