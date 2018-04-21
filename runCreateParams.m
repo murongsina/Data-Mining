@@ -1,8 +1,9 @@
 addpath(genpath('./utils/'));
 
-% 核函数参数
+%% 核函数参数
 P1 = 2.^(-3:1:8)';
-% 分类器网格搜索参数
+
+%% 分类器网格搜索参数
 C = 2.^(-3:1:8)';
 C1 = 2.^(-3:1:8)';
 C2 = 2.^(-3:1:8)';
@@ -15,11 +16,12 @@ LAMBDA = 2.^(-3:1:8)';
 GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
 
-% 核函数
+%% 核函数
 % kernel = struct('kernel', 'rbf', 'p1', P1);
 kernel = struct('kernel', 'linear');
-% 任务参数
-IParams = {
+
+%% 回归任务参数
+RParams = {
     struct('Name', 'SVR', 'C', C, 'eps', EPS1, 'kernel', kernel);...
     struct('Name', 'PSVR', 'nu', NU, 'kernel', kernel);...
     struct('Name', 'LS_SVR', 'gamma', GAMMA, 'kernel', kernel);...
@@ -33,22 +35,24 @@ IParams = {
     struct('Name', 'MTL_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'MTL_LS_TWSVR', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'LS_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'kernel', kernel);...
-    struct('Name', 'MTL_LS_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)
+    struct('Name', 'MTL_LS_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)...
 };
 
-% 输出参数表信息
-n = length(IParams);
-nParams = zeros(n, 1);
-for i = 1 : n
-    nParams(i, 1) = GetParamsCount(IParams{i});
-    Method = IParams{i};
-    tic
-    Params = GetParams(Method, 1);
-    Time = toc;
-    fprintf('%s:%d params %.2fs.\n', Method.Name, nParams(i, 1), nParams(i, 1)*Time);
-end
+%% 分类任务参数
+CParams = {
+    struct('Name', 'SVM', 'C', C, 'kernel', kernel);...
+    struct('Name', 'PSVM', 'nu', NU, 'kernel', kernel);...
+    struct('Name', 'LS_SVM', 'gamma', GAMMA, 'kernel', kernel);...
+    struct('Name', 'TWSVM', 'C1', C1, 'kernel', kernel);...
+    struct('Name', 'LS_TWSVM', 'C1', C1, 'kernel', kernel);...
+    struct('Name', 'MTL_PSVM', 'lambda', LAMBDA, 'nu', NU, 'kernel', kernel);...
+    struct('Name', 'MTL_LS_SVM', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);...
+    struct('Name', 'MTL_TWSVM_Xie', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
+    struct('Name', 'MTL_LS_TWSVM', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
+};
 
-[~, IDX] = sort(nParams);
-IParams = IParams(IDX);
-% 保存参数表
-save('./params/LabIParams-Linear.mat', 'IParams');
+%% 保存参数表
+[ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
+save('./params/LabRParams-Linear.mat', 'RParams');
+[ CParams ] = PrintParams('./params/LabCParams-Linear.txt', CParams);
+save('./params/LabCParams-Linear.mat', 'CParams');
