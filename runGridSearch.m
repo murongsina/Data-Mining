@@ -1,5 +1,4 @@
-data = './data/';
-images = './images/';
+Root = './data/classify/';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -19,7 +18,7 @@ ParamIndices = [1 3:9];
 
 % 实验设置
 solver = [];
-opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
+opts = struct('solver', solver, 'Statistics', @ClfStat, 'IndexCount', 1);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
@@ -32,7 +31,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [data, Name, '.mat'];
+        StatPath = [Root, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
             continue;
