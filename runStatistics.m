@@ -8,7 +8,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabReg.mat');
-load('LabIParams.mat');
+load('LabIParams-Linear.mat');
 
 % 实验数据集
 LabDataSets = {LabReg};
@@ -21,7 +21,7 @@ for i = 1 : m
     for j = 1 : n
         DataSet = DataSets(j);
         try
-            [ LabStat, LabTime, HasStat ] = LabStatistics(Root, DataSet, IParams);
+            [ LabStat, LabTime, HasStat ] = LabStatistics(Root, DataSet, IParams, 0);
             if HasStat == 1
                SaveStatistics(Root, DataSet, LabStat, LabTime);
             end
