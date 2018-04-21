@@ -28,14 +28,8 @@ function [ yTest, Time ] = LS_TWSVR_Mei(xTrain, yTrain, xTest, opts)
 
 %% Fit
     I = eye(size(H));
-    % LS-TWSVR1
-    L1 = H - 1/C1*I;
-    R1 = g - H*f;
-    Alpha = L1\R1;
-    % LS-TWSVR2
-    L2 = 1/C2*I - H;
-    R2 = f - H*g;
-    Gamma = L2\R2;
+    Alpha = Cond(H - 1/C1*I)\(g - H*f);
+    Gamma = Cond(1/C2*I - H)\(f - H*g);
     % µÃµ½u,v
     u = AAA*(f+Alpha);
     v = AAA*(g-Gamma);

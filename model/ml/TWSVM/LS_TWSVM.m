@@ -30,7 +30,7 @@ function [ yTest, Time ] = LS_TWSVM(xTrain, yTrain, xTest, opts)
     w1 = u1(1:n);
     b1 = u1(end);
     % LS-TWSVM2
-    u2 = +Cond(E2+1/C2*F2)\E'*e1;
+    u2 = Cond(E2+1/C2*F2)\E'*e1;
     w2 = u2(1:n);
     b2 = u2(end);
     % Í£Ö¹¼ÆÊ±

@@ -22,7 +22,7 @@
 %     Dst.Y = Y;
 %     Dst.TaskNum = Src.TaskNum;
 %     Dst.Kfold = Src.Kfold;
-%     Dst.ValInd = Src.ValInd;
+%     Dst.ValInd = ValInd;
 %     LabMTLReg(i) = Dst;
 % end
 % LabMTLReg = LabMTLReg';

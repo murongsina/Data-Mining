@@ -8,28 +8,29 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
-load('LabCParams.mat');
+load('LabMTLReg.mat');
+load('LabRParams.mat');
+DataSets = LabMTLReg;
+IParams = RParams;
 
 % 数据集
-DataSetIndices = [1 2 3];
-ParamIndices = [1 3:9];
+DataSetIndices = [1];
+ParamIndices = [1:14];
 BestParams = 1;
 
 % 实验设置
 solver = [];
-opts = struct('solver', solver, 'Statistics', @ClfStat, 'IndexCount', 1);
+opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 
 % 实验开始
 fprintf('runCrossValid\n');
 for i = DataSetIndices
-    DataSet = LabMTLClf(i);
+    DataSet = LabMTLReg(i);
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetClfMTL(DataSet);
-%     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
     for j = ParamIndices
-        Method = CParams{j};
+        Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
         StatPath = [cv, Name, '.mat'];
         try
