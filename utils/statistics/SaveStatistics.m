@@ -1,4 +1,4 @@
-function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime )
+function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime, opts )
 %SAVESTATISTICS 此处显示有关此函数的摘要
 % 保存统计数据
 %   此处显示详细说明
@@ -9,5 +9,5 @@ function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime )
     fprintf('save: %s\n', StatPath);
     
     % 保存图表
-    SaveFigures( Path, DataSet, LabStat, LabTime );
+    SaveFigures(Path, DataSet, LabStat, LabTime, opts );
 end

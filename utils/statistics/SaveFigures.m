@@ -1,4 +1,4 @@
-function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime )
+function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
 %SAVEFIGURES 此处显示有关此函数的摘要
 % 保存图表
 %   此处显示详细说明
@@ -9,8 +9,15 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime )
     SaveFigure(Path, FileName);
     
     % 保存误差图表
-    Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
-    for i = 1 : 4
+    if opts.IndexCount == 4
+        Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
+    elseif opts.IndexCount == 1
+        Indices = {'Accuracy'};
+    else
+        throw(MException('SaveFigures', 'Error in opts.Statistics'));
+    end
+    
+    for i = 1 : length(Indices)
         Index = replace(Indices{i}, '/', '_');
         FileName = [DataSet.Name, '-' Index];
         bar(LabStat(:,:,i), 'DisplayName', FileName);
