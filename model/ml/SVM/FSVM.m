@@ -13,6 +13,8 @@ function [ yTest, Time ] = FSVM(xTrain, yTrain, xTest, opts)
     [m, ~] = size(X);
     e = ones(m, 1);
     Anew = SNTFit(X, Y, T, TaskNum);
+    [ xTest ] = SNT(xTest, A, T, TaskNum)
+    [ yTest ] = Predict(Alpha);
     % Í£Ö¹¼ÆÊ±
     Time = toc;
     
