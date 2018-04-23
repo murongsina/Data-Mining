@@ -15,8 +15,8 @@ function [ yTest, Time ] = MultiClf(xTrain, yTrain, xTest, opts)
         throw(MException('MultiClf', 'unresolved function:%s', Params.Name));
     end
     
-    %% 训练模式
-    Mode = opts.Mode;           % 模式：OvO, OvR
+    %% 训练模式：OvO, OvR
+    Mode = opts.Mode;          
     switch (Mode)
         case {'OvO'}
             Learner = @MultiOvO;

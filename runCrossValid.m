@@ -1,5 +1,4 @@
-cv = './cv/';
-images = './images/';
+Path = './cv/';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -19,8 +18,7 @@ ParamIndices = [1 3:9];
 BestParams = 1;
 
 % 实验设置
-solver = [];
-opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
+opts = InitOptions('clf', []);
 
 % 实验开始
 fprintf('runCrossValid\n');
@@ -32,7 +30,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [cv, Name, '.mat'];
+        StatPath = [Path, Name, '.mat'];
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
