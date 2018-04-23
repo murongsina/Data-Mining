@@ -13,8 +13,8 @@ DataSets = LabMTLReg;
 IParams = RParams;
 
 % 数据集
-DataSetIndices = [15 16];
-ParamIndices = [1 3 7 13];
+DataSetIndices = [15 16 18];
+ParamIndices = [1:7 9 10 13];
 
 % 实验设置
 opts = InitOptions('reg', []);
