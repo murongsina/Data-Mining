@@ -13,7 +13,7 @@ DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [1:3];
+DataSetIndices = [1:5];
 ParamIndices = [1 3:9];
 
 % 实验设置

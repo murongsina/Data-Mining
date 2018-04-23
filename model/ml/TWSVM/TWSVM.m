@@ -27,14 +27,12 @@ function [ yTest, Time ] = TWSVM(xTrain, yTrain, xTest, opts)
     S2R = Cond(S'*S)\R';
     R2S = Cond(R'*R)\S';
     % KDTWSVM1
-    H1 = R*S2R;
-    Alpha = quadprog(H1,-e2,[],[],[],[],zeros(m2, 1),e2*C1,[],solver);
+    Alpha = quadprog(R*S2R,-e2,[],[],[],[],zeros(m2, 1),e2*C1,[],solver);
     z1 = -S2R*Alpha;
     u1 = z1(1:n);
     b1 = z1(end);
     % KDTWSVM2
-    H2 = S*R2S;
-    Mu = quadprog(H2,-e1,[],[],[],[],zeros(m1, 1),e1*C2,[],solver);
+    Mu = quadprog(S*R2S,-e1,[],[],[],[],zeros(m1, 1),e1*C2,[],solver);
     z2 = R2S*Mu;
     u2 = z2(1:n);
     b2 = z2(end);

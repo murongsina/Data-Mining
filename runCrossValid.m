@@ -1,4 +1,7 @@
-Path = './cv/';
+Path = './cv/classify/';
+if exist(Path, 'dir') == 0
+    mkdir(Path);
+end
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -9,11 +12,12 @@ addpath(genpath('./utils'));
 % 加载数据集和网格搜索参数
 load('LabMTLClf.mat');
 load('LabCParams.mat');
+
 DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [1:3];
+DataSetIndices = [1:5];
 ParamIndices = [1 3:9];
 BestParams = 1;
 

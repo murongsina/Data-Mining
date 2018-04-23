@@ -1,32 +1,20 @@
-function [ Accuracy, Time]=KerSVM(tstX, tstY, X, Y, C, p1)
-    opts=[];
-    [L,~]=size(X);
+function [ Accuracy, Time ] = KerSVM(xTrain, yTrain, xTest, yTest, opts)
 
-    % 核矩阵
-    K1 = exp(-(repmat(sum(X.*X,2)',L,1)+repmat(sum(X.*X,2),1,L)-2*(X*X'))/(2*p1^2));
-    H = diag(Y)*K1*diag(Y);
-    % 计时
+    C = opts.C;
+    kernel = opts.kernel;
+    solver = opts.solver;
+    [m,~]=size(xTrain);
+
     tic
-    % 常数项
-    a = -ones(L,1);
-    % 上下界
-    lb = zeros(L,1);
-    ub = C*ones(L,1);
-    % 二次规划求解
-    [x] = quadprog(H,a,[],[],[],[],lb,ub,[],opts);
-    % 停止计时
+    H = diag(yTrain)*Kernel(xTrain, xTrain, kernel)*diag(yTrain);
+    e = ones(m,1);
+    Alpha = quadprog(H,-e,[],[],[],[],zeros(m,1),C*e,[],solver);
+    svi = Alpha > 0 & Alpha < C;
     Time = toc;
-
-    [s,~] = size(tstX);
-    % 核矩阵
-    KT = exp(-(repmat(sum(tstX.*tstX,2)',L,1)+repmat(sum(X.*X,2),1,s) - 2*X*tstX')/(2*p1^2)); KT = KT';
-    % f(x) = kernel(x, x) * Y * X
-    PY = KT*diag(Y)*x;
-    % 预测值
-    pre = sign(PY);
-    % 预测值为0的改为1
-    pre(pre==0)=1;
-    % 计算精确度
-    Accuracy = mean(pre==tstY);
+    
+    y = sign(Kernel(xTrain, xTest(svi), kernel)*diag(yTrain(svi))*Alpha(svi));
+    y(y==0)=1;
+    
+    Accuracy = mean(y==yTest);
 end
 
