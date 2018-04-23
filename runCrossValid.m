@@ -8,19 +8,19 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
-load('LabCParams.mat');
-DataSets = LabMTLClf;
-IParams = CParams;
+load('LabMTLReg.mat');
+load('LabRParams-Linear.mat');
+DataSets = LabMTLReg;
+IParams = RParams;
 
 % 数据集
-DataSetIndices = [1:3];
-ParamIndices = [1 3:9];
+DataSetIndices = [15 16];
+ParamIndices = [1 3 7 13];
 BestParams = 1;
 
 % 实验设置
 solver = [];
-opts = struct('solver', solver, 'Statistics', @ClfStat, 'IndexCount', 1);
+opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
 
 % 实验开始
 fprintf('runCrossValid\n');
