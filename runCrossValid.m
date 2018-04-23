@@ -1,5 +1,7 @@
-cv = './cv/';
-images = './images/';
+Path = './cv/classify/';
+if exist(Path, 'dir') == 0
+    mkdir(Path);
+end
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -8,19 +10,19 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLReg.mat');
-load('LabRParams-Linear.mat');
-DataSets = LabMTLReg;
-IParams = RParams;
+load('LabMTLClf.mat');
+load('LabCParams.mat');
+
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = [15 16];
-ParamIndices = [1 3 7 13];
+DataSetIndices = [1:5];
+ParamIndices = [1 3:9];
 BestParams = 1;
 
 % 实验设置
-solver = [];
-opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
+opts = InitOptions('clf', []);
 
 % 实验开始
 fprintf('runCrossValid\n');
@@ -32,7 +34,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [cv, Name, '.mat'];
+        StatPath = [Path, Name, '.mat'];
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
