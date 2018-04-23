@@ -20,7 +20,7 @@ BestParams = 1;
 
 % 实验设置
 solver = [];
-opts = struct('solver', solver, 'Statistics', @RegStat, 'IndexCount', 4);
+opts = struct('solver', solver, 'Statistics', @ClfStat, 'IndexCount', 1);
 
 % 实验开始
 fprintf('runCrossValid\n');
