@@ -1,9 +1,9 @@
 addpath(genpath('./utils/'));
 
-%% 核函数参数
+% 核函数参数
 P1 = 2.^(-3:1:8)';
 
-%% 分类器网格搜索参数
+% 分类器网格搜索参数
 C = 2.^(-3:1:8)';
 C1 = 2.^(-3:1:8)';
 C2 = 2.^(-3:1:8)';
@@ -20,7 +20,7 @@ NU = 2.^(-3:1:8)';
 % kernel = struct('kernel', 'rbf', 'p1', P1);
 kernel = struct('kernel', 'linear');
 
-%% 回归任务参数
+% 回归任务参数
 RParams = {
     struct('Name', 'SVR', 'C', C, 'eps', EPS1, 'kernel', kernel);...
     struct('Name', 'PSVR', 'nu', NU, 'kernel', kernel);...
@@ -38,7 +38,7 @@ RParams = {
     struct('Name', 'MTL_LS_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)...
 };
 
-%% 分类任务参数
+% 分类任务参数
 CParams = {
     struct('Name', 'SVM', 'C', C, 'kernel', kernel);...
     struct('Name', 'PSVM', 'nu', NU, 'kernel', kernel);...
@@ -51,7 +51,7 @@ CParams = {
     struct('Name', 'MTL_LS_TWSVM', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
 };
 
-%% 保存参数表
+% 保存参数表
 [ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
 save('./params/LabRParams-Linear.mat', 'RParams');
 [ CParams ] = PrintParams('./params/LabCParams-Linear.txt', CParams);
