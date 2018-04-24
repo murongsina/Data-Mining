@@ -1,4 +1,4 @@
-Path = './data/regression/';
+Path = './data/classify/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,18 +10,17 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLTest.mat');
-load('LabRParams.mat');
-DataSets = LabMTLTest;
-IParams = RParams;
+load('LabMTLClf.mat');
+load('LabCParams.mat');
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = [1:3];
-ParamIndices = [1 3 5 7 9 13];
+DataSetIndices = [1 2 3 4 5];
+ParamIndices = [1 3:9];
 
 % 实验设置
-solver = [];
-opts = struct('solver', solver, 'Statistics', @ClfStat, 'IndexCount', 1);
+opts = InitOptions('clf', []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始

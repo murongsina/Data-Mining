@@ -3,9 +3,14 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, M
 % 统计多任务实验数据
 %   此处显示详细说明
 
+    if Mean
+        TaskNum = 1;
+    else
+        TaskNum = DataSet.TaskNum;
+    end
     HasStat = 0;
     nParams = length(IParams);
-    LabStat = zeros(nParams, DataSet.TaskNum, 2*opts.IndexCount);
+    LabStat = zeros(nParams, TaskNum, 2*opts.IndexCount);
     LabTime = zeros(nParams, 2);
     for k = 1 : nParams
         Method = IParams{k};
@@ -19,10 +24,10 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, M
             else
                 % 取多任务平均值
                 if Mean
-                    CVStat = mean(CVStat, 2);
+                    CVStat = mean(CVStat, 3);
                 end
                 % 网格搜索结果
-                [ Stat, Time ] = GSStatistics(DataSet.TaskNum, CVStat, CVTime, opts);
+                [ Stat, Time ] = GSStatistics(TaskNum, CVStat, CVTime, opts);
                 % 保存数据
                 LabStat(k,:,:) = Stat(:,:,1);
                 LabTime(k,:) = Time(1,:);
