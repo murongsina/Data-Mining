@@ -1,4 +1,4 @@
-Root = './data/regression/';
+Root = './data/classify/';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -7,17 +7,17 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLReg.mat');
-load('LabRParams-Linear.mat');
-DataSets = LabMTLReg;
-IParams = RParams;
+load('LabMTLClf.mat');
+load('LabCParams.mat');
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = [15 16 18];
-ParamIndices = [1:7 9 10 13];
+DataSetIndices = [1 2 3 4 5];
+ParamIndices = [1 2:9];
 
 % 实验设置
-opts = InitOptions('reg', []);
+opts = InitOptions('clf', []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
