@@ -1,4 +1,7 @@
-Root = './data/classify/';
+Path = './data/classify/';
+if exist(Path, 'dir') == 0
+    mkdir(Path);
+end
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -14,7 +17,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1 2:9];
+ParamIndices = [1 3:9];
 
 % 实验设置
 opts = InitOptions('clf', []);
@@ -30,7 +33,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [Root, Name, '.mat'];
+        StatPath = [Path, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
             continue;
