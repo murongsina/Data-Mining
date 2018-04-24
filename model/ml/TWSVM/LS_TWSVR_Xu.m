@@ -4,31 +4,31 @@ function [ yTest, Time ] = LS_TWSVR_Xu(xTrain, yTrain, xTest, opts)
 %   此处显示详细说明
 
 %% Parse opts
-    C1 = opts.C1;
-    C2 = opts.C1;
-    eps1 = opts.eps1;
-    eps2 = opts.eps1;
-    kernel = opts.kernel;
-    
+C1 = opts.C1;
+C2 = opts.C1;
+eps1 = opts.eps1;
+eps2 = opts.eps1;
+kernel = opts.kernel;
+
 %% Fit
-    tic;
-    A = xTrain;
-    Y = yTrain;
-    C = A;
-    e = ones(size(Y));
-    A = [Kernel(A, C, kernel) e];
-    AAA = Cond(A'*A)\A';
-    Q = A*AAA;
-    I = eye(size(Q));
-    E = ones(size(Y));
-    Alpha = Cond(Q + 1/C1*I)\((Q - I)*Y - eps1*E);
-    Gamma = Cond((Q + 1/C2*I))\((I - Q)*Y - eps2*E);
-    u = AAA*(Y - Alpha);
-    v = AAA*(Y + Gamma);
-    w = (u + v)/2;
-    Time = toc;
-    
+tic;
+A = xTrain;
+Y = yTrain;
+C = A;
+e = ones(size(Y));
+A = [Kernel(A, C, kernel) e];
+AAA = Cond(A'*A)\A';
+Q = A*AAA;
+I = speye(size(Q));
+E = ones(size(Y));
+Alpha = Cond(Q + 1/C1*I)\((Q - I)*Y - eps1*E);
+Gamma = Cond((Q + 1/C2*I))\((I - Q)*Y - eps2*E);
+u = AAA*(Y - Alpha);
+v = AAA*(Y + Gamma);
+w = (u + v)/2;
+Time = toc;
+
 %% Predict
-    [m, ~] = size(xTest);
-    yTest = [Kernel(xTest, C, kernel), ones(m, 1)]*w;
+[m, ~] = size(xTest);
+yTest = [Kernel(xTest, C, kernel), ones(m, 1)]*w;
 end

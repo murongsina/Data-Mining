@@ -36,7 +36,6 @@ function [ yTest, Time ] = SVR( xTrain, yTrain, xTest, opts )
     else
         b = mean(b);
     end
-    W = [w; b];
     Time = toc;
     
 %% Predict

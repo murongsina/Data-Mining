@@ -1,4 +1,7 @@
-Root = './data/classify/';
+Path = './data/regression/';
+if exist(Path, 'dir') == 0
+    mkdir(Path);
+end
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -7,14 +10,14 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
-load('LabCParams.mat');
-DataSets = LabMTLClf;
-IParams = CParams;
+load('LabMTLTest.mat');
+load('LabRParams.mat');
+DataSets = LabMTLTest;
+IParams = RParams;
 
 % 数据集
-DataSetIndices = [1:5];
-ParamIndices = [1 3:9];
+DataSetIndices = [1:3];
+ParamIndices = [1 3 5 7 9 13];
 
 % 实验设置
 solver = [];
@@ -31,7 +34,7 @@ for i = DataSetIndices
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [Root, Name, '.mat'];
+        StatPath = [Path, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
             continue;

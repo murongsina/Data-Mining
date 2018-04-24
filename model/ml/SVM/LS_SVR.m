@@ -4,24 +4,24 @@ function [ yTest, Time ] = LS_SVR(xTrain, yTrain, xTest, opts)
 %   此处显示详细说明
 
 %% Parse opts
-    gamma = opts.gamma;
-    kernel = opts.kernel;
+gamma = opts.gamma;
+kernel = opts.kernel;
 
 %% Fit
-    tic;
-    X = xTrain;
-    Y = yTrain;
-    Z = Kernel(X, X, kernel);
-    E = ones(size(Y));
-    I = speye(size(Z));
-    H = Z*Z' + 1/gamma*I;
-    A = [H E;E' 0];
-    b = [Y; 0];
-    w = A\b;
-    Time = toc;
-    
+tic;
+X = xTrain;
+Y = yTrain;
+K = Kernel(X, X, kernel);
+E = ones(size(Y));
+I = speye(size(K));
+H = K + 1/gamma*I;
+A = [H E;E' 0];
+b = [Y; 0];
+w = A\b;
+Time = toc;
+
 %% Predict
-    [m, ~] = size(xTest);
-    yTest = [Kernel(xTest, X, kernel) ones(m, 1)]*w;
-    
+[m, ~] = size(xTest);
+yTest = [Kernel(xTest, X, kernel) ones(m, 1)]*w;
+
 end

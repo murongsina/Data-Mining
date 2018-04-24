@@ -5,29 +5,29 @@ function [ yTest, Time ] = LS_TWSVR_Huang( xTrain, yTrain, xTest, opts )
 %   此处显示详细说明
 
 %% Parse opts
-    eps1 = opts.eps1;
-    eps2 = opts.eps1;
-    kernel = opts.kernel;
-    
+eps1 = opts.eps1;
+eps2 = opts.eps1;
+kernel = opts.kernel;
+
 %% Fit
-    tic;
-    A = xTrain;
-    Y = yTrain;
-    e = ones(size(Y));
-    G = [Kernel(A, A, kernel) e];
-    f = Y - eps1;
-    h = Y + eps2;
-    GGG = Cond(G'*G)\G';
-    % LS_TWSVR1
-    u1 = GGG*f;
-    % LS_TWSVR2
-    u2 = GGG*h;
-    w = (u1+u2)/2;
-    Time = toc;
-    
+tic;
+A = xTrain;
+Y = yTrain;
+e = ones(size(Y));
+G = [Kernel(A, A, kernel) e];
+f = Y - eps1;
+h = Y + eps2;
+GGG = Cond(G'*G)\G';
+% LS_TWSVR1
+u1 = GGG*f;
+% LS_TWSVR2
+u2 = GGG*h;
+w = (u1+u2)/2;
+Time = toc;
+
 %% Predict
-    [m, ~] = size(xTest);
-    yTest = [Kernel(xTest, A, kernel), ones(m, 1)]*w;
-    
+[m, ~] = size(xTest);
+yTest = [Kernel(xTest, A, kernel), ones(m, 1)]*w;
+
 end
 
