@@ -12,12 +12,13 @@ addpath(genpath('./utils'));
 % 加载数据集和网格搜索参数
 load('LabMTLClf.mat');
 load('LabCParams.mat');
+
 DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
 DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1 3:9];
+ParamIndices = [6:9];
 
 % 实验设置
 opts = InitOptions('clf', []);

@@ -26,7 +26,7 @@ for i = 1 : m
     for j = 1 : n
         DataSet = DataSets(j);
         try
-            [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, 0, opts);
+            [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, 1, opts);
             if HasStat == 1
                SaveStatistics(Root, DataSet, LabStat, LabTime, opts);
             end

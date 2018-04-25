@@ -5,7 +5,7 @@ function [ OStat, OTime ] = GSStatistics(TaskNum, IStat, ITime, opts)
 
     % ªÿπÈ–‘ƒ‹
     OStat = zeros(2*opts.IndexCount, TaskNum, 2);
-    [ MIN, IDX ] = min(IStat);
+    [ MIN, IDX ] = max(IStat);
     OStat(:,:,1) = MIN(1,:,:);
     OStat(:,:,2) = IDX(1,:,:);
     OStat = permute(OStat, [2 1 3]);
