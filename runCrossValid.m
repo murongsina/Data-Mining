@@ -1,4 +1,4 @@
-Path = './cv/classify/';
+Path = './cv/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -18,7 +18,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1 3 4 5];
+ParamIndices = [1:9];
 BestParams = 144;
 
 % 实验设置

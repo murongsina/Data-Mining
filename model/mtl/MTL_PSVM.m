@@ -28,16 +28,15 @@ H = A*A';
 P = sparse(0, 0);
 for t = 1 : TaskNum
     Tt = T==t;
-    At = A(Tt,:);
     Dt = D(Tt,Tt);
-    P = blkdiag(P, Dt*(H(At,At) + 1)*Dt);
+    P = blkdiag(P, Dt*(H(Tt,Tt) + 1)*Dt);
 end
 Alpha = Cond(D*H*D + TaskNum/lambda*P + 1/nu*I)\E;
 
 %% Get W
 w = cell(TaskNum, 1);
 b = zeros(TaskNum, 1);
-w0 = DA'*Alpha;
+w0 = A'*D*Alpha;
 for t = 1 : TaskNum
     Tt = T==t;
     DtAlpha_t = D(Tt,Tt)*Alpha(Tt,:);
