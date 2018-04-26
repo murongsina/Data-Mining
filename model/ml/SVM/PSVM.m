@@ -1,19 +1,32 @@
-function  [ yTest, Time, w ] = PSVM( xTrain, yTrain, xTest, opts )
+function  [ yTest, Time ] = PSVM( xTrain, yTrain, xTest, opts )
 %PSVM 此处显示有关此函数的摘要
-% proximal support vector machine
+% Proximal Support Vector Machine
 %   此处显示详细说明
 
+%% Parse opts
 nu = opts.nu;
+kernel = opts.kernel;
 
-[m, n] = size(xTrain);
-e = ones(m, 1);
-D = diag(yTrain);
-H = D*[A -e];
-r = sum(H)';
-r = Cond(speye(n+1)/nu + H'*H)\r; % solve (I/nu+H'*H)r=H'*e;
-u = nu*(1-H*r); s = D*u;
-w = (s'*A)';    % w=A'*D*u
-gamma = -sum(s);    % gamma=-e'*D*u
-w = [w;gamma];
+%% Fit
+tic;
+X = xTrain;
+Y = yTrain;
+A = Kernel(X, X, kernel);
+e = ones(size(Y));
+H = A*A^T + 1;
+I = speye(size(H));
+D = I.*Y;
+Alpha = Cond(D*H*D + 1/nu*I)\e;
+
+%% Get w,b
+DAlpha = D'*Alpha;
+w = A'*DAlpha;
+b = e'*DAlpha;
+Time = toc;
+
+%% Predict
+yTest = sign(Kernel(xTest, X)*w+b);
+yTest(yTest==0) = 1;
+
 end
 

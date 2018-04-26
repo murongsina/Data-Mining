@@ -13,7 +13,10 @@ X = xTrain;
 Y = yTrain;
 % 二次规划求解
 e = ones(size(Y));
-H = Cond((Y*Y').*Kernel(X, X, kernel));
+K = Kernel(X, X, kernel);
+I = speye(size(K));
+DY = I.*Y;
+H = Cond(DY*K*DY);
 Alpha = quadprog(H, -e, Y', 0, [], [], 0*e, C*e, [], []);
 svi = Alpha > 0 & Alpha < C;
 % 停止计时

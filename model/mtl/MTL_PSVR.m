@@ -16,32 +16,29 @@ tic;
 [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
 C = A;
 A = Kernel(A, C, kernel);
+[m, ~] = size(Y);
+E = ones(m, 1);
+I = speye(m, m);
 
 %% Fit
-e = cell(TaskNum, 1);
+Q = A'*A;
 P = sparse(0, 0);
 for t = 1 : TaskNum
     Tt = T==t;
-    At = A(Tt,:);
-    Yt = Y(Tt,:);
-    et = ones(size(Yt));
-    It = speye(size(Yt));
-    Pt = At*At'+et*et'+1/(rate*nu)*It;
-    P = blkdiag(P, Pt);
-    e{t} = et;
+    P = blkdiag(P, Q(Tt,Tt) + 1);
 end
-Alpha = Cond(A'*A+rate*P)\Y;
+Alpha = Cond(Q + rate*P + 1/nu*I)\Y;
     
 %% Get W
-W = cell(TaskNum, 1);
-W0 = A'*Alpha;
+w = cell(TaskNum, 1);
+b = zeros(TaskNum, 1);
+w0 = A'*Alpha;
 for t = 1 : TaskNum
     Tt = T==t;
     A_t = A(Tt,:);
     Alpha_t = Alpha(Tt,:);
-    Wt = W0 + rate*A_t'*Alpha_t;
-    Gamma_t = -rate*Alpha_t'*e{t};
-    W{t} = [Wt; Gamma_t];
+    w{t} = w0 + rate*A_t'*Alpha_t;
+    b(t) = rate*E(Tt,:)'*Alpha_t;
 end
 Time = toc;
 
@@ -49,10 +46,7 @@ Time = toc;
 [ TaskNum, ~ ] = size(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    At = xTest{t};
-    [m, ~] = size(At);
-    KAt = [Kernel(At, C, kernel) ones(m, 1)];
-    yTest{t} = KAt * W{t};
+    yTest{t} = Kernel(xTest{t}, C, kernel) * w{t} + b(t);
 end
     
 end

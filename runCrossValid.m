@@ -18,8 +18,8 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1 3:5];
-BestParams = 87;
+ParamIndices = [1 3 4 5];
+BestParams = 144;
 
 % 实验设置
 opts = InitOptions('clf', []);

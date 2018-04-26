@@ -16,37 +16,33 @@ tic;
 [ A, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
 C = A;
 A = Kernel(A, C, kernel);
+[m, ~] = size(Y);
+E = ones(m, 1);
+I = speye(m, m);
 
 %% Fit
-e = cell(TaskNum, 1);
+% Q
+D = I.*Y;
+H = A*A';
+% P
 P = sparse(0, 0);
 for t = 1 : TaskNum
     Tt = T==t;
     At = A(Tt,:);
-    Yt = Y(Tt,:);
-    Et = ones(size(Yt));
-    e{t} = Et;
-    AE = At*At'+Et*Et';
-    Dt = speye(size(AE))*Yt;
-    Ht = Dt*AE*Dt;
-    It = speye(size(Ht));
-    P = blkdiag(P, rate*Ht + 1/nu*It);
+    Dt = D(Tt,Tt);
+    P = blkdiag(P, Dt*(H(At,At) + 1)*Dt);
 end
-E = ones(size(Y));
-D = diag(Y);
-Alpha = Cond(D*(A'*A)*D+P)\E;
+Alpha = Cond(D*H*D + TaskNum/lambda*P + 1/nu*I)\E;
 
 %% Get W
-W = cell(TaskNum, 1);
-W0 = A'*D*Alpha;
+w = cell(TaskNum, 1);
+b = zeros(TaskNum, 1);
+w0 = DA'*Alpha;
 for t = 1 : TaskNum
     Tt = T==t;
-    At = A(Tt,:);
-    Dt = spdiags(diag(Y(Tt)));
-    Alpha_t = Alpha(Tt,:);
-    Wt = W0 + rate*At'*Dt*Alpha_t;
-    Gamma_t = -rate*e{t}'*Dt*Alpha_t;
-    W{t} = [Wt; Gamma_t];
+    DtAlpha_t = D(Tt,Tt)*Alpha(Tt,:);
+    w{t} = w0 + rate*A(Tt,:)'*DtAlpha_t;
+    b(t) = rate*E(Tt,:)'*DtAlpha_t;
 end
 Time = toc;
 
@@ -54,10 +50,7 @@ Time = toc;
 [ TaskNum, ~ ] = size(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    At = xTest{t};
-    [m, ~] = size(At);
-    KAt = [Kernel(At, C, kernel) ones(m, 1)];
-    yt = sign(KAt * W{t});
+    yt = sign(Kernel(xTest{t}, C, kernel) * w{t} + b(t));
     yt(yt==0) = 1;
     yTest{t} = yt;
 end
