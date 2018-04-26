@@ -35,10 +35,9 @@ b = zeros(TaskNum, 1);
 w0 = A'*Alpha;
 for t = 1 : TaskNum
     Tt = T==t;
-    A_t = A(Tt,:);
     Alpha_t = Alpha(Tt,:);
-    w{t} = w0 + rate*A_t'*Alpha_t;
-    b(t) = rate*E(Tt,:)'*Alpha_t;
+    w{t} = w0 + rate*A(Tt,:)'*Alpha_t;
+    b(t) = rate*sum(Alpha_t);
 end
 Time = toc;
 

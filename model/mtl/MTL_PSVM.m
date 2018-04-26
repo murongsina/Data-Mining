@@ -42,7 +42,7 @@ for t = 1 : TaskNum
     Tt = T==t;
     DtAlpha_t = D(Tt,Tt)*Alpha(Tt,:);
     w{t} = w0 + rate*A(Tt,:)'*DtAlpha_t;
-    b(t) = rate*E(Tt,:)'*DtAlpha_t;
+    b(t) = rate*sum(DtAlpha_t);
 end
 Time = toc;
 
