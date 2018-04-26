@@ -35,7 +35,6 @@ bAlpha = [O A';A H]\[o; Y];
 b = bAlpha(1:TaskNum,:);
 
 Alpha = bAlpha(TaskNum+1:end,:);
-SVi = Alpha > 0 & Alpha < C;
 
 Time = toc;
 
@@ -43,8 +42,8 @@ Time = toc;
 TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    H = Kernel(xTest{t}, C(SVi,:), kernel);
-    yTest{t} = H*Alpha(SVi,:) + H(:,T(SVi)==t)*Alpha(SVi&T==t,:) + b(t);
+    H = Kernel(xTest{t}, C, kernel);
+    yTest{t} = H*Alpha + H(:,T==t)*Alpha(T==t,:) + b(t);
 end
 
 end
