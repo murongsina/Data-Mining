@@ -14,23 +14,22 @@ TaskNum = length(xTrain);
 tic;
 [ X, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
 C = X;
-Z = Kernel(X, C, kernel);
-
+K = Kernel(X, C, kernel);
+DY = speye(size(K)).*Y;
+Omiga = DY*K*DY;
 %% Fit
-B = [];
-A = [];
+A = sparse(0,0);
+B = sparse(0,0);
 for t = 1 : TaskNum
     Tt = T==t;
-    B = blkdiag(B, Z(Tt,Tt));
     A = blkdiag(A, Y(Tt,:));
+    B = blkdiag(B, Omiga(Tt,Tt));
 end
-B = sparse(B);
-A = sparse(A);
 o = zeros(TaskNum, 1);
 O = diag(o);
 E = ones(size(Y));
 I = speye(size(B));
-H = Z + 1/gamma*I + TaskNum/lambda*B;
+H = Omiga + 1/gamma*I + TaskNum/lambda*B;
 bAlpha = [O A';A H]\[o; E];
 b = bAlpha(1:TaskNum,:);
 Alpha = bAlpha(TaskNum+1:end,:);
@@ -42,7 +41,7 @@ yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
     KA = Kernel(xTest{t}, C, kernel);
     KAt = KA(:,T==t);
-    yt = sign(KA*Alpha + KAt*Alpha(T==t) + b(t));
+    yt = sign(KA*Alpha + TaskNum/lambda*KAt*Alpha(T==t) + b(t));
     yt(yt==0) = 1;
     yTest{t} = yt;
 end

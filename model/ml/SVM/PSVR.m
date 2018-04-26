@@ -11,16 +11,18 @@ kernel = opts.kernel;
 tic;
 X = xTrain;
 Y = yTrain;
-C = X;
-Z = Kernel(X, C, kernel);
+A = Kernel(X, X, kernel);
 e = ones(size(Y));
-alpha = Cond(Z*Z'+1+1/nu*speye(size(Z)))\Y;
-w = Z'*alpha;
-xi = alpha/nu;
-gamma = -e'*alpha;
+H = A*A^T + 1;
+I = speye(size(H));
+Alpha = Cond(H + 1/nu*I)\Y;
+
+%% Get w,b
+w = A'*Alpha;
+b = e'*Alpha;
 Time = toc;
 
 %% Predict
-yTest = Kernel(xTest, C, kernel)*w-gamma;
+yTest = Kernel(xTest, X, kernel)*w+b;
 
 end

@@ -6,13 +6,15 @@ function [ Accuracy, Time ] = KerSVM(xTrain, yTrain, xTest, yTest, opts)
     [m,~]=size(xTrain);
 
     tic
-    H = diag(yTrain)*Kernel(xTrain, xTrain, kernel)*diag(yTrain);
+    K = Kernel(xTrain, xTrain, kernel);
+    Dy = speye(size(K)).*yTrain;
+    H = Dy*K*Dy;
     e = ones(m,1);
     Alpha = quadprog(H,-e,[],[],[],[],zeros(m,1),C*e,[],solver);
     svi = Alpha > 0 & Alpha < C;
     Time = toc;
     
-    y = sign(Kernel(xTrain, xTest(svi), kernel)*diag(yTrain(svi))*Alpha(svi));
+    y = sign(Kernel(xTrain, xTest(svi), kernel)*Dy(svi,svi)*Alpha(svi));
     y(y==0)=1;
     
     Accuracy = mean(y==yTest);
