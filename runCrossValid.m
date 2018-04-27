@@ -1,4 +1,4 @@
-Path = './cv/regression/linear/';
+Path = './cv/classify/linear/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,19 +10,19 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLReg.mat');
-load('LabRParams-Linear.mat');
+load('LabMTLClf.mat');
+load('LabCParams-Linear.mat');
 
-DataSets = LabMTLReg;
-IParams = RParams;
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
 DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1:7 9:11 13];
+ParamIndices = [1:9];
 BestParams = 1;
 
 % 实验设置
-opts = InitOptions('reg', []);
+opts = InitOptions('clf', []);
 
 % 实验开始
 fprintf('runCrossValid\n');
