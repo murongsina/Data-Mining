@@ -11,17 +11,17 @@ kernel = opts.kernel;
 tic;
 X = xTrain;
 Y = yTrain;
-K = Kernel(X, X, kernel);
+Q = Kernel(X, X, kernel);
+I = speye(size(Q));
+H = Q + 1/gamma*I;
 E = ones(size(Y));
-I = speye(size(K));
-H = K + 1/gamma*I;
-A = [H E;E' 0];
-b = [Y; 0];
-w = A\b;
+Alphab = [H E;E' 0]\[Y; 0];
+Alpha = Alphab(1:end-1);
+svi = (Alpha>0)&(Alpha<gamma);
+b = Alphab(end);
 Time = toc;
 
 %% Predict
-[m, ~] = size(xTest);
-yTest = [Kernel(xTest, X, kernel) ones(m, 1)]*w;
+yTest = Kernel(xTest, X(svi,:), kernel)*Alpha(svi,:)+b;
 
 end

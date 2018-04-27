@@ -23,7 +23,7 @@ svi = Alpha > 0 & Alpha < C;
 Time = toc;
 
 %% Predict
-yTest = sign(Kernel(xTest, X(svi,:), kernel)*(Y(svi).*Alpha(svi)));
+yTest = sign(Kernel(xTest, X(svi,:), kernel)*(Y(svi,:).*Alpha(svi,:)));
 yTest(yTest==0) = 1;
 
 end

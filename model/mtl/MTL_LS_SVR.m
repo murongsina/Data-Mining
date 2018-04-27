@@ -10,40 +10,39 @@ gamma = opts.gamma;
 kernel = opts.kernel;
 TaskNum = length(xTrain);
 
-%% Prepare
+%% Fit
 tic;
 [ X, Y, T ] = GetAllData( xTrain, yTrain, TaskNum );
-C = X;
-Omiga = Kernel(X, C, kernel);
-
-%% Fit
-B = sparse(0, 0);
+Q = Kernel(X, X, kernel);
+P = sparse(0, 0);
 A = sparse(0, 0);
 for t = 1 : TaskNum
     Tt = T==t;
-    Kt = Omiga(Tt,Tt);
-    B = blkdiag(B, Kt);
-    A = blkdiag(A, ones(sum(Tt),1));
+    P = blkdiag(P, Q(Tt,Tt));
+    A = blkdiag(A, ones(sum(Tt), 1));
 end
-
-o = ones(TaskNum,1);
+o = zeros(TaskNum, 1);
 O = speye(TaskNum)*0;
-I = speye(size(Omiga));
-
-H = Omiga + 1/gamma*I + TaskNum/lambda*B;
-bAlpha = [O A';A H]\[o; Y];
-b = bAlpha(1:TaskNum,:);
-
-Alpha = bAlpha(TaskNum+1:end,:);
-
+I = speye(size(Q));
+H = Q + TaskNum/lambda*P + 1/gamma*I;
+Alphab = [H A;A' O]\[Y; o];
+Alpha = Alphab(1:end-TaskNum,:);
+b = Alphab(end-TaskNum+1:end,:);
 Time = toc;
 
 %% Predict
 TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    H = Kernel(xTest{t}, C, kernel);
-    yTest{t} = H*Alpha + H(:,T==t)*Alpha(T==t,:) + b(t);
+    Tt = T==t;
+    Ht = Kernel(xTest{t}, X, kernel);
+    y0 = Predict(Ht, Alpha);
+    yt = Predict(Ht(:,Tt), Alpha(Tt,:));
+    yTest{t} = y0 + TaskNum/lambda * yt + b(t);
 end
 
+    function [ y ] = Predict(H, Alpha)
+        svi = Alpha > 0 & Alpha < gamma;
+        y = H(:,svi)*Alpha(svi);
+    end
 end
