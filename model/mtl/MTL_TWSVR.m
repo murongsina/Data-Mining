@@ -67,7 +67,7 @@ end
 Time = toc;
     
 %% Predict
-[ TaskNum, ~ ] = size(xTest);
+TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
     At = xTest{t};

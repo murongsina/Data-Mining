@@ -17,11 +17,11 @@ DataSets = LabMTLReg;
 IParams = RParams;
 
 % 数据集
-DataSetIndices = 1:15;
-ParamIndices = [1:7 9 10 13];
+DataSetIndices = [13:18];
+ParamIndices = [2 3 5 7 9 10 13];
 
 % 实验设置
-opts = InitOptions('reg', []);
+opts = InitOptions('reg', 0, []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
