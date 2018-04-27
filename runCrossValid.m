@@ -1,4 +1,4 @@
-Path = './cv/regression/linear/';
+Path = './cv/regression/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -11,7 +11,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTLReg.mat');
-load('LabRParams-Linear.mat');
+load('LabRParams.mat');
 
 DataSets = LabMTLReg;
 IParams = RParams;
