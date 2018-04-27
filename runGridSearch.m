@@ -1,4 +1,4 @@
-Path = './data/classify/rbf/';
+Path = './data/classify/linear/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -11,7 +11,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTLClf.mat');
-load('LabCParams.mat');
+load('LabCParams-Linear.mat');
 
 DataSets = LabMTLClf;
 IParams = CParams;
