@@ -17,8 +17,8 @@ tic;
 % 得到所有的样本和标签以及任务编号
 [ C, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
 % 分割正负类点
-Yn = Y==-1;
 Yp = Y==1;
+Yn = Y==-1;
 E = C(Yp,:);
 F = C(Yn,:);
 [m1, ~] = size(E);
@@ -68,7 +68,7 @@ end
 Time = toc;
     
 %% Predict
-[ TaskNum, ~ ] = size(xTest);
+TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
     At = xTest{t};
