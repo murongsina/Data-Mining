@@ -11,23 +11,24 @@ lambda = opts.rho;
 kernel = opts.kernel;
 solver = opts.solver;
 TaskNum = length(xTrain);
+symmetric = @(H) (H+H')/2;
     
 %% Prepare
 tic;
 % 得到所有的样本和标签以及任务编号
-[ C, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
+[ X, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
 % 分割正负类点
 Yp = Y==1;
 Yn = Y==-1;
-E = C(Yp,:);
-F = C(Yn,:);
-[m1, ~] = size(E);
-[m2, ~] = size(F);
+A = X(Yp,:);
+B = X(Yn,:);
+[m1, ~] = size(A);
+[m2, ~] = size(B);
 % 核函数
 e1 = ones(m1, 1);
 e2 = ones(m2, 1);
-E = [Kernel(E, C, kernel) e1];
-F = [Kernel(F, C, kernel) e2];
+E = [Kernel(A, X, kernel) e1];
+F = [Kernel(B, X, kernel) e2];
 % 得到Q,R矩阵
 EEF = Cond(E'*E)\F';
 FFE = Cond(F'*F)\E';
@@ -51,10 +52,10 @@ end
 % 求解两个二次规划
 % MTL_TWSVR1_Xie
 H1 = Q + 1/rho*P;
-Alpha = quadprog(H1,-e2,[],[],[],[],zeros(m2, 1),C1*e2,[],solver);
+Alpha = quadprog(symmetric(H1),-e2,[],[],[],[],zeros(m2, 1),C1*e2,[],solver);
 % MTL_TWSVR2_Xie
 H2 = R + 1/lambda*S;
-Gamma = quadprog(H2,-e1,[],[],[],[],zeros(m1, 1),C2*e1,[],solver);
+Gamma = quadprog(symmetric(H2),-e1,[],[],[],[],zeros(m1, 1),C2*e1,[],solver);
 
 %% GetWeight
 u = -EEF*Alpha;
@@ -74,9 +75,9 @@ for t = 1 : TaskNum
     At = xTest{t};
     [m, ~] = size(At);
     et = ones(m, 1);
-    KAt = [Kernel(At, C, kernel) et];
-    D1 = KAt * U{t};
-    D2 = KAt * V{t};
+    KAt = [Kernel(At, X, kernel) et];
+    D1 = abs(KAt * U{t});
+    D2 = abs(KAt * V{t});
     yt = sign(D2-D1);
     yt(yt==0) = 1;
     yTest{t} = yt;

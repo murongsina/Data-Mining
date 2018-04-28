@@ -17,12 +17,12 @@ DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [2];
+DataSetIndices = [1 2 3 4 5];
 ParamIndices = [1:9];
-BestParams = 102;
+BestParams = 122;
 
 % 实验设置
-opts = InitOptions('clf', []);
+opts = InitOptions('clf', 0, []);
 
 % 实验开始
 fprintf('runCrossValid\n');
