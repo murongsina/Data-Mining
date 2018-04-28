@@ -1,4 +1,4 @@
-Path = './cv/regression/rbf/';
+Path = './cv/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,19 +10,19 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLReg.mat');
-load('LabRParams.mat');
+load('LabMTLClf.mat');
+load('LabCParams.mat');
 
-DataSets = LabMTLReg;
-IParams = RParams;
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = [1];
-ParamIndices = [5];
-BestParams = 320;
+DataSetIndices = [1 2 3 4 5];
+ParamIndices = [1:9];
+BestParams = 144;
 
 % 实验设置
-opts = InitOptions('reg', 0, []);
+opts = InitOptions('clf', 0, []);
 
 % 实验开始
 fprintf('runCrossValid\n');

@@ -1,5 +1,5 @@
-Src = './data/regression/linear';
-Dst = './lab/regression/linear';
+Src = './data/regression/rbf';
+Dst = './lab/regression/rbf';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -8,8 +8,8 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTLReg.mat');
-load('LabRParams-Linear.mat');
+load('LabRParams.mat');
 
 % 实验设置
-opts = InitOptions('reg', 1, []);
+opts = InitOptions('reg', 0, []);
 MyStatistics(LabMTLReg, RParams, Src, Dst, opts);

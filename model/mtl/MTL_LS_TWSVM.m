@@ -27,11 +27,6 @@ e1 = ones(m1, 1);
 e2 = ones(m2, 1);
 A = [Kernel(A, C, kernel) e1];
 B = [Kernel(B, C, kernel) e2];
-% 得到Q矩阵
-AAB = Cond(A'*A)\B';
-BBA = Cond(B'*B)\A';
-Q = B*AAB;
-R = A*BBA;
 % 得到P矩阵
 P = sparse(0, 0);
 S = sparse(0, 0);
@@ -48,9 +43,13 @@ end
 
 %% Fit
 % MTL-LS-TWSVM1
+AAB = Cond(A'*A)\B';
+Q = B*AAB;
 I = speye(size(Q));
 Alpha = Cond(Q + TaskNum/rho*P + 1/C1*I)\e2;
 % MTL-LS-TWSVM2
+BBA = Cond(B'*B)\A';
+R = A*BBA;
 I = speye(size(R));
 Gamma = Cond(R + TaskNum/lambda*S + 1/C2*I)\e1;
 
@@ -60,8 +59,8 @@ v = BBA*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    nt = T(Yn)==t;
     pt = T(Yp)==t;
+    nt = T(Yn)==t;
     U{t} = u-TaskNum/rho*AABt{t}*Alpha(nt,:);
     V{t} = v+TaskNum/lambda*BBAt{t}*Gamma(pt,:);
 end
@@ -75,8 +74,8 @@ for t = 1 : TaskNum
     [m, ~] = size(At);
     et = ones(m, 1);
     KAt = [Kernel(At, C, kernel) et];
-    D1 = KAt * U{t};
-    D2 = KAt * V{t};
+    D1 = abs(KAt * U{t});
+    D2 = abs(KAt * V{t});
     yt = sign(D2-D1);
     yt(yt==0) = 1;
     yTest{t} = yt;

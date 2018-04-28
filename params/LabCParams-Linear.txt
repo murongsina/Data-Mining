@@ -1,0 +1,9 @@
+SVM:12 params 0.00s.
+PSVM:12 params 0.00s.
+LS_SVM:12 params 0.00s.
+TWSVM:12 params 0.00s.
+LS_TWSVM:12 params 0.00s.
+MTL_PSVM:144 params 0.02s.
+MTL_LS_SVM:144 params 0.02s.
+MTL_TWSVM_Xie:144 params 0.02s.
+MTL_LS_TWSVM:144 params 0.02s.
