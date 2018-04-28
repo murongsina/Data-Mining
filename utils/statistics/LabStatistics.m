@@ -1,20 +1,20 @@
-function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, Mean, opts)
+function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, opts)
 %LABSTATISTIC 此处显示有关此函数的摘要
 % 统计多任务实验数据
 %   此处显示详细说明
 
-    if Mean
+    HasStat = 0;
+    nParams = length(IParams);
+    if opts.Mean
         TaskNum = 1;
     else
         TaskNum = DataSet.TaskNum;
     end
-    HasStat = 0;
-    nParams = length(IParams);
     LabStat = zeros(nParams, TaskNum, 2*opts.IndexCount);
     LabTime = zeros(nParams, 2);
     for k = 1 : nParams
         Method = IParams{k};
-        StatPath = [Path, DataSet.Name, '-', Method.Name, '.mat'];
+        StatPath = [Path, '/', DataSet.Name, '-', Method.Name, '.mat'];
         if exist(StatPath, 'file') == 2
             load(StatPath);
             [ ~, ~, n ] = size(CVStat);
@@ -23,7 +23,7 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, M
                 throw(ME);
             else
                 % 取多任务平均值
-                if Mean
+                if opts.Mean
                     CVStat = mean(CVStat, 3);
                 end
                 % 网格搜索结果

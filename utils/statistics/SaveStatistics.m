@@ -3,6 +3,11 @@ function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime, opts )
 % 保存统计数据
 %   此处显示详细说明
 
+    Root = [Path, '/statistics/'];
+    if exist(Root, 'dir') == 0
+        mkdir(Root);
+    end
+    
     % 保存统计数据
     StatPath = [Path, '/statistics/LabStat-', DataSet.Name, '.mat'];
     save(StatPath, 'LabStat', 'LabTime');

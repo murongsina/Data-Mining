@@ -3,6 +3,16 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
 % 保存图表
 %   此处显示详细说明
 
+    %创建文件夹
+    Root = [Path, '/eps/'];
+    if exist(Root, 'dir') == 0
+        mkdir(Root);
+    end
+    Root = [Path, '/fig/'];
+    if exist(Root, 'dir') == 0
+        mkdir(Root);
+    end
+    
     % 保存时间图表
     bar(LabTime(:, 1));
     FileName = [DataSet.Name, '-Time'];
