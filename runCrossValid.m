@@ -17,9 +17,9 @@ DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [1 2 3 4 5];
-ParamIndices = [1:9];
-BestParams = 122;
+DataSetIndices = [3 4 5];
+ParamIndices = [8 9];
+BestParams = 1002;
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
