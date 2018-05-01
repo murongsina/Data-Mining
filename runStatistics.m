@@ -11,5 +11,5 @@ load('LabMTLReg.mat');
 load('LabRParams-Linear.mat');
 
 %  µ—È…Ë÷√
-opts = InitOptions('reg', 0, []);
+opts = InitOptions('reg', 1, []);
 MyStatistics(LabMTLReg, RParams, Src, Dst, opts);
