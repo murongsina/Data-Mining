@@ -1,4 +1,4 @@
-Path = './cv/classify/rbf/';
+Path = './cv/classify/linear/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -11,13 +11,13 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTLClf.mat');
-load('LabCParams.mat');
+load('LabCParams-Linear.mat');
 
 DataSets = LabMTLClf;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [6];
+DataSetIndices = [9 10];
 ParamIndices = [1:9];
 BestParams = 1;
 
@@ -31,10 +31,14 @@ for i = DataSetIndices
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
+    StatDir = [ Path, int2str(DataSet.Kfold) '-fold/' ];
+    if exist(StatDir, 'dir') == 0
+        mkdir(StatDir);
+    end
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [Path, Name, '.mat'];
+        StatPath = [StatDir, Name, '.mat'];
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;

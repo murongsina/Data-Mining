@@ -31,10 +31,14 @@ for i = DataSetIndices
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
+    CurrPath = [ Path, int2str(DataSet.Kfold) '-fold/' ];
+    if exist(Path, 'dir') == 0
+        mkdir(Path);
+    end
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [Path, Name, '.mat'];
+        StatPath = [CurrPath, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
             continue;
