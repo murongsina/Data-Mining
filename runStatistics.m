@@ -1,5 +1,5 @@
-Src = './data/classify/rbf';
-Dst = './lab/classify/rbf';
+Src = './data/classify/rbf/';
+Dst = './lab/classify/rbf/';
 
 % Ìí¼ÓËÑË÷Â·¾¶
 addpath(genpath('./datasets'));
