@@ -1,4 +1,4 @@
-Path = './data/regression/rbf/';
+Path = './data/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,18 +10,18 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLReg.mat');
-load('LabRParams.mat');
+load('LabMTLClf.mat');
+load('LabCParams.mat');
 
-DataSets = LabMTLReg;
-IParams = RParams;
+DataSets = LabMTLClf;
+IParams = CParams;
 
 % 数据集
-DataSetIndices = 1:15;
-ParamIndices = [1:7 9 10 13];
+DataSetIndices = [9:16];
+ParamIndices = [1:9];
 
 % 实验设置
-opts = InitOptions('reg', []);
+opts = InitOptions('clf', 0, []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
@@ -31,14 +31,14 @@ for i = DataSetIndices
     fprintf('DataSet: %s\n', DataSet.Name);
     [ X, Y, ValInd ] = GetMultiTask(DataSet);
     [ X ] = Normalize(X);
-    CurrPath = [ Path, int2str(DataSet.Kfold) '-fold/' ];
-    if exist(Path, 'dir') == 0
-        mkdir(Path);
+    StatDir = [ Path, int2str(DataSet.Kfold) '-fold/' ];
+    if exist(StatDir, 'dir') == 0
+        mkdir(StatDir);
     end
     for j = ParamIndices
         Method = IParams{j};
         Name = [DataSet.Name, '-', Method.Name];
-        StatPath = [CurrPath, Name, '.mat'];
+        StatPath = [StatDir, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
             continue;

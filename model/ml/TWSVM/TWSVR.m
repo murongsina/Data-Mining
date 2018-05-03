@@ -14,7 +14,7 @@ eps1 = opts.eps1;
 eps2 = opts.eps1;
 kernel = opts.kernel;
 solver = opts.solver;
-
+symmetric = @(H) (H+H')/2;
 %% Fit
 tic;
 % 得到H
@@ -27,21 +27,19 @@ g = yTrain - eps1;
 % 得到Hu,Hv
 H2 = H'*H;
 I = speye(size(H2));
-Hu = (H2+C3*I)\H';
-Hv = (H2+C4*I)\H';
+Hu = Cond(H2+C3*I)\H';
+Hv = Cond(H2+C4*I)\H';
 % 得到Q1，Q2
-Q1 = H*Hu;
-Q2 = H*Hv;
+Q1 = symmetric(H*Hu);
+Q2 = symmetric(H*Hv);
 % 求解两个二次规划
 [m, ~] = size(yTrain);
 e = ones(m, 1);
 lb = zeros(m, 1);
 % TWSVR1
-ub1 = e*C1;
-Alpha = quadprog(-Q1,Q1'*f-g,[],[],[],[],lb,ub1,[],solver);
+Alpha = quadprog(Q1,Q1'*f-g,[],[],[],[],lb,e*C1,[],solver);
 % TWSVR2
-ub2 = e*C2;
-Gamma = quadprog(-Q2,f-Q2'*g,[],[],[],[],lb,ub2,[],solver);
+Gamma = quadprog(Q2,f-Q2'*g,[],[],[],[],lb,e*C2,[],solver);
 % 得到u,v
 u = Hu*(f-Alpha);
 v = Hv*(g+Gamma);

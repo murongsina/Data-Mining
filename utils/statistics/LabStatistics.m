@@ -14,6 +14,8 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, o
     % 实验文件夹
     StatDir = [ Path, int2str(DataSet.Kfold) '-fold/' ];
     if exist(StatDir, 'dir') == 0
+        LabStat = [];
+        LabTime = [];
         HasStat = 0;
         return;
     end

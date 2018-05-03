@@ -9,11 +9,11 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
         mkdir(Dir);
     end
     % 创建文件夹
-    Root = [Path, '/eps/'];
+    Root = [Dir, 'eps/'];
     if exist(Root, 'dir') == 0
         mkdir(Root);
     end
-    Root = [Path, '/fig/'];
+    Root = [Dir, 'fig/'];
     if exist(Root, 'dir') == 0
         mkdir(Root);
     end
@@ -21,7 +21,7 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
     % 保存时间图表
     bar(LabTime(:, 1));
     FileName = [DataSet.Name, '-Time'];
-    SaveFigure(Path, FileName);
+    SaveFigure(Dir, FileName);
     
     % 保存误差图表
     if opts.IndexCount == 4
@@ -40,10 +40,10 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
     end
     
     function SaveFigure(Path, FileName)
-        StatPath = [Path, '/fig/', FileName];
+        StatPath = [Path, 'fig/', FileName];
         saveas(gcf, StatPath, 'fig');
         fprintf('save: %s\n', StatPath);
-        StatPath = [Path, '/eps/', FileName];
+        StatPath = [Path, 'eps/', FileName];
         saveas(gcf, StatPath, 'epsc');
         fprintf('save: %s\n', StatPath);
     end

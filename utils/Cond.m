@@ -6,5 +6,5 @@ function [ A ] = Cond( H )
 %     H     -ºË¾ØÕó
 %     A     -µ÷Õûºó¾ØÕó
 
-    A = H + 1e-5*eye(size(H));
+    A = H + 1e-6*eye(size(H));
 end
