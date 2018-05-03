@@ -5,16 +5,24 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, o
 
     HasStat = 0;
     nParams = length(IParams);
+    % 是否多任务平均
     if opts.Mean
         TaskNum = 1;
     else
         TaskNum = DataSet.TaskNum;
     end
+    % 实验文件夹
+    StatDir = [ Path, int2str(DataSet.Kfold) '-fold/' ];
+    if exist(StatDir, 'dir') == 0
+        HasStat = 0;
+        return;
+    end
+    % 统计数据
     LabStat = zeros(nParams, TaskNum, 2*opts.IndexCount);
     LabTime = zeros(nParams, 2);
     for k = 1 : nParams
         Method = IParams{k};
-        StatPath = [Path, '/', DataSet.Name, '-', Method.Name, '.mat'];
+        StatPath = [ StatDir, DataSet.Name, '-', Method.Name, '.mat'];
         if exist(StatPath, 'file') == 2
             load(StatPath);
             [ ~, ~, n ] = size(CVStat);

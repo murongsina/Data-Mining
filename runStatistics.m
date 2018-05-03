@@ -1,5 +1,5 @@
-Src = './data/regression/linear';
-Dst = './lab/regression/linear';
+Src = './data/regression/linear/';
+Dst = './lab/regression/linear/';
 
 % Ìí¼ÓËÑË÷Â·¾¶
 addpath(genpath('./datasets'));

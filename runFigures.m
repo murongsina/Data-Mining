@@ -1,5 +1,5 @@
 Root = cd;
-Path = [ Root '/data/classify/rbf/raw/' ];
+Path = [ Root '/data/classify/rbf/' ];
 
 % Ìí¼ÓËÑË÷Â·¾¶
 addpath(genpath('./datasets'));
