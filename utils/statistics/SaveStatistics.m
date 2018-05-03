@@ -3,13 +3,18 @@ function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime, opts )
 % 保存统计数据
 %   此处显示详细说明
 
-    Root = [Path, '/statistics/'];
-    if exist(Root, 'dir') == 0
-        mkdir(Root);
+    % 交叉验证文件夹
+    Dir = [Path, int2str(DataSet.Kfold), '-fold/'];
+    if exist(Dir, 'dir') == 0
+        mkdir(Dir);
     end
-    
+    % 统计数据文件夹
+    StatDir = [Dir, 'statistics/'];
+    if exist(StatDir, 'dir') == 0
+        mkdir(StatDir);
+    end    
     % 保存统计数据
-    StatPath = [Path, '/statistics/LabStat-', DataSet.Name, '.mat'];
+    StatPath = [StatDir, 'LabStat-', DataSet.Name, '.mat'];
     save(StatPath, 'LabStat', 'LabTime');
     fprintf('save: %s\n', StatPath);
     

@@ -3,7 +3,12 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
 % 保存图表
 %   此处显示详细说明
 
-    %创建文件夹
+    % 交叉验证文件夹
+    Dir = [Path, int2str(DataSet.Kfold), '-fold/'];
+    if exist(Dir, 'dir') == 0
+        mkdir(Dir);
+    end
+    % 创建文件夹
     Root = [Path, '/eps/'];
     if exist(Root, 'dir') == 0
         mkdir(Root);
@@ -31,7 +36,7 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
         Index = replace(Indices{i}, '/', '_');
         FileName = [DataSet.Name, '-' Index];
         bar(LabStat(:,:,i), 'DisplayName', FileName);
-        SaveFigure(Path, FileName);
+        SaveFigure(Dir, FileName);
     end
     
     function SaveFigure(Path, FileName)
