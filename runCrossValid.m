@@ -1,4 +1,4 @@
-Path = './cv/classify/linear/';
+Path = './cv/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -11,7 +11,7 @@ addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
 load('LabMTLClf.mat');
-load('LabCParams-Linear.mat');
+load('LabCParams.mat');
 
 DataSets = LabMTLClf;
 IParams = CParams;
@@ -19,7 +19,7 @@ IParams = CParams;
 % 数据集
 DataSetIndices = [11 12 13];
 ParamIndices = [1:9];
-BestParams = 1;
+BestParams = 101;
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
