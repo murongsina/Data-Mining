@@ -17,7 +17,7 @@ DataSets = LabMTLClf;
 IParams = CParams;
 
 % Êý¾Ý¼¯
-DataSetIndices = [11 12 13];
+DataSetIndices = [17];
 ParamIndices = [1:9];
 BestParams = 101;
 
