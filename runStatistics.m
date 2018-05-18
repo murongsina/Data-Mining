@@ -11,5 +11,5 @@ load('LabMTLClf.mat');
 load('LabCParams.mat');
 
 %  µ—È…Ë÷√
-opts = InitOptions('clf', 1, []);
+opts = InitOptions('clf', 0, []);
 MyStatistics(LabMTLClf, CParams, Src, Dst, opts);
