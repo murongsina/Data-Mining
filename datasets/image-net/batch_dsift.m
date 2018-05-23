@@ -1,17 +1,13 @@
-function [ discr, count, class ] = batch_dsift( folder, wnids )
+function [ discr, count ] = batch_dsift( folder, wnids )
 %BATCH_DSIFT 此处显示有关此函数的摘要
 % Batch Dense SIFT
 %   此处显示详细说明
    
-    discr = [];
-    count = [];
-    class = [];
-    nwnid = size(wnids, 1);
-    for ci = 1 : nwnid
+    discr = []; % Dense SIFT描述符
+    count = []; % Dense SIFT特征统计
+    for ci = 1 : size(wnids, 1)
         files = ls(fullfile(folder, wnids{ci}, '*.jpg'));
-        nfile = size(files, 1);
-        class = cat(1, class, ci*ones(nfile, 1));
-        for fi = 1 : nfile
+        for fi = 1 : size(files, 1)
             try
                 file = fullfile(folder, wnids{ci}, files(fi,:));
                 fprintf('image_dsift:%s\n', files(fi,:));
