@@ -4,7 +4,7 @@ function [ X ] = bovw( IDX, count, k )
 %   此处显示详细说明
 
     n = size(count, 1);
-    X = zeros(n, k);
+    X = sparse(n, k);
     u = 1;
     for i = 1 : n
         % 第i组u,v
