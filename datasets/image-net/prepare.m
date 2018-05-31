@@ -12,7 +12,7 @@ function [  ] = prepare( wnid, strs, start, total )
     count = min([m, total]);
     for i = start : count
         url = urls{i, 1};
-        path = sprintf([folder, wnid, '_%04d.jpg'], i);
+        path = sprintf([folder, wnid, '_%4d.jpg'], i);
         if exist(path, 'file') == 0
             try
                 pic = webread(url, options);
