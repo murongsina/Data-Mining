@@ -1,5 +1,5 @@
-Src = './data/classify/rbf/';
-Dst = './lab/classify/rbf/';
+Src = './data/classify/linear/';
+Dst = './lab/classify/linear/';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -7,9 +7,9 @@ addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
-load('LabCParams.mat');
+load('MTL_CIFAR.mat');
+load('LabCParams-Linear.mat');
 
 % 实验设置
-opts = InitOptions('clf', 1, []);
-MyStatistics(LabMTLClf, CParams, Src, Dst, opts);
+opts = InitOptions('clf', 0, []);
+MyStatistics(MTL_CIFAR, CParams, Src, Dst, opts);
