@@ -1,9 +1,9 @@
 load('image_net.mat');
 
-[m, n] = size(image_net);
-for i = 1 : m
+[m, n] = size(words);
+for i = []
     try
-        wnid = image_net{i, 1};
+        wnid = words{i, 1};
         folder = sprintf('./Images/%s/', wnid);
         if exist(folder, 'dir')
             list = dir(folder);
@@ -11,7 +11,7 @@ for i = 1 : m
                 [~,~,~,~,e,~] = regexp(list(end).name, '\_0+(\d+)\.');
                 str = cell2mat(e{1,1});
                 start = str2num(str);
-                image_net{i, 3} = true;
+                words{i, 3} = true;
             else
                 start = 1;
             end
@@ -19,7 +19,7 @@ for i = 1 : m
             start = 1;
         end
         fprintf('process in %s\n', wnid);
-        [ strs, bbox ] = process( wnid );
+        [ strs ] = process( wnid );
         fprintf('prepare in %s-%d\n', wnid, start);
         prepare( wnid, strs, start, 40 );
     catch MException
@@ -27,4 +27,4 @@ for i = 1 : m
     end
 end
 
-save image_net.mat image_net;
+save words.mat words;

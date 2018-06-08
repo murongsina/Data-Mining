@@ -4,7 +4,7 @@ function [  ] = plot_bbox( wnid, id )
 
     % »æÖÆÍ¼Æ¬
     folder = sprintf('./Images/%s/', wnid);
-    file = sprintf([folder, wnid, '_%04d.jpg'], id);
+    file = sprintf([folder, wnid, '_%d.jpg'], id);
     try
         im = imread(file);
         imshow(im);
@@ -12,6 +12,10 @@ function [  ] = plot_bbox( wnid, id )
         fprintf('No such file:%s\n', file);
     end
     % »æÖÆ×ø±ê
-    box = bbox(wnid, id);
-    rectangle('position', [box(1), box(2), box(3)-box(1), box(4)-box(2)]);    
+    try
+        box = bbox(wnid, id);
+        rectangle('position', [box(1), box(2), box(3)-box(1), box(4)-box(2)]);    
+    catch MException
+        fprintf('No such file:%s\n', file);
+    end
 end
