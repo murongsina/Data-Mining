@@ -1,4 +1,4 @@
-Path = './data/classify/linear/';
+Path = './data/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,15 +10,15 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('MTL_CIFAR.mat');
-load('LabCParams-Linear.mat');
+load('MTL_CIFAR_OvO.mat');
+load('LabCParams.mat');
 
 DataSets = MTL_CIFAR;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [2 3 8 15 18 19 20];
-ParamIndices = [6:9];
+DataSetIndices = [1:10];
+ParamIndices = [1:4];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
