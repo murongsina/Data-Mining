@@ -12,4 +12,5 @@ load('LabCParams.mat');
 
 %  µ—È…Ë÷√
 opts = InitOptions('clf', 1, []);
-MyStatistics(MTL_CIFAR, CParams, Src, Dst, opts);
+MyStat = MyStatistics(MTL_CIFAR, CParams, Src, Dst, opts);
+save('./MyStat.mat', 'MyStat');

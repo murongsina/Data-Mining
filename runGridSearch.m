@@ -17,8 +17,8 @@ DataSets = MTL_CIFAR;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [1:10];
-ParamIndices = [1:4];
+DataSetIndices = [1:20];
+ParamIndices = [6:9];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
