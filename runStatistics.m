@@ -7,9 +7,10 @@ addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
+load('MTL_CIFAR_OvO.mat');
 load('LabCParams.mat');
 
 % 实验设置
 opts = InitOptions('clf', 1, []);
-MyStatistics(LabMTLClf, CParams, Src, Dst, opts);
+MyStat = MyStatistics(MTL_CIFAR, CParams, Src, Dst, opts);
+save('./MyStat.mat', 'MyStat');
