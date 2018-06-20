@@ -10,15 +10,15 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('MTL_CIFAR_OvO.mat');
+load('MTL_Caltech101.mat');
 load('LabCParams.mat');
 
-DataSets = MTL_CIFAR;
+DataSets = MTL_Caltech101;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [1:20];
-ParamIndices = [6:9];
+DataSetIndices = [18:25];
+ParamIndices = [1:9];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
