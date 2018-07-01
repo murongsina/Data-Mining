@@ -17,8 +17,8 @@ DataSets = MTL_Caltech101;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [18:25];
-ParamIndices = [1:9];
+DataSetIndices = [1 4 6 8];
+ParamIndices = [9 8 7 6];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
