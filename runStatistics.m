@@ -1,5 +1,5 @@
-Src = './data/classify/rbf/';
-Dst = './lab/classify/rbf/';
+Src = './data/regression/rbf/';
+Dst = './lab/regression/rbf/';
 
 % 添加搜索路径
 addpath(genpath('./datasets'));
@@ -7,10 +7,10 @@ addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('MTL_Caltech101.mat');
-load('LabCParams.mat');
+load('LabMTLReg.mat');
+load('LabRParams.mat');
 
 % 实验设置
-opts = InitOptions('clf', 0, []);
-MyStat = MyStatistics(MTL_Caltech101, CParams, Src, Dst, opts);
-save('MyStat-MTL_Caltech101.mat', 'MyStat');
+opts = InitOptions('reg', 1, []);
+[ MyStat, MyRank ] = MyStatistics(LabMTLReg, RParams, Src, Dst, opts);
+save('MyStat-LabMTLReg.mat', 'MyStat', 'MyRank');

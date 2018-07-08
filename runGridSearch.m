@@ -1,4 +1,4 @@
-Path = './data/classify/rbf/';
+Path = './data/regression/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -10,18 +10,18 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('MTL_Caltech101.mat');
-load('LabCParams.mat');
+load('LabMTLReg.mat');
+load('LabRParams.mat');
 
-DataSets = MTL_Caltech101;
-IParams = CParams;
+DataSets = LabMTLReg;
+IParams = RParams;
 
 % 数据集
-DataSetIndices = [1 4 6 8];
-ParamIndices = [9 8 7 6];
+DataSetIndices = [ 19 ];
+ParamIndices = [ 1 2 3 4 5 7 9 10 13];
 
 % 实验设置
-opts = InitOptions('clf', 0, []);
+opts = InitOptions('reg', 0, []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始

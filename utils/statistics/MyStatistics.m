@@ -1,4 +1,4 @@
-function [ MyStat ] = MyStatistics(DataSets, IParams, Src, Dst, opts)
+function [ MyStat, MyRank ] = MyStatistics(DataSets, IParams, Src, Dst, opts)
 %MYSTATISTICS 此处显示有关此函数的摘要
 %   此处显示详细说明
 
@@ -11,8 +11,9 @@ function [ MyStat ] = MyStatistics(DataSets, IParams, Src, Dst, opts)
     end
     
     % 统计每个数据集上的多任务实验数据
-    n = length(DataSets);
     MyStat = [ ];
+    MyRank = [ ];
+    n = length(DataSets);
     for j = 1 : n
         DataSet = DataSets(j);
         try
@@ -20,8 +21,9 @@ function [ MyStat ] = MyStatistics(DataSets, IParams, Src, Dst, opts)
             if HasStat == 1
                SaveStatistics(Dst, DataSet, LabStat, LabTime, opts);
                if opts.Mean == 1
+                   MyStat = cat(2, MyStat, LabStat(:,1,1));
                    [ ~, IDX ] = sort(LabStat(:,1,1));
-                   MyStat = cat(2, MyStat, IDX);
+                   MyRank = cat(2, MyRank, IDX);
                end
             end
         catch MException

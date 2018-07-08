@@ -1,14 +1,3 @@
-% LabMTLClf = LabMTLClf';
-% for i = [1 3 4 5]
-%     LabMTLClf(i).X = LabMTLClf(i).X';
-%     LabMTLClf(i).Y = LabMTLClf(i).Y';
-%     LabMTLClf(i).ValInd = LabMTLClf(i).ValInd';
-% end
-% LabMTLClf = LabMTLClf;
-% save('./datasets/LabMTLClf.mat', 'LabMTLClf');
-
-% [X, Y] = MTLData(12, 50, 40);
-
 load LabMTL.mat
 load MTL_UCI.mat
 % Name = 'UCI-isolet-ab';
@@ -34,12 +23,12 @@ load MTL_UCI.mat
 % for count = 60:20:180
 %     Name = sprintf('UCI-Monk-%d', count);
 %     Src = LabMTL(3);
-%     Dst = MyReduce(Src, Name, [1 2 3], [0,1], count, false, 3);
+%     Dst = MyReduce(Src, Name, [1:3], [0,1], count, false, 3);
 %     MTL_UCI = cat(1, MTL_UCI, Dst);
 % end
 % save MTL_UCI.mat MTL_UCI;
-% 
+
 % Src = LabMTL(3);
-% Dst = MyReduce(Src, 'UCI-Monk-40', [1 2 3], [0,1], 40, false, 3);
+% Dst = MyReduce(Src, 'UCI-Monk-', [1:9], [0,1], 50, false, 3);
 % MTL_UCI = cat(1, MTL_UCI, Dst);
 % save MTL_UCI.mat MTL_UCI;
