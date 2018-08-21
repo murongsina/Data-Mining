@@ -10,16 +10,16 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('LabMTLClf.mat');
+load('MTL_UCI.mat');
 load('LabCParams.mat');
 
-DataSets = LabMTLClf;
+DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [17];
-ParamIndices = [1:9];
-BestParams = 101;
+DataSetIndices = [13 14 18];
+ParamIndices = [10];
+BestParams = 1024;
 
 % 实验设置
 opts = InitOptions('clf', 0, []);

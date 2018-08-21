@@ -17,8 +17,8 @@ GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
 
 %% 核函数
-% kernel = struct('kernel', 'rbf', 'p1', P1);
-kernel = struct('kernel', 'linear');
+kernel = struct('kernel', 'rbf', 'p1', P1);
+% kernel = struct('kernel', 'linear');
 
 % 回归任务参数
 RParams = {
@@ -49,10 +49,11 @@ CParams = {
     struct('Name', 'MTL_LS_SVM', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);...
     struct('Name', 'MTL_TWSVM_Xie', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'MTL_LS_TWSVM', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
+    struct('Name', 'MTBSVM', 'C1', C1, 'C3', C1, 'rho', RHO, 'kernel', kernel);...
 };
 
 % 保存参数表
-[ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
-save('./params/LabRParams-Linear.mat', 'RParams');
-[ CParams ] = PrintParams('./params/LabCParams-Linear.txt', CParams);
-save('./params/LabCParams-Linear.mat', 'CParams');
+% [ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
+% save('./params/LabRParams-Linear.mat', 'RParams');
+[ CParams ] = PrintParams('./params/LabCParams.txt', CParams);
+save('./params/LabCParams.mat', 'CParams');
