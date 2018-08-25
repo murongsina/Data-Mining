@@ -1,4 +1,4 @@
-classdef SVM
+classdef SVC
     % C-支持向量机
     properties (Access = 'public')
         X;
