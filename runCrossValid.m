@@ -17,12 +17,12 @@ DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [13 14 18];
-ParamIndices = [10];
-BestParams = 1024;
+DataSetIndices = [18];
+ParamIndices = [1:11];
+BestParams = 144;
 
 % 实验设置
-opts = InitOptions('clf', 0, []);
+opts = InitOptions('clf', 1, []);
 
 % 实验开始
 fprintf('runCrossValid\n');
@@ -42,8 +42,8 @@ for i = DataSetIndices
         try
             Params = GetParams(Method, BestParams);
             Params.solver = opts.solver;
-            CVStat = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params, opts);
-            save(StatPath, 'CVStat');
+            [ OStat, TStat ] = CrossValid(@MTL, X, Y, DataSet.TaskNum, DataSet.Kfold, ValInd, Params, opts);
+            save(StatPath, 'OStat', 'TStat');
             fprintf('save: %s\n', StatPath);
         catch Exception
             fprintf('Exception in %s\n', Name);

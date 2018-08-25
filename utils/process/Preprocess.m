@@ -4,6 +4,9 @@ function [ Data, Map ] = Preprocess( Raw, AttributeTypes )
 %   此处显示详细说明
 % AttributeTypes：
 %   1: Real, 2: Integer, 3: Categorical
+% 返回：
+%    Data   数据
+%    Map    映射表
 
     if istable(Raw)
         [ Data, Map ] = Table2Mat(Raw, AttributeTypes);
