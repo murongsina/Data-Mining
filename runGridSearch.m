@@ -17,7 +17,7 @@ DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 13 14 18 ];
+DataSetIndices = [ 27:39 ];
 ParamIndices = [ 10 ];
 
 % 实验设置
