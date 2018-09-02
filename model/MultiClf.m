@@ -16,7 +16,7 @@ function [ yTest, Time ] = MultiClf(xTrain, yTrain, xTest, opts)
     end
     
     %% ÑµÁ·Ä£Ê½£ºOvO, OvR
-    Mode = opts.Mode;          
+    Mode = opts.Mode;
     switch (Mode)
         case {'OvO'}
             Learner = @MultiOvO;

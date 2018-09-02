@@ -23,10 +23,10 @@ function [ CVStat, CVTime ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfo
         Params = GetParams(IParams, i);
         Params.solver = solver;
         [CVStat(i,:,:), CVTime(i,:)]= CrossValid(Learner, X, Y, TaskNum, Kfold, ValInd, Params, opts);
-        if mod(i, 200) == 0
+        if mod(i, 400) == 0
             Index = i + 1;
             save('check-point.mat', 'CVStat', 'CVTime', 'Index');
         end
     end
-    
+    delete('check-point.mat');
 end
