@@ -42,7 +42,7 @@ function [ obj, grad ] = MTL_TWSVC1(A, B, U, C1, rho1)
     obj_s = cell(T, 1);
     grad_s = cell(T, 1);
     for t = 1 : T
-        [ obj_s, grad_s ] = 
+%         [ obj_s, grad_s ] = 
         [ obj_h, grad_h ] = HingeLoss(max(0, e2+B{t}*U{t}), B{t});
     end
 end

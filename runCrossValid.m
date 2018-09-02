@@ -17,9 +17,9 @@ DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [18];
-ParamIndices = [1:11];
-BestParams = 144;
+DataSetIndices = [13];
+ParamIndices = [6:11];
+BestParams = 145;
 
 % 实验设置
 opts = InitOptions('clf', 1, []);
