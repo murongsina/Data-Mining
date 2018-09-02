@@ -9,7 +9,7 @@ function [ IParams ] = PrintParams( Path, IParams )
     for i = 1 : n
         nParams(i, 1) = GetParamsCount(IParams{i});
     end
-    [~, IDX] = sort(nParams);
+    [nParams, IDX] = sort(nParams);
     IParams = IParams(IDX);
     % 测试获取参数的时间
     fd = fopen(Path, 'w');

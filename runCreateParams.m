@@ -1,3 +1,6 @@
+clc
+clear
+
 addpath(genpath('./utils/'));
 
 % 核函数参数
@@ -15,6 +18,10 @@ RHO = 2.^(-3:1:8)';
 LAMBDA = 2.^(-3:1:8)';
 GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
+RATE = [0.83,0.90,0.97]';
+% VSTG-MTL
+K = (3:2:13)';
+k = (1:2:7)';
 
 %% 核函数
 kernel = struct('kernel', 'rbf', 'p1', P1);
@@ -49,9 +56,12 @@ CParams = {
     struct('Name', 'MTL_LS_SVM', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);...
     struct('Name', 'MTL_TWSVM_Xie', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'MTL_LS_TWSVM', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
+    struct('Name', 'MTL_aLS_SVM', 'C1', C, 'C2', C, 'rho', RATE, 'kernel', kernel);
     struct('Name', 'MTBSVM', 'C1', C1, 'C3', C1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'MTLS_TBSVM', 'C1', C1, 'C3', C1, 'rho', RHO, 'kernel', kernel);...
 };
+
+%     struct('Name', 'VSTG_MTL', 'func', 'logistic', 'gamma1', GAMMA, 'gamma2', GAMMA, 'K', K, 'k', k);...
 
 % 保存参数表
 % [ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);

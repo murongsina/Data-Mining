@@ -1,3 +1,6 @@
+clc
+clear
+
 Path = './data/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
@@ -17,8 +20,8 @@ DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 19:39 13 14 ];
-ParamIndices = [ 11 ];
+DataSetIndices = [ 15 18:26 13];
+ParamIndices = [ 10 ];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);

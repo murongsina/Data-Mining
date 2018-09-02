@@ -12,5 +12,5 @@ load('LabCParams.mat');
 
 %  µ—È…Ë÷√
 opts = InitOptions('clf', 1, []);
-[ MyStat, MyRank ] = MyStatistics(MTL_UCI(27:39), CParams, Src, Dst, opts);
+[ MyStat, MyRank ] = MyStatistics(MTL_UCI([13 14 15 18:26]), CParams, Src, Dst, opts);
 save('MyStat-Caltech.mat', 'MyStat', 'MyRank');
