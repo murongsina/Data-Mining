@@ -43,10 +43,8 @@ S = sparse(0, 0);
 EEFt = cell(TaskNum, 1);
 FFEt = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    Tpt = T(Yp)==t;
-    Tpn = T(Yn)==t;
-    Et = E(Tpt,:);
-    Ft = F(Tpn,:);
+    Et = E(T(Yp)==t,:);
+    Ft = F(T(Yn)==t,:);
     It = speye(size(Et, 2));
     EEFt{t} = (rho/TaskNum*(Et'*Et)+C3/TaskNum*It)\(Ft');
     FFEt{t} = (lambda/TaskNum*(Ft'*Ft)+C4/TaskNum*It)\(Et');

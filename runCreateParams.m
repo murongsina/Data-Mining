@@ -18,7 +18,10 @@ RHO = 2.^(-3:1:8)';
 LAMBDA = 2.^(-3:1:8)';
 GAMMA = 2.^(-3:1:8)';
 NU = 2.^(-3:1:8)';
+% MTL-aLS-SVM
 RATE = [0.83,0.90,0.97]';
+% MTCTSVM
+P = (0.5:0.5:2.0)';
 % VSTG-MTL
 K = (3:2:13)';
 k = (1:2:7)';
@@ -27,7 +30,7 @@ k = (1:2:7)';
 kernel = struct('kernel', 'rbf', 'p1', P1);
 % kernel = struct('kernel', 'linear');
 
-% 回归任务参数
+%% 回归任务参数
 RParams = {
     struct('Name', 'SVR', 'C', C, 'eps', EPS1, 'kernel', kernel);...
     struct('Name', 'PSVR', 'nu', NU, 'kernel', kernel);...
@@ -45,7 +48,9 @@ RParams = {
     struct('Name', 'MTL_LS_TWSVR_Xu', 'C1', C1, 'eps1', EPS1, 'rho', RHO, 'kernel', kernel)...
 };
 
-% 分类任务参数
+[ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
+save('./params/LabRParams-Linear.mat', 'RParams');
+%% 分类任务参数
 CParams = {
     struct('Name', 'SVM', 'C', C, 'kernel', kernel);...
     struct('Name', 'PSVM', 'nu', NU, 'kernel', kernel);...
@@ -55,8 +60,9 @@ CParams = {
     struct('Name', 'MTL_PSVM', 'lambda', LAMBDA, 'nu', NU, 'kernel', kernel);...
     struct('Name', 'MTL_LS_SVM', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);...
     struct('Name', 'MTL_TWSVM_Xie', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
+    struct('Name', 'MCTSVM', 'C1', C1, 'rho', RHO, 'p', P, 'kernel', kernel);...
     struct('Name', 'MTL_LS_TWSVM', 'C1', C1, 'rho', RHO, 'kernel', kernel);...
-    struct('Name', 'MTL_aLS_SVM', 'C1', C, 'C2', C, 'rho', RATE, 'kernel', kernel);
+    struct('Name', 'MTL_aLS_SVM', 'C1', C, 'C2', C, 'rho', RATE, 'kernel', kernel);...
     struct('Name', 'MTBSVM', 'C1', C1, 'C3', C1, 'rho', RHO, 'kernel', kernel);...
     struct('Name', 'MTLS_TBSVM', 'C1', C1, 'C3', C1, 'rho', RHO, 'kernel', kernel);...
 };
@@ -64,7 +70,5 @@ CParams = {
 %     struct('Name', 'VSTG_MTL', 'func', 'logistic', 'gamma1', GAMMA, 'gamma2', GAMMA, 'K', K, 'k', k);...
 
 % 保存参数表
-% [ RParams ] = PrintParams('./params/LabRParams-Linear.txt', RParams);
-% save('./params/LabRParams-Linear.mat', 'RParams');
 [ CParams ] = PrintParams('./params/LabCParams.txt', CParams);
 save('./params/LabCParams.mat', 'CParams');

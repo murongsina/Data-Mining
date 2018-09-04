@@ -21,7 +21,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [ 1:15 ];
-ParamIndices = [ 10 ];
+ParamIndices = [ 11 ];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
