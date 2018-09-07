@@ -32,10 +32,6 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, o
                 ME = MException('LabStatistics', 'TaskNum miss match in %s\n', Method.Name);
                 throw(ME);
             else
-                % 取多任务平均值
-                if opts.Mean
-                    CVStat = mean(CVStat, 3);
-                end
                 % 网格搜索结果
                 [ Stat, Time ] = GSStatistics(TaskNum, CVStat, CVTime, opts);
                 % 保存数据

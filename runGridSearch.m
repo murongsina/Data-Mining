@@ -12,15 +12,15 @@ addpath(genpath('./params'));
 addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
-% 加载数据集和网格搜索参数
-load('Caltech.mat');
+%% 加载数据集和网格搜索参数
+load('MTL_UCI.mat');
 load('LabCParams.mat');
 
-DataSets = Caltech;
+DataSets = MTL_UCI;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 1:15 ];
+DataSetIndices = [ 13 15 18:26 ];
 ParamIndices = [ 11 ];
 
 % 实验设置
