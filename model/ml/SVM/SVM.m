@@ -19,11 +19,12 @@ DY = I.*Y;
 H = Cond(DY*K*DY);
 Alpha = quadprog(H, -e, Y', 0, [], [], 0*e, C*e, [], []);
 svi = Alpha > 0 & Alpha < C;
+b = mean(Y(svi,:)-K(svi,:)*(Y(svi,:).*Alpha(svi,:)));
 % Í£Ö¹¼ÆÊ±
 Time = toc;
 
 %% Predict
-yTest = sign(Kernel(xTest, X(svi,:), kernel)*(Y(svi,:).*Alpha(svi,:)));
+yTest = sign(Kernel(xTest, X(svi,:), kernel)*(Y(svi,:).*Alpha(svi,:))+b);
 yTest(yTest==0) = 1;
 
 end

@@ -17,7 +17,7 @@ H = Q + 1/gamma*I;
 E = ones(size(Y));
 Alphab = [H Y;Y' 0]\[E; 0];
 Alpha = Alphab(1:end-1);
-svi = (Alpha>0)&(Alpha<gamma);
+svi = Alpha~=0;
 b = Alphab(end);
 Time = toc;
 

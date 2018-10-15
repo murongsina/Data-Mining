@@ -34,14 +34,14 @@ for t = 1 : TaskNum
     Ht = Kernel(xTest{t}, X, kernel);
     y0 = Predict(Ht, Y, Alpha);
     yt = Predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
-    bt = TaskNum/lambda * Y(Tt,:)'*Alpha(Tt,:);
+    bt = TaskNum/lambda*Y(Tt,:)'*Alpha(Tt,:);
     y = sign(y0 + TaskNum/lambda * yt + bt);
     y(y==0) = 1;
     yTest{t} = y;
 end
 
     function [ y ] = Predict(H, Y, Alpha)
-        svi = (Alpha>0)&(Alpha<nu);
+        svi = Alpha~=0;
         y = H(:,svi)*(Y(svi,:).*Alpha(svi,:));
     end
 end

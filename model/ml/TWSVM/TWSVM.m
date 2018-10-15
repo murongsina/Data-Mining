@@ -42,8 +42,8 @@ Time = toc;
 
 %% Predict
 K = Kernel(xTest, C, kernel);
-D1 = abs(K*u1+b1);
-D2 = abs(K*u2+b2);
+D1 = abs(K*u1+b1)/norm(u1);
+D2 = abs(K*u2+b2)/norm(u2);
 yTest = sign(D2-D1);
 yTest(yTest==0) = 1;
 

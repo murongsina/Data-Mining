@@ -45,7 +45,7 @@ for t = 1 : TaskNum
 end
 
     function [ y ] = Predict(H, Y, Alpha)
-        svi = Alpha > 0 & Alpha < gamma;
+        svi = Alpha~=0;
         y = H(:,svi)*(Y(svi).*Alpha(svi));
     end
 end

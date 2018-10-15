@@ -16,7 +16,7 @@ Q = Y.*(H + 1).*Y';
 I = speye(size(H));
 e = ones(size(Y));
 Alpha = Cond(Q + 1/nu*I)\e;
-svi = (Alpha>0)&(Alpha<nu);
+svi = Alpha~=0;
 b = Y(svi,:)'*Alpha(svi,:);
 Time = toc;
 
