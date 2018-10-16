@@ -1,12 +1,13 @@
 vTWSVM:84 params 0.30s.
-SVM:144 params 0.34s.
+SVM:144 params 0.35s.
 PSVM:144 params 0.12s.
 LS_SVM:144 params 0.02s.
 TWSVM:144 params 0.09s.
 LS_TWSVM:144 params 0.01s.
-MTL_PSVM:1728 params 0.33s.
+MTvTWSVM:1008 params 0.20s.
+MTL_PSVM:1728 params 0.09s.
 MTL_LS_SVM:1728 params 0.08s.
 MTL_TWSVM_Xie:1728 params 0.08s.
 MTL_LS_TWSVM:1728 params 0.08s.
 MTL_aLS_SVM:5184 params 0.26s.
-MCTSVM:6912 params 1.26s.
+MCTSVM:6912 params 1.35s.
