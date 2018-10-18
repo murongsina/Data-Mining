@@ -13,15 +13,15 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 %% 加载数据集和网格搜索参数?
-load('Caltech5.mat');
+load('MTL_UCI5.mat');
 load('LabCParams.mat');
 
-DataSets = Caltech5;
+DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 6:15 ];
-ParamIndices = [ 3 4 7 8 ];
+DataSetIndices = [ 15:22 1:6 ];
+ParamIndices = [ 7 ];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
