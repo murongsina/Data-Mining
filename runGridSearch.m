@@ -21,7 +21,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [6:15];
-ParamIndices = [ 7:10 12 13 ];
+ParamIndices = [ 7:9 ];
 
 % 实验设置
 opts = InitOptions('clf', 0, []);
@@ -40,7 +40,7 @@ for i = DataSetIndices
     end
     for j = ParamIndices
         Method = IParams{j};
-        Name = [DataSet.Name, '-', Method.Name];
+        Name = [Method.Name, '-', DataSet.Name];
         StatPath = [StatDir, Name, '.mat'];
         if exist(StatPath, 'file') == 2
             fprintf(fd, 'skip: %s\n', StatPath);
