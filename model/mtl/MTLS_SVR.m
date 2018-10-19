@@ -1,4 +1,4 @@
-function  [ yTest, Time ] = MTL_LS_SVR(xTrain, yTrain, xTest, opts)
+function  [ yTest, Time ] = MTLS_SVR(xTrain, yTrain, xTest, opts)
 %MTL_LS_SVR 此处显示有关此函数的摘要
 % Multi-task least-squares support vector regression
 % ref:Multi-task least-squares support vector machines
