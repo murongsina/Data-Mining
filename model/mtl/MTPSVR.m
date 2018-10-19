@@ -1,5 +1,5 @@
-function [ yTest, Time ] = MTL_PSVR( xTrain, yTrain, xTest, opts )
-%MTL_PSVR 此处显示有关此函数的摘要
+function [ yTest, Time ] = MTPSVR( xTrain, yTrain, xTest, opts )
+%MTPSVR 此处显示有关此函数的摘要
 % Multi-task proximal support vector regression
 % ref:Multi-task proximal support vector machine
 %   此处显示详细说明
@@ -36,7 +36,7 @@ for t = 1 : TaskNum
 end
 
     function [ y ] = Predict(H, Alpha)
-        svi = (Alpha>0)&(Alpha<nu);
+        svi = Alpha>0;
         y = H(:,svi)*Alpha(svi,:);
     end
 end

@@ -1,5 +1,5 @@
-function [ yTest, Time ] = MTL_SVM( xTrain, yTrain, xTest, opts )
-%MTL_SVM 此处显示有关此函数的摘要
+function [ yTest, Time ] = RMTL( xTrain, yTrain, xTest, opts )
+%RMTL 此处显示有关此函数的摘要
 % Reg-MTL
 %   此处显示详细说明
 

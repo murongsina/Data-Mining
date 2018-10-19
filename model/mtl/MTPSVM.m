@@ -1,5 +1,5 @@
-function [ yTest, Time ] = MTL_PSVM( xTrain, yTrain, xTest, opts )
-%MTL_PSVR 此处显示有关此函数的摘要
+function [ yTest, Time ] = MTPSVM( xTrain, yTrain, xTest, opts )
+%MTPSVM 此处显示有关此函数的摘要
 % Multi-task proximal support vector machine
 % ref:Multi-task proximal support vector machine
 %   此处显示详细说明

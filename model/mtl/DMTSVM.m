@@ -1,5 +1,5 @@
-function [ yTest, Time ] = MTL_TWSVM_Xie( xTrain, yTrain, xTest, opts )
-%MTL_TWSVM_XIE 此处显示有关此函数的摘要
+function [ yTest, Time ] = DMTSVM( xTrain, yTrain, xTest, opts )
+%DMTSVM 此处显示有关此函数的摘要
 % Multi-Task Twin Support Vector Machine
 %   此处显示详细说明
 
@@ -76,8 +76,8 @@ for t = 1 : TaskNum
     [m, ~] = size(At);
     et = ones(m, 1);
     KAt = [Kernel(At, X, kernel) et];
-    D1 = abs(KAt * U{t})/norm(U{t});
-    D2 = abs(KAt * V{t})/norm(V{t});
+    D1 = abs(KAt * U{t})/norm(U{t}(1:end-1));
+    D2 = abs(KAt * V{t})/norm(V{t}(1:end-1));
     yt = sign(D2-D1);
     yt(yt==0) = 1;
     yTest{t} = yt;

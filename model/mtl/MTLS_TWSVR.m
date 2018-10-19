@@ -1,5 +1,5 @@
-function [ yTest, Time ] = MTL_LS_TWSVR(xTrain, yTrain, xTest, opts)
-%MTL_LS_TWSVR 此处显示有关此函数的摘要
+function [ yTest, Time ] = MTLS_TWSVR(xTrain, yTrain, xTest, opts)
+%MTLS_TWSVR 此处显示有关此函数的摘要
 % Multi-Task Least Square Twin Support Vector Machine
 %   此处显示详细说明
 

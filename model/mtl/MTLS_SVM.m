@@ -1,5 +1,5 @@
-function  [ yTest, Time ] = MTL_LS_SVM(xTrain, yTrain, xTest, opts)
-%MTL_LS_SVM 此处显示有关此函数的摘要
+function  [ yTest, Time ] = MTLS_SVM(xTrain, yTrain, xTest, opts)
+%MTLS_SVM 此处显示有关此函数的摘要
 % Multi-task least-squares support vector machines
 % ref:Multi-task least-squares support vector machines
 %   此处显示详细说明

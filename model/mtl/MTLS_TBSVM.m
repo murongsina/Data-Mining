@@ -82,8 +82,8 @@ for t = 1 : TaskNum
     [m, ~] = size(At);
     et = ones(m, 1);
     KAt = [Kernel(At, X, kernel) et];
-    D1 = abs(KAt * U{t});
-    D2 = abs(KAt * V{t});
+    D1 = abs(KAt * U{t})/norm(U{t}(1:end-1));
+    D2 = abs(KAt * V{t})/norm(V{t}(1:end-1));
     yt = sign(D2-D1);
     yt(yt==0) = 1;
     yTest{t} = yt;
