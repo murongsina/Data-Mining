@@ -24,7 +24,7 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, o
     LabTime = zeros(nParams, 2);
     for k = 1 : nParams
         Method = IParams{k};
-        StatPath = [ StatDir, DataSet.Name, '-', Method.Name, '.mat'];
+        StatPath = [ StatDir, Method.Name, '-', DataSet.Name, '.mat'];
         if exist(StatPath, 'file') == 2
             load(StatPath);
             [ ~, ~, n ] = size(CVStat);

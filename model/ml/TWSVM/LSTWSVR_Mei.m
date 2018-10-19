@@ -1,4 +1,4 @@
-function [ yTest, Time ] = LS_TWSVR_Mei(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = LSTWSVR_Mei(xTrain, yTrain, xTest, opts)
 %LS_TWSVR 此处显示有关此函数的摘要
 % Least Square Twin Support Vector Regression
 % Derived from TWSVR via TWSVM

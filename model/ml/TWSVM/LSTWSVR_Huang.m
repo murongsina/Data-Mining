@@ -1,4 +1,4 @@
-function [ yTest, Time ] = LS_TWSVR_Huang( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = LSTWSVR_Huang( xTrain, yTrain, xTest, opts )
 %LS_TWSVR 此处显示有关此函数的摘要
 % Primal least squares twin support vector regression
 % $Hua-juan HUANG^1, Shi-fei DING^{??1,2}, Zhong-zhi SHI^{2}$

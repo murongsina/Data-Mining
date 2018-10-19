@@ -1,4 +1,4 @@
-function [ yTest, Time ] = LS_TWSVM(xTrain, yTrain, xTest, opts)
+function [ yTest, Time ] = LSTWSVM(xTrain, yTrain, xTest, opts)
 %LSTWSVM 此处显示有关此类的摘要
 % Least Square Twin Support Vector Machine
 %   此处显示详细说明
