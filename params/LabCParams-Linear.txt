@@ -1,10 +1,10 @@
-vTWSVM:7 params 0.00s.
+vTWSVM:10 params 0.00s.
 SVM:12 params 0.00s.
 PSVM:12 params 0.00s.
 LS_SVM:12 params 0.00s.
 TWSVM:12 params 0.00s.
 LSTWSVM:12 params 0.00s.
-MTvTWSVM:84 params 0.00s.
+MTvTWSVM:120 params 0.00s.
 MTPSVM:144 params 0.01s.
 MTLS_SVM:144 params 0.01s.
 DMTSVM:144 params 0.01s.

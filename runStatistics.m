@@ -26,7 +26,7 @@ load('LabCParams.mat');
 
 %  µ—È…Ë÷√
 opts = InitOptions('clf', 1, []);
-[ MyStat, MyTime, MyRank ] = MyStatistics(MTL_UCI5([1:6 15:22]), CParams, Src, Dst, opts);
+[ MyStat, MyTime, MyRank ] = MyStatistics(MTL_UCI5([1:6 15:35]), CParams, Src, Dst, opts);
 save('MyStat-MTL_UCI.mat', 'MyStat', 'MyTime', 'MyRank');
 MyTime = MyTime([6 7 10 8 11 9],:,:);
 MyStat = MyStat([6 7 10 8 11 9],:,:);

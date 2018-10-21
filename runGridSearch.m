@@ -20,10 +20,10 @@ DataSets = Caltech5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [6:15];
-ParamIndices = [ 7:9 ];
+DataSetIndices = [ 6:15];
+ParamIndices = [ 7:10 13 12 ];
 
-% 实验设置
+%% 实验设置
 opts = InitOptions('clf', 0, []);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 

@@ -26,11 +26,12 @@ P = (0.5:0.5:2.0)';
 K = (3:2:13)';
 k = (1:2:7)';
 % v-TWSVM
-V = 2.^(-6:0)';
+% V = 2.^(-6:0)';
+V = (0.1:0.1:1)';
 
 %% 核函数
-% kernel = struct('kernel', 'rbf', 'p1', P1);
-kernel = struct('kernel', 'linear');
+kernel = struct('kernel', 'rbf', 'p1', P1);
+% kernel = struct('kernel', 'linear');
 
 %% 回归任务参数
 RParams = {
@@ -74,5 +75,5 @@ CParams = {
 
 
 % 保存参数表
-[ CParams ] = PrintParams('./params/LabCParams-Linear.txt', CParams);
-save('./params/LabCParams-Linear.mat', 'CParams');
+[ CParams ] = PrintParams('./params/LabCParams.txt', CParams);
+save('./params/LabCParams.mat', 'CParams');
