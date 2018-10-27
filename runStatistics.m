@@ -16,7 +16,7 @@ load('LabCParams.mat');
 % 实验设置
 opts = InitOptions('clf', 1, []);
 [ MyStat, MyTime, MyRank ] = MyStatistics(Caltech5([6:15]), CParams, Src, Dst, opts);
-save('MyStat-Caltech5.mat', 'MyStat', 'MyTime', 'MyRank');
+save('MyStat-Caltech5_2.mat', 'MyStat', 'MyTime', 'MyRank');
 % MyTime = MyTime([6 7 10 8 11 9],:,:);
 % MyStat = MyStat([6 7 10 8 11 9],:,:);
 
@@ -27,6 +27,4 @@ load('LabCParams.mat');
 % 实验设置
 opts = InitOptions('clf', 1, []);
 [ MyStat, MyTime, MyRank ] = MyStatistics(MTL_UCI5([1:6 15:35]), CParams, Src, Dst, opts);
-save('MyStat-MTL_UCI.mat', 'MyStat', 'MyTime', 'MyRank');
-MyTime = MyTime([6 7 10 8 11 9],:,:);
-MyStat = MyStat([6 7 10 8 11 9],:,:);
+save('MyStat-MTL_UCI5.mat', 'MyStat', 'MyTime', 'MyRank');
