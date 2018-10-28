@@ -12,14 +12,14 @@ function [ opts ] = InitOptions( name, mean, solver)
         case 'clf'
             opts.Mean = mean;
             opts.Statistics = @ClfStat;
-            opts.IndexCount = 1;
+            opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
         case 'mcl'
             opts.Mean = mean;
             opts.Mode = 'OvO';
             opts.Statistics = @ClfStat;
-            opts.IndexCount = 1;
+            opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
     end

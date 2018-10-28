@@ -20,7 +20,7 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 23:35 1 2 6 ];
+DataSetIndices = [ 36:48 ];
 ParamIndices = [ 7 ];
 
 %% 实验设置
@@ -51,6 +51,7 @@ for i = DataSetIndices
                 save(StatPath, 'CVStat', 'CVTime');
                 fprintf(fd, 'save: %s\n', StatPath);
             catch Exception
+                delete('check-point.mat');
                 fprintf(fd, 'Exception in %s\n', Name);
             end
         end
