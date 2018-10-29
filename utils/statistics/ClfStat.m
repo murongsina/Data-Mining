@@ -3,9 +3,9 @@ function [ Stat ] = ClfStat(y, yTest)
 %   此处显示详细说明
 
     TP = sum(yTest(y==1)==1);
-    FN = sum(yTest(y==1)==0);
-    FP = sum(yTest(y==0)==1);
-    TN = sum(yTest(y==0)==0);
+    FN = sum(yTest(y==1)==-1);
+    FP = sum(yTest(y==-1)==1);
+    TN = sum(yTest(y==-1)==-1);
 %     Accuracy = mean(y==yTest);
     Precision = TP/(TP+FP);
     Recall = TP/(TP+FN);

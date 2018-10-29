@@ -9,12 +9,14 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @min;
+            opts.Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
         case 'clf'
             opts.Mean = mean;
             opts.Statistics = @ClfStat;
             opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
+            opts.Indices = {'Accuracy', 'Precision', 'Accuracy', 'F1'};
         case 'mcl'
             opts.Mean = mean;
             opts.Mode = 'OvO';
@@ -22,6 +24,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
+            opts.Indices = {'Accuracy', 'Precision', 'Accuracy', 'F1'};
     end
 end
 

@@ -20,8 +20,8 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 36:48 ];
-ParamIndices = [ 7 ];
+DataSetIndices = [ 7:21 1 2 6 ];
+ParamIndices = [ 7:13 ];
 
 %% 实验设置
 opts = InitOptions('clf', 0, []);

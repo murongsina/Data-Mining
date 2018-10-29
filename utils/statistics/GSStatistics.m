@@ -7,12 +7,10 @@ function [ OStat, OTime ] = GSStatistics(TaskNum, IStat, ITime, opts)
     OStat = zeros(2*opts.IndexCount, TaskNum, 2);
     % 取多任务平均值
     if opts.Mean
-        Stat = IStat(:,1,:);
-        Stat = permute(Stat, [1 3 2]);
-        Mean_ = mean(Stat, 2);
-        [ ~, I ] = opts.Find(Mean_);
-        OStat(:,:,1) = [mean(Stat(I,:));std(Stat(I,:))];
-        OStat(:,:,2) = [I;I];
+        MStat = mean(IStat, 3);
+        [ ~, I ] = opts.Find(MStat(:,1));
+        OStat(:,:,1) = mean(IStat(I,:,:), 3);
+        OStat(:,:,2) = I;
     else
         [ Y, I ] = opts.Find(IStat);
         OStat(:,:,1) = Y(1,:,:);

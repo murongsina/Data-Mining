@@ -24,14 +24,14 @@ function [  ] = SaveFigures( Path, DataSet, LabStat, LabTime, opts )
     SaveFigure(Dir, FileName);
     
     % ±£´æÎó²îÍ¼±í
-    if opts.IndexCount == 4
-        Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
-    elseif opts.IndexCount == 1
-        Indices = {'Accuracy'};
-    else
-        throw(MException('SaveFigures', 'Error in opts.Statistics'));
-    end
-    
+%     if opts.IndexCount == 4
+%         Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
+%     elseif opts.IndexCount == 1
+%         Indices = {'Accuracy'};
+%     else
+%         throw(MException('SaveFigures', 'Error in opts.Statistics'));
+%     end
+    Indices = opts.Indices;
     for i = 1 : length(Indices)
         Index = replace(Indices{i}, '/', '_');
         FileName = [DataSet.Name, '-' Index];
