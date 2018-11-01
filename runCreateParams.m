@@ -30,8 +30,8 @@ K = (3:2:13)';
 k = (1:2:7)';
 
 %% 核函数
-kernel = struct('kernel', 'rbf', 'p1', P1);
-% kernel = struct('kernel', 'linear');
+% kernel = struct('kernel', 'rbf', 'p1', P1);
+kernel = struct('kernel', 'poly');
 
 %% 回归任务参数
 RParams = {
@@ -75,5 +75,5 @@ CParams = {
 };
 
 % 保存参数表
-[ CParams ] = PrintParams('./params/LabCParams.txt', CParams);
-save('./params/LabCParams.mat', 'CParams');
+[ CParams ] = PrintParams('./params/LabCParams-Poly.txt', CParams);
+save('./params/LabCParams-Poly.mat', 'CParams');

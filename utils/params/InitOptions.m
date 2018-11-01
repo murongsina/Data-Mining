@@ -16,7 +16,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
-            opts.Indices = {'Accuracy', 'Precision', 'Accuracy', 'F1'};
+            opts.Indices = {'Accuracy', 'Precision', 'Recall', 'F1'};
         case 'mcl'
             opts.Mean = mean;
             opts.Mode = 'OvO';
@@ -24,7 +24,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.IndexCount = 4;
             opts.solver = solver;
             opts.Find = @max;
-            opts.Indices = {'Accuracy', 'Precision', 'Accuracy', 'F1'};
+            opts.Indices = {'Accuracy', 'Precision', 'Recall', 'F1'};
     end
 end
 

@@ -3,8 +3,7 @@ function [ Y ] = Kernel(U, V, opts)
 % 核函数
 %   此处显示详细说明
 
-    kernel = opts.kernel;
-    switch (kernel)
+    switch (opts.kernel)
         case 'linear'
             Y = U*V.';
         case 'poly'
