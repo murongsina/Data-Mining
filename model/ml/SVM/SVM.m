@@ -18,7 +18,7 @@ I = speye(size(K));
 DY = I.*Y;
 H = Cond(DY*K*DY);
 Alpha = quadprog(H, -e, Y', 0, [], [], 0*e, C*e, [], []);
-svi = Alpha > 0 & Alpha < C;
+svi = Alpha > 0;
 b = mean(Y(svi,:)-K(svi,:)*(Y(svi,:).*Alpha(svi,:)));
 % Í£Ö¹¼ÆÊ±
 Time = toc;

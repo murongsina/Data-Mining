@@ -25,7 +25,7 @@ n = length(Y);
 Alpha = reshape(Beta, n, 2);
 alpha = Alpha(:,2)-Alpha(:,1);
 % Support Vectors
-svi = Alpha > 1e-5 & Alpha < C-1e-5;
+svi = Alpha > 0;
 sv = svi(:,1)|svi(:,2);
 % calculate w
 w = alpha(sv,:);

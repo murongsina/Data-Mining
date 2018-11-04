@@ -14,7 +14,7 @@ Y = yTrain;
 H = Kernel(X, X, kernel);
 I = speye(size(H));
 Alpha = Cond(H + 1 + 1/nu*I)\Y;
-svi = (Alpha>0)&(Alpha<nu);
+svi = Alpha~=0;
 b = sum(Alpha(svi));
 Time = toc;
 
