@@ -1,4 +1,4 @@
-function [ opts ] = InitOptions( name, mean, solver)
+function [ opts ] = InitOptions( name, mean, solver, hasfig)
 %INITOPIONS 此处显示有关此函数的摘要
 %   此处显示详细说明
 
@@ -8,6 +8,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.Statistics = @RegStat;
             opts.IndexCount = 4;
             opts.solver = solver;
+            opts.hasfig = hasfig;
             opts.Find = @min;
             opts.Indices = {'MAE', 'RMSE', 'SSE/SST', 'SSR/SSE'};
         case 'clf'
@@ -15,6 +16,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.Statistics = @ClfStat;
             opts.IndexCount = 4;
             opts.solver = solver;
+            opts.hasfig = hasfig;
             opts.Find = @max;
             opts.Indices = {'Accuracy', 'Precision', 'Recall', 'F1'};
         case 'mcl'
@@ -23,6 +25,7 @@ function [ opts ] = InitOptions( name, mean, solver)
             opts.Statistics = @ClfStat;
             opts.IndexCount = 4;
             opts.solver = solver;
+            opts.hasfig = hasfig;
             opts.Find = @max;
             opts.Indices = {'Accuracy', 'Precision', 'Recall', 'F1'};
     end

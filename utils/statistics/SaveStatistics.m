@@ -19,5 +19,7 @@ function [  ] = SaveStatistics( Path, DataSet, LabStat, LabTime, opts )
     fprintf('save: %s\n', StatPath);
     
     % ±£´æÍ¼±í
-    SaveFigures(Path, DataSet, LabStat, LabTime, opts );
+    if opts.hasfig == 1
+        SaveFigures(Path, DataSet, LabStat, LabTime, opts );
+    end
 end
