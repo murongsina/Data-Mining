@@ -1,4 +1,4 @@
-function [ yTest, Time ] = MTvTWSVM( xTrain, yTrain, xTest, opts )
+function [ yTest, Time, Frac ] = MTvTWSVM( xTrain, yTrain, xTest, opts )
 %MTVTWSVM 此处显示有关此函数的摘要
 % Multi-Task $\nu$-Twin Support Vector Machine
 %   此处显示详细说明
@@ -56,7 +56,7 @@ Alpha = quadprog(symmetric(H1),[],-e2',-v1,[],[],zeros(m2, 1),e2/m2,[],solver);
 % MTL_TWSVR2_Xie
 H2 = R + TaskNum/lambda*S;
 Gamma = quadprog(symmetric(H2),[],-e1',-v2,[],[],zeros(m1, 1),e1/m1,[],solver);
-
+Frac = mean(Alpha>0 && Gamma>0);
 %% GetWeight
 u = -EEF*Alpha;
 v = FFE*Gamma;

@@ -21,9 +21,17 @@ DrawResult(MyStat(CUR_IDX,15:21,1)'*100, MyTime(CUR_IDX,15:21)'*1000, labels(CUR
 xLabels = {'3', '5', '7', '9', '11', '13'};
 DrawResult(MyStat(CUR_IDX,22:27,1)'*100, MyTime(CUR_IDX,22:27)'*1000, labels(CUR_IDX), xLabels);
 
-%% Caltech
+%% Landmine-foliated
+xLabels = {'3', '5', '7', '9', '11', '13'};
+DrawResult(MyStat(CUR_IDX,30:36,1)'*100, MyTime(CUR_IDX,30:36)'*1000, labels(CUR_IDX), xLabels);
+
+%% Caltech101
 xLabels = {'Aircrafts','Balls','Bikes','Birds','Boats','Flowers','Instruments','Plants','Mammals','Vehicles'};
-DrawResult(MyStat(CUR_IDX,1:10,1)'*100, MyTime(CUR_IDX,1:10)'*1000, labels(CUR_IDX), xLabels, 45);
+DrawResult(MyStat(CUR_IDX,1:5,1)'*100, MyTime(CUR_IDX,1:5)'*1000, labels(CUR_IDX), xLabels, 45);
+
+%% Caltech256
+xLabels = {'Aircrafts','Balls','Bikes','Birds','Boats','Flowers','Instruments','Plants','Mammals','Vehicles'};
+DrawResult(MyStat(CUR_IDX,6:15,1)'*100, MyTime(CUR_IDX,6:15)'*1000, labels(CUR_IDX), xLabels, 45);
 
 %% Flags
 xLabels = {'100', '120', '140', '160', '180'};

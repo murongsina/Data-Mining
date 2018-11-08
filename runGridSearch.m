@@ -20,11 +20,11 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 1:29 ];
-ParamIndices = [ 7:13 ];
+DataSetIndices = [ 30:36 ];
+ParamIndices = [ 7:11 ];
 
 %% 实验设置
-opts = InitOptions('clf', 0, []);
+opts = InitOptions('clf', 0, [], 0);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
