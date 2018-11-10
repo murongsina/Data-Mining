@@ -18,37 +18,30 @@ symmetric = @(H) (H+H')/2;
 %% Prepare
 tic;
 % 得到所有的样本和标签以及任务编号
-[ X, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
+[ X, Y, ~, I ] = GetAllData(xTrain, yTrain, TaskNum);
 % 分割正负类点
-Yp = Y==1;
-Yn = Y==-1;
-A_ = X(Yp,:);
-B_ = X(Yn,:);
+A_ = X(Y==1,:);
+B_ = X(Y==-1,:);
 % reconstruct all tasks
 % centroids of all task
 A = [A_; p*mean(A_)];
 B = [B_; q*mean(B_)];
 % centroid of t-th task
-AT = cell(TaskNum, 1);
-BT = cell(TaskNum, 1);
-CT = cell(TaskNum, 1);
+AT = mat2cell(A_, I(1,:));
+BT = mat2cell(B_, I(2,:));
+XT = cell(TaskNum, 1);
 YT = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    AT_ = A_(T(Yp)==t,:);
-    BT_ = B_(T(Yn)==t,:);
-    AT{t} = [AT_; p*mean(AT_)];
-    BT{t} = [BT_; q*mean(BT_)];
-    CT{t} = [AT{t}; BT{t}];
+    AT{t} = [AT{t}; p*mean(AT{t})];
+    BT{t} = [BT{t}; q*mean(BT{t})];
+    XT{t} = [AT{t}; BT{t}];
     yp = ones(size(AT{t}, 1), 1);
     yn = -ones(size(BT{t}, 1), 1);
     YT{t} = [yp; yn];
 end
 M = cell2mat(AT);
 N = cell2mat(BT);
-C = cell2mat(CT);
-[ ~, Y, T ] = GetAllData( CT, YT, TaskNum );
-Yp = Y==1;
-Yn = Y==-1;
+[ C, ~, ~, I ] = GetAllData( XT, YT, TaskNum );
 % 核函数
 E = [Kernel(A, C, kernel) ones(size(A, 1), 1)];
 F = [Kernel(B, C, kernel) ones(size(B, 1), 1)];
@@ -79,13 +72,14 @@ for t = 1 : TaskNum
 end
 
 %% Fit
-% 求解两个二次规划
-% MCTSVM
+% MCTSVM1
 H1 = Q + 1/rho*P;
 Alpha = quadprog(symmetric(H1),-e2,[],[],[],[],zeros(m2, 1),C1*e2,[],solver);
-% MCTSVM
+CAlpha = mat2cell(Alpha, I(2,:));
+% MCTSVM2
 H2 = R + 1/lambda*S;
 Gamma = quadprog(symmetric(H2),-e1,[],[],[],[],zeros(m1, 1),C2*e1,[],solver);
+CGamma = mat2cell(Gamma, I(1,:));
 
 %% GetWeight
 u = -EEF*Alpha;
@@ -93,8 +87,8 @@ v = FFE*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    U{t} = u - 1/rho*EEFt{t}*Alpha(T(Yn)==t,:);
-    V{t} = v + 1/lambda*FFEt{t}*Gamma(T(Yp)==t,:);
+    U{t} = u - EEFt{t}*(1/rho*CAlpha{t});
+    V{t} = v + FFEt{t}*(1/lambda*CGamma{t});
 end
 Time = toc;
 

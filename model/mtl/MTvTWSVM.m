@@ -18,10 +18,8 @@ tic;
 % 得到所有的样本和标签以及任务编号
 [ X, Y, ~, N ] = GetAllData(xTrain, yTrain, TaskNum);
 % 分割正负类点
-Yp = Y==1;
-Yn = Y==-1;
-A = X(Yp,:);
-B = X(Yn,:);
+A = X(Y==1,:);
+B = X(Y==-1,:);
 [m1, ~] = size(A);
 [m2, ~] = size(B);
 % 核函数

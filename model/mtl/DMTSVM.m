@@ -16,12 +16,10 @@ symmetric = @(H) (H+H')/2;
 %% Prepare
 tic;
 % 得到所有的样本和标签以及任务编号
-[ X, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
+[ X, Y, ~, N ] = GetAllData(xTrain, yTrain, TaskNum);
 % 分割正负类点
-Yp = Y==1;
-Yn = Y==-1;
-A = X(Yp,:);
-B = X(Yn,:);
+A = X(Y==1,:);
+B = X(Y==-1,:);
 [m1, ~] = size(A);
 [m2, ~] = size(B);
 % 核函数
@@ -34,28 +32,40 @@ EEF = Cond(E'*E)\F';
 FFE = Cond(F'*F)\E';
 Q = F*EEF;
 R = E*FFE;
+% 并行化处理
+EEFc = cell(TaskNum, 1);
+FFEc = cell(TaskNum, 1);
+Ec = mat2cell(E, N(1,:));
+Fc = mat2cell(F, N(2,:));
+if isfield(solver, 'parallel')
+    parfor t = 1 : TaskNum
+        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
+    end
+    solver = rmfield(solver, 'parallel');
+else
+    for t = 1 : TaskNum
+        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
+    end
+end
 % 得到P,S矩阵
 P = sparse(0, 0);
 S = sparse(0, 0);
-EEFt = cell(TaskNum, 1);
-FFEt = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    Et = E(T(Yp)==t,:);
-    Ft = F(T(Yn)==t,:);
-    EEFt{t} = Cond(Et'*Et)\(Ft');
-    FFEt{t} = Cond(Ft'*Ft)\(Et');
-    P = blkdiag(P, Ft*EEFt{t});
-    S = blkdiag(S, Et*FFEt{t});
+    P = blkdiag(P, Ft*EEFc{t});
+    S = blkdiag(S, Et*FFEc{t});
 end
 
 %% Fit
-% 求解两个二次规划
-% MTL_TWSVR1_Xie
+% DMTSVM1
 H1 = Q + 1/rho*P;
 Alpha = quadprog(symmetric(H1),-e2,[],[],[],[],zeros(m2, 1),C1*e2,[],solver);
-% MTL_TWSVR2_Xie
+CAlpha = mat2cell(Alpha, N(2,:));
+% DMTSVM2
 H2 = R + 1/lambda*S;
 Gamma = quadprog(symmetric(H2),-e1,[],[],[],[],zeros(m1, 1),C2*e1,[],solver);
+CGamma = mat2cell(Gamma, N(1,:));
 
 %% GetWeight
 u = -EEF*Alpha;
@@ -63,8 +73,8 @@ v = FFE*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    U{t} = u - 1/rho*EEFt{t}*Alpha(T(Yn)==t,:);
-    V{t} = v + 1/lambda*FFEt{t}*Gamma(T(Yp)==t,:);
+    U{t} = u - EEFc{t}*(1/rho*CAlpha(t));
+    V{t} = v + FFEc{t}*(1/lambda*CGamma(t));
 end
 Time = toc;
     
