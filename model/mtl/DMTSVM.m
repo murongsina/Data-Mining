@@ -71,7 +71,7 @@ Time = toc;
 %% Predict
 TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
-for t = 1 : TaskNum
+parfor t = 1 : TaskNum
     At = xTest{t};
     [m, ~] = size(At);
     et = ones(m, 1);

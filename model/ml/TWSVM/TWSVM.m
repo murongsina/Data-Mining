@@ -29,8 +29,6 @@ S2R = Cond(S'*S)\R';
 R2S = Cond(R'*R)\S';
 % KDTWSVM1
 Alpha = quadprog(symmetric(R*S2R),-e2,[],[],[],[],zeros(m2, 1),e2*C1,[],solver);
-Alpha = reshape(Alpha, n, 2);
-
 z1 = -S2R*Alpha;
 u1 = z1(1:n);
 b1 = z1(end);

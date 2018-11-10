@@ -11,9 +11,7 @@ C4 = opts.C3;
 rho = opts.rho;
 lambda = opts.rho;
 kernel = opts.kernel;
-solver = opts.solver;
 TaskNum = length(xTrain);
-symmetric = @(H) (H+H')/2;
 
 %% Prepare
 tic;
@@ -77,7 +75,7 @@ Time = toc;
 %% Predict
 TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
-for t = 1 : TaskNum
+parfor t = 1 : TaskNum
     At = xTest{t};
     [m, ~] = size(At);
     et = ones(m, 1);

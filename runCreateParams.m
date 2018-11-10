@@ -30,8 +30,8 @@ K = (3:2:13)';
 k = (1:2:7)';
 
 %% 核函数
-kernel = struct('kernel', 'rbf', 'p1', P1);
-% kernel = struct('kernel', 'poly');
+% kernel = struct('kernel', 'rbf', 'p1', P1);
+kernel = struct('kernel', 'poly');
 
 %% 回归任务参数
 RParams = {
@@ -61,7 +61,7 @@ CParams = {
     struct('Name', 'TWSVM', 'C1', C1, 'kernel', kernel);...
     struct('Name', 'LSTWSVM', 'C1', C1, 'kernel', kernel);...
     struct('Name', 'vTWSVM', 'v1', MU, 'kernel', kernel);...
-    struct('Name', 'ITWSVM', 'C1', C1, 'C3', C1, 'kernel', kernel);...
+%     struct('Name', 'ITWSVM', 'C1', C1, 'C3', C1, 'kernel', kernel);...
     struct('Name', 'MTPSVM', 'lambda', LAMBDA, 'nu', NU, 'kernel', kernel);...
     struct('Name', 'MTLS_SVM', 'lambda', LAMBDA, 'gamma', GAMMA, 'kernel', kernel);...
     struct('Name', 'MTL_aLS_SVM', 'C1', C, 'C2', C, 'rho', RATE, 'kernel', kernel);...
@@ -76,5 +76,5 @@ CParams = {
 };
 
 % 保存参数表
-[ CParams ] = PrintParams('./params/LabCParams.txt', CParams);
-save('./params/LabCParams.mat', 'CParams');
+[ CParams ] = PrintParams('./params/LabCParams-Poly.txt', CParams);
+save('./params/LabCParams-Poly.mat', 'CParams');

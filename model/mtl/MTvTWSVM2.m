@@ -1,6 +1,6 @@
-function [ yTest, Time ] = MTvTWSVM( xTrain, yTrain, xTest, opts )
+function [ yTest, Time ] = MTvTWSVM2( xTrain, yTrain, xTest, opts )
 %MTVTWSVM 此处显示有关此函数的摘要
-% Multi-Task $\nu$-Twin Support Vector Machine
+% Multi-Task $\nu$-Twin Support Vector Machine v2
 %   此处显示详细说明
 
 %% Parse opts
@@ -60,23 +60,23 @@ for t = 1 : TaskNum
 end
 
 %% Fit
-% MTL_TWSVR1_Xie
-H1 = Q + TaskNum/mu1*P;
+% MTVTWSVM1
+H1 = mu1*Q + TaskNum*(1-mu1)*P;
 Alpha = quadprog(symmetric(H1),[],-e2',-v1,[],[],zeros(m2, 1),e2/m2,[],solver);
 CAlpha = mat2cell(Alpha, N(2,:));
-% MTL_TWSVR2_Xie
-H2 = R + TaskNum/mu2*S;
+% MTVTWSVM2
+H2 = mu2*R + TaskNum*(1-mu2)*S;
 Gamma = quadprog(symmetric(H2),[],-e1',-v2,[],[],zeros(m1, 1),e1/m1,[],solver);
 CGamma = mat2cell(Gamma, N(1,:));
 
 %% GetWeight
-u = -EEF*Alpha;
-v = FFE*Gamma;
+u = -EEF*(mu1*Alpha);
+v = FFE*(mu2*Gamma);
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 parfor t = 1 : TaskNum
-    U{t} = u - TaskNum/mu1*EEFt{t}*CAlpha(t,:);
-    V{t} = v + TaskNum/mu2*FFEt{t}*CGamma(t,:);
+    U{t} = u - EEFt{t}*(TaskNum*(1-mu1)*CAlpha{t});
+    V{t} = v + FFEt{t}*(TaskNum*(1-mu2)*CGamma{t});
 end
 Time = toc;
     
