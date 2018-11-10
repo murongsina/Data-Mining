@@ -35,28 +35,28 @@ FFE = Cond(F'*F)\E';
 Q = F*EEF;
 R = E*FFE;
 % 并行化处理
-EEFt = cell(TaskNum, 1);
-FFEt = cell(TaskNum, 1);
+EEFc = cell(TaskNum, 1);
+FFEc = cell(TaskNum, 1);
 CE = mat2cell(E, N(1,:));
 CF = mat2cell(F, N(2,:));
 if isfield(solver, 'parallel')
     parfor t = 1 : TaskNum
-        EEFt{t} = Cond(CE{t}'*CE{t})\(CF{t}');
-        FFEt{t} = Cond(CF{t}'*CF{t})\(CE{t}');
+        EEFc{t} = Cond(CE{t}'*CE{t})\(CF{t}');
+        FFEc{t} = Cond(CF{t}'*CF{t})\(CE{t}');
     end
     solver = rmfield(solver, 'parallel');
 else
     for t = 1 : TaskNum
-        EEFt{t} = Cond(CE{t}'*CE{t})\(CF{t}');
-        FFEt{t} = Cond(CF{t}'*CF{t})\(CE{t}');
+        EEFc{t} = Cond(CE{t}'*CE{t})\(CF{t}');
+        FFEc{t} = Cond(CF{t}'*CF{t})\(CE{t}');
     end
 end
 % 构造P,S对角阵
 P = sparse(0, 0);
 S = sparse(0, 0);
 for t = 1 : TaskNum
-    P = blkdiag(P, Ft*EEFt{t});
-    S = blkdiag(S, Et*FFEt{t});
+    P = blkdiag(P, CF{t}*EEFc{t});
+    S = blkdiag(S, CE{t}*FFEc{t});
 end
 
 %% Fit
@@ -75,8 +75,8 @@ v = FFE*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 parfor t = 1 : TaskNum
-    U{t} = u - TaskNum/mu1*EEFt{t}*CAlpha(t,:);
-    V{t} = v + TaskNum/mu2*FFEt{t}*CGamma(t,:);
+    U{t} = u - TaskNum/mu1*EEFc{t}*CAlpha(t,:);
+    V{t} = v + TaskNum/mu2*FFEc{t}*CGamma(t,:);
 end
 Time = toc;
     
