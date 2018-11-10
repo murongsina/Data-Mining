@@ -53,8 +53,8 @@ end
 P = sparse(0, 0);
 S = sparse(0, 0);
 for t = 1 : TaskNum
-    P = blkdiag(P, Ft*EEFc{t});
-    S = blkdiag(S, Et*FFEc{t});
+    P = blkdiag(P, Fc{t}*EEFc{t});
+    S = blkdiag(S, Ec{t}*FFEc{t});
 end
 
 %% Fit
@@ -73,8 +73,8 @@ v = FFE*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 for t = 1 : TaskNum
-    U{t} = u - EEFc{t}*(1/rho*CAlpha(t));
-    V{t} = v + FFEc{t}*(1/lambda*CGamma(t));
+    U{t} = u - EEFc{t}*(1/rho*CAlpha{t});
+    V{t} = v + FFEc{t}*(1/lambda*CGamma{t});
 end
 Time = toc;
     
