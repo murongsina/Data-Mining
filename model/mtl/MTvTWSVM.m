@@ -37,26 +37,26 @@ R = E*FFE;
 % 并行化处理
 EEFc = cell(TaskNum, 1);
 FFEc = cell(TaskNum, 1);
-CE = mat2cell(E, N(1,:));
-CF = mat2cell(F, N(2,:));
+Ec = mat2cell(E, N(1,:));
+Fc = mat2cell(F, N(2,:));
 if isfield(solver, 'parallel')
     parfor t = 1 : TaskNum
-        EEFc{t} = Cond(CE{t}'*CE{t})\(CF{t}');
-        FFEc{t} = Cond(CF{t}'*CF{t})\(CE{t}');
+        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
     end
     solver = rmfield(solver, 'parallel');
 else
     for t = 1 : TaskNum
-        EEFc{t} = Cond(CE{t}'*CE{t})\(CF{t}');
-        FFEc{t} = Cond(CF{t}'*CF{t})\(CE{t}');
+        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
     end
 end
 % 构造P,S对角阵
 P = sparse(0, 0);
 S = sparse(0, 0);
 for t = 1 : TaskNum
-    P = blkdiag(P, CF{t}*EEFc{t});
-    S = blkdiag(S, CE{t}*FFEc{t});
+    P = blkdiag(P, Fc{t}*EEFc{t});
+    S = blkdiag(S, Ec{t}*FFEc{t});
 end
 
 %% Fit
