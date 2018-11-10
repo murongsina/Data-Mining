@@ -8,7 +8,7 @@ labels = {'\nu-TWSVM','SVM','PSVM','LS-SVM','TWSVM','LS-TWSVM','MT-\nu-TWSVM II'
 STL_IDX = [2 3 4 5 6 1 8 7];
 % 多任务学习
 MTL_IDX = [9 10 12 11 13 8 7 ];
-CUR_IDX = STL_IDX;
+CUR_IDX = MTL_IDX;
 %% Monk
 xLabels = {'60', '90', '120', '150', '180', '210', '240', '270'};
 DrawResult(MyStat(CUR_IDX,2:9,1)'*100, MyTime(CUR_IDX,2:9)'*1000, labels(CUR_IDX), xLabels);
@@ -17,8 +17,12 @@ DrawResult(MyStat(CUR_IDX,2:9,1)'*100, MyTime(CUR_IDX,2:9)'*1000, labels(CUR_IDX
 xLabels = {'ab', 'cd', 'ef', 'gh', 'ij', 'kl','mn','op'};
 DrawResult(MyStat(CUR_IDX,10:17,1)'*100, MyTime(CUR_IDX,10:17)'*1000, labels(CUR_IDX), xLabels);
 
+%% Caltech
+xLabels = {'Birds_1','Insects_1','Flowers_1','Mammals_1','Instruments_1','Aircrafts','Balls','Bikes','Birds','Boats','Flowers','Instruments','Plants','Mammals','Vehicles'};
+DrawResult(MyStat(CUR_IDX,:,1)'*100, MyTime(CUR_IDX,:)'*1000, labels(CUR_IDX), xLabels, 45);
+
 %% Caltech101
-xLabels = {'Aircrafts','Balls','Bikes','Birds','Boats','Flowers','Instruments','Plants','Mammals','Vehicles'};
+xLabels = {'Birds','Insects','Flowers','Mammals','Instruments'};
 DrawResult(MyStat(CUR_IDX,1:5,1)'*100, MyTime(CUR_IDX,1:5)'*1000, labels(CUR_IDX), xLabels, 45);
 
 %% Caltech256

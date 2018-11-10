@@ -75,8 +75,8 @@ v = FFE*Gamma;
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
 parfor t = 1 : TaskNum
-    U{t} = u - TaskNum/mu1*EEFc{t}*CAlpha(t,:);
-    V{t} = v + TaskNum/mu2*FFEc{t}*CGamma(t,:);
+    U{t} = u - TaskNum/mu1*EEFc{t}*CAlpha{t};
+    V{t} = v + TaskNum/mu2*FFEc{t}*CGamma{t};
 end
 Time = toc;
     

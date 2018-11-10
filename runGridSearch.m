@@ -1,7 +1,7 @@
 clc
 clear
 
-Path = './data/classify/poly/';
+Path = './data/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -14,7 +14,7 @@ addpath(genpath('./utils'));
 
 %% 加载数据集和网格搜索参数
 load('Caltech5.mat');
-load('LabCParams-Poly.mat');
+load('LabCParams.mat');
 
 DataSets = Caltech5;
 IParams = CParams;
