@@ -10,8 +10,8 @@ STL_IDX = [2 3 4 5 6 1 8 7];
 MTL_IDX = [9 10 12 11 13 8 7 ];
 CUR_IDX = MTL_IDX;
 %% Monk
-xLabels = {'60', '90', '120', '150', '180', '210', '240', '270'};
-DrawResult(MyStat(CUR_IDX,2:9,1)'*100, MyTime(CUR_IDX,2:9)'*1000, labels(CUR_IDX), xLabels);
+xLabels = {'60', '90', '120', '150', '180', '210', '240', '270', 'All'};
+DrawResult(MyStat(CUR_IDX,[2:9,1])'*100, MyTime(CUR_IDX,[2:9 1])'*1000, labels(CUR_IDX), xLabels);
 
 %% ISOLET
 xLabels = {'ab', 'cd', 'ef', 'gh', 'ij', 'kl','mn','op'};
