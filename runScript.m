@@ -1,34 +1,10 @@
-load LabMTL.mat
-load MTL_UCI.mat
-% Name = 'UCI-isolet-ab';
-% Src = LabMTL(1);
-% X = Src.X;
-% Y = Src.Y;
-% % reduce dimensions
-% [X, CNT] = cellcat(X, 1);
-% X = PCA(X, 0.98);
-% X = mat2cell(X, CNT);
-% % reduce dataset
-% [Xr, Yr] = ReduceMTL(X, Y, [1 2 3 4 5], [1 2]);
-% % reduce dimensions
-% % [Xr, CNT] = cellcat(Xr, 1);
-% % Xr = PCA(Xr, 0.98);
-% % Xr = mat2cell(Xr, CNT);
-% % create dataset
-% Dst = CreateMTL(Name, Xr, Yr, ['a', 'b'], 3);
-% MTL_UCI = cat(1, MTL_UCI, Dst);
-% save MTL_UCI.mat MTL_UCI;
-
-% Monk
-% for count = 60:20:180
-%     Name = sprintf('UCI-Monk-%d', count);
-%     Src = LabMTL(3);
-%     Dst = MyReduce(Src, Name, [1:3], [0,1], count, false, 3);
-%     MTL_UCI = cat(1, MTL_UCI, Dst);
-% end
-% save MTL_UCI.mat MTL_UCI;
-
-% Src = LabMTL(3);
-% Dst = MyReduce(Src, 'UCI-Monk-', [1:9], [0,1], 50, false, 3);
-% MTL_UCI = cat(1, MTL_UCI, Dst);
-% save MTL_UCI.mat MTL_UCI;
+load('LabMCL.mat');
+Datasets = [];
+for i = 1 : 14
+    D = LabMCL(i);
+    nclass = length(D.Labels);
+    opts = struct('nclass', nclass, 'labels', D.Labels, 'count', 0, 'mode', 'RvO');
+    [ Xr, Yr ] = MC2MT(D.X, D.Y, opts);
+    Dataset = MyReduce(Xr, Yr, D.Name, 1:nclass-1, [0,1], 0, true, 3);
+    Datasets = cat(1, Datasets, Dataset);
+end

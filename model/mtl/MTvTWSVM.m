@@ -37,7 +37,7 @@ EEFc = cell(TaskNum, 1);
 FFEc = cell(TaskNum, 1);
 Ec = mat2cell(E, N(1,:));
 Fc = mat2cell(F, N(2,:));
-if isfield(solver, 'parallel')
+if isfield(solver, 'parallel') == true
     parfor t = 1 : TaskNum
         EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
         FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
