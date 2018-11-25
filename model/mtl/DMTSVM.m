@@ -32,27 +32,16 @@ EEF = Cond(E'*E)\F';
 FFE = Cond(F'*F)\E';
 Q = F*EEF;
 R = E*FFE;
-% 并行化处理
+% 得到P,S矩阵
 EEFc = cell(TaskNum, 1);
 FFEc = cell(TaskNum, 1);
 Ec = mat2cell(E, N(1,:));
 Fc = mat2cell(F, N(2,:));
-if isfield(solver, 'parallel')
-    parfor t = 1 : TaskNum
-        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
-        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
-    end
-    solver = rmfield(solver, 'parallel');
-else
-    for t = 1 : TaskNum
-        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
-        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
-    end
-end
-% 得到P,S矩阵
 P = sparse(0, 0);
 S = sparse(0, 0);
 for t = 1 : TaskNum
+    EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+    FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
     P = blkdiag(P, Fc{t}*EEFc{t});
     S = blkdiag(S, Ec{t}*FFEc{t});
 end

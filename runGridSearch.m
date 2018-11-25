@@ -1,7 +1,7 @@
 clc
 clear
 
-Path = './data/classify/poly/';
+Path = './data/classify/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -20,8 +20,8 @@ DataSets = MLC5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 1:12 ];
-ParamIndices = [ 7 8 ];
+DataSetIndices = [ 1:13 ];
+ParamIndices = [ 7:11 13 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
