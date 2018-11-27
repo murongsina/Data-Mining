@@ -1,8 +1,8 @@
+h = figure();
 %%
 MyStat = MyStat*100;
 MyTime = MyTime*1000;
 %%
-h = figure();
 load('MTL_UCI5.mat');
 load('Caltech5.mat');
 load('MLC5.mat');
