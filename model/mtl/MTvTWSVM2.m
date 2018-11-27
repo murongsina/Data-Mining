@@ -32,27 +32,16 @@ EEF = Cond(E'*E)\F';
 FFE = Cond(F'*F)\E';
 Q = F*EEF;
 R = E*FFE;
-% 并行化处理
+% 构造P,S对角阵
 EEFc = cell(TaskNum, 1);
 FFEc = cell(TaskNum, 1);
 Ec = mat2cell(E, N(1,:));
 Fc = mat2cell(F, N(2,:));
-if isfield(solver, 'parallel')
-    parfor t = 1 : TaskNum
-        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
-        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
-    end
-    solver = rmfield(solver, 'parallel');
-else
-    for t = 1 : TaskNum
-        EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
-        FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
-    end
-end
-% 构造P,S对角阵
 P = sparse(0, 0);
 S = sparse(0, 0);
 for t = 1 : TaskNum
+    EEFc{t} = Cond(Ec{t}'*Ec{t})\(Fc{t}');
+    FFEc{t} = Cond(Fc{t}'*Fc{t})\(Ec{t}');
     P = blkdiag(P, Fc{t}*EEFc{t});
     S = blkdiag(S, Ec{t}*FFEc{t});
 end
@@ -72,7 +61,7 @@ u = -EEF*(mu1*Alpha);
 v = FFE*(mu2*Gamma);
 U = cell(TaskNum, 1);
 V = cell(TaskNum, 1);
-parfor t = 1 : TaskNum
+for t = 1 : TaskNum
     U{t} = u - EEFc{t}*(TaskNum*(1-mu1)*CAlpha{t});
     V{t} = v + FFEc{t}*(TaskNum*(1-mu2)*CGamma{t});
 end

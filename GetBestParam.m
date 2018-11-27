@@ -24,7 +24,6 @@ L = floor(IDX(1)/count)*count+1;
 R = ceil(IDX(1)/count)*count;
 Z = reshape([Result(L:R).Accuracy]', Ny, Nx);
 surf(X, Y, Z);
-
 BestParam = Result(IDX(1));
 end
 

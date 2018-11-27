@@ -49,3 +49,11 @@ DrawResult(MyStat(CUR_IDX,1:6,IDX)', MyTime(CUR_IDX,1:6)', labels(CUR_IDX), xLab
 %% Emotions
 xLabels = {'100', '120', '140', '160', '180', '200'};
 DrawResult(MyStat(CUR_IDX,7:12,IDX)', MyTime(CUR_IDX,7:12)', labels(CUR_IDX), xLabels);
+
+%% Flags-Each
+xLabels = {'1', '2', '3', '4', '5', '6', '7'};
+DrawResult(MyStat(CUR_IDX,1:7,IDX)', MyTime(CUR_IDX,1), labels(CUR_IDX), xLabels);
+
+%% Emotions-Each
+xLabels = {'1', '2', '3', '4', '5', '6'};
+DrawResult(MyStat(CUR_IDX,1:6,IDX)', MyTime(CUR_IDX,1), labels(CUR_IDX), xLabels);
