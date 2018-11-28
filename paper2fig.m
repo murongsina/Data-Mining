@@ -35,11 +35,15 @@ xLabels = {'Birds_1','Insects_1','Flowers_1','Mammals_1','Instruments_1','Aircra
 DrawResult(MyStat(CUR_IDX,:,IDX)', MyTime(CUR_IDX,:)', labels(CUR_IDX), xLabels, 45);
 
 %% Caltech101
+% (5x363),(4x368),(3x348),(10x430),(6x411)
 xLabels = {'Birds','Insects','Flowers','Mammals','Instruments'};
-DrawResult(MyStat(CUR_IDX,1:5,IDX)', MyTime(CUR_IDX,1:5)', labels(CUR_IDX), xLabels, 45);
+DrawResult(MyStat(CUR_IDX,1:5,IDX)', MyTime(CUR_IDX,1:5)', labels(CUR_IDX), xLabels, 0);
 
 %% Caltech256
-xLabels = {'Aircrafts','Balls','Bikes','Birds','Boats','Flowers','Instruments','Plants','Mammals','Vehicles'};
+xLabels = {'Aircrafts\newline(4x466)','Balls\newline(5x445)','Bikes\newline(6x381)',...
+    'Birds\newline(9x431)','Boats\newline(4x383)','Flowers\newline(3x381)',...
+    'Instruments\newline(5x409)','Plants\newline(4x392)','Mammals\newline(10x502)',...
+    'Vehicles\newline(9x495)'};
 DrawResult(MyStat(CUR_IDX,6:15,IDX)', MyTime(CUR_IDX,6:15)', labels(CUR_IDX), xLabels, 45);
 
 %% Flags

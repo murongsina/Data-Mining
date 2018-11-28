@@ -21,7 +21,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [ 1:13 ];
-ParamIndices = [ 7:11 13 ];
+ParamIndices = [ 7 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
