@@ -73,11 +73,11 @@ end
 
 %% Fit
 % MCTSVM1
-H1 = Q + 1/rho*P;
+H1 = Cond(Q + 1/rho*P);
 Alpha = quadprog(symmetric(H1),-e2,[],[],[],[],zeros(m2, 1),C1*e2,[],solver);
 CAlpha = mat2cell(Alpha, I(2,:));
 % MCTSVM2
-H2 = R + 1/lambda*S;
+H2 = Cond(R + 1/lambda*S);
 Gamma = quadprog(symmetric(H2),-e1,[],[],[],[],zeros(m1, 1),C2*e1,[],solver);
 CGamma = mat2cell(Gamma, I(1,:));
 
@@ -95,7 +95,7 @@ Time = toc;
 %% Predict
 TaskNum = length(xTest);
 yTest = cell(TaskNum, 1);
-parfor t = 1 : TaskNum
+for t = 1 : TaskNum
     At = xTest{t};
     [m, ~] = size(At);
     et = ones(m, 1);

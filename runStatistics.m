@@ -6,7 +6,7 @@ addpath(genpath('./datasets'));
 addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
-%% 实验设置
+% 实验设置
 opts = InitOptions('clf', 1, [], 0);
 % 核函数
 kernel = 'RBF';
