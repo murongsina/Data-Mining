@@ -12,7 +12,7 @@ labels = {'\nu-TWSVM','SVM','PSVM','LS-SVM','TWSVM','LS-TWSVM','MT-\nu-TWSVM II'
 STL_IDX = [2 3 4 5 6 1 8 7];
 % 多任务学习
 MTL_IDX = [9 10 12 11 13 8 7 ];
-CUR_IDX = STL_IDX;
+CUR_IDX = MTL_IDX;
 IDX = 1;
 %% Monk
 xLabels = {'60', '90', '120', '150', '180', '210', '240', '270', 'All'};
