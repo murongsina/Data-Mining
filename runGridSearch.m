@@ -20,8 +20,9 @@ DataSets = Caltech5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 1:15 ];
-ParamIndices = [ 7:11 13 ];
+[~,idx] = sort([Caltech5.TaskNum]);
+DataSetIndices = idx;
+ParamIndices = [ 12 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
