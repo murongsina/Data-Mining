@@ -9,7 +9,7 @@ addpath(genpath('./utils'));
 % 实验设置
 opts = InitOptions('clf', 1, [], 0);
 % 核函数
-kernel = 'RBF';
+kernel = 'Poly';
 switch(kernel)
     case 'Poly'
         Src = './data/classify/poly/';
