@@ -1,7 +1,7 @@
 clc
 clear
 
-Path = './data/classify/rbf/';
+Path = './data/classify/poly/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -13,16 +13,16 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 %% 加载数据集和网格搜索参数
-load('Caltech5.mat');
-load('LabCParams.mat');
+load('MLC5.mat');
+load('LabCParams-Poly.mat');
 
-DataSets = Caltech5;
+DataSets = MLC5;
 IParams = CParams;
 
 % 数据集
-[~,idx] = sort([Caltech5.TaskNum]);
+[~,idx] = sort([DataSets.Order]);
 DataSetIndices = idx;
-ParamIndices = [ 11 ];
+ParamIndices = [ 1:6 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
