@@ -22,7 +22,7 @@ IParams = CParams;
 % 数据集
 [~,idx] = sort([Caltech5.TaskNum]);
 DataSetIndices = idx;
-ParamIndices = [ 12 ];
+ParamIndices = [ 11 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
