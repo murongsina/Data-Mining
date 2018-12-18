@@ -1,4 +1,3 @@
-opts = struct('mode', 'STL', '');
 h = figure();
 %%
 MyStat = MyStat*100;
@@ -13,7 +12,7 @@ labels = {'\nu-TWSVM','SVM','PSVM','LS-SVM','TWSVM','LS-TWSVM','MT-\nu-TWSVM II'
 STL_IDX = [2 3 4 5 6 1 8 7];
 % 多任务学习
 MTL_IDX = [9 10 12 11 13 8 7 ];
-CUR_IDX = MTL_IDX;
+CUR_IDX = STL_IDX;
 IDX = 1;
 %% Monk
 xLabels = {'60', '90', '120', '150', '180', '210', '240', '270', 'All'};
@@ -36,13 +35,12 @@ xLabels = {'Birds_1','Insects_1','Flowers_1','Mammals_1','Instruments_1','Aircra
 DrawResult(MyStat(CUR_IDX,:,IDX)', MyTime(CUR_IDX,:)', 'Category', labels(CUR_IDX), xLabels, 45);
 
 %% Caltech101
-% (5x363),(4x368),(3x348),(10x430),(6x411)
 xLabels = {'Birds','Insects','Flowers','Mammals','Instruments'};
 DrawResult(MyStat(CUR_IDX,1:5,IDX)', MyTime(CUR_IDX,1:5)', 'Category', labels(CUR_IDX), xLabels, 45);
 
 %% Caltech256
 xLabels = {'Aircrafts','Balls','Bikes', 'Birds','Boats','Flowers', 'Instruments','Plants','Mammals', 'Vehicles'};
-DrawResult(MyStat(CUR_IDX,6:14,IDX)', MyTime(CUR_IDX,6:14)', 'Category', labels(CUR_IDX), xLabels, 45);
+DrawResult(MyStat(CUR_IDX,6:15,IDX)', MyTime(CUR_IDX,6:15)', 'Category', labels(CUR_IDX), xLabels, 45);
 
 %% Flags
 xLabels = {'100', '120', '140', '160', '180', '191'};

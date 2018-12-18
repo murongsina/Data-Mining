@@ -1,37 +1,51 @@
 function [ yTest, Time ] = RMTL( xTrain, yTrain, xTest, opts )
 %RMTL 此处显示有关此函数的摘要
-% Reg-MTL
+% Regularized MTL
 %   此处显示详细说明
 
+%% Parse opts
 lambda1 = opts.lambda1;
 lambda2 = opts.lambda2;
+kernel = opts.kernel;
 TaskNum = length(xTrain);
 
-C = TaskNum/(2*lambda1);
-mu = TaskNum*lambda2/lambda1;
-    
+mu = 1/(2*lambda2);
+nu = TaskNum/(2*lambda1);
+
 %% Prepare
 tic;
 % 得到所有的样本和标签以及任务编号
-[ A, Y, T ] = GetAllData(xTrain, yTrain, TaskNum);
-[m, ~] = size(A);
-Q = Kernel(A, A, kernel);
+[ X, Y, T, ~ ] = GetAllData(xTrain, yTrain, TaskNum);
+Q = Y.*Kernel(X, X, kernel).*Y;
 P = sparse(0, 0);
-for i = 1 : TaskNum
-    P = blkdiag(P, Kernel(xTrain{t}, xTrain{t}, kernel));
+for t = 1 : TaskNum
+    Tt = T==t;
+    P = blkdiag(P, Q(Tt,Tt));
 end
 % 二次规划求解
-H = diag(Y)*(mu/1*Q + P)*diag(Y);
-e = ones(m, 1);
-f = -e;
-lb = zeros(m, 1);
-ub = C*e;
-[ Alpha ] = quadprog(H, f, [], [], [], [], lb, ub, [], []);
-svi = Alpha > 0 & Alpha < C;
+lb = zeros(size(Y));
+e = ones(size(Y));
+H = Cond(mu*Q + nu*P);
+[ Alpha ] = quadprog(H, -e, [], [], [], [], lb, e, [], []);
 % 停止计时
 Time = toc;
-    
-%% Fit
 
+%% Predict
+TaskNum = length(xTest);
+yTest = cell(TaskNum, 1);
+for t = 1 : TaskNum
+    Tt = T==t;
+    Ht = Kernel(xTest{t}, X, kernel);
+    y0 = mu*Predict(Ht, Y, Alpha);
+    yt = nu*Predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
+    y = sign(mu*y0 + nu*yt);
+    y(y==0) = 1;
+    yTest{t} = y;
+end
+
+    function [ y ] = Predict(H, Y, Alpha)
+        svi = Alpha~=0;
+        y = H(:,svi)*(Y(svi,:).*Alpha(svi,:));
+    end
 
 end
