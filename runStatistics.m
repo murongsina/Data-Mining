@@ -10,8 +10,8 @@ addpath(genpath('./utils'));
 opts = InitOptions('clf', 1, [], 0);
 % ºËº¯Êý
 types = {'classify', 'regression', 'ssr'};
-type = types{1};
-kernel = 'Poly';
+type = types{3};
+kernel = 'RBF';
 switch(kernel)
     case 'Poly'
         Src = ['./data/', type, '/poly/'];
