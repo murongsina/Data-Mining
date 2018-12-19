@@ -35,7 +35,7 @@ function [ opts ] = InitOptions( name, mean, solver, hasfig, version)
         end
         if version == 2
             % 第二版交换了Precision和Recall顺序
-            opts.Indices = opts.Indices{[1, 3, 2, 4]};            
+            opts.Indices = opts.Indices([1, 3, 2, 4]);
         end
     end
     
