@@ -8,6 +8,7 @@ lambda1 = opts.lambda1;
 lambda2 = opts.lambda2;
 kernel = opts.kernel;
 TaskNum = length(xTrain);
+symmetric = @(H) (H+H')/2;
 
 mu = 1/(2*lambda2);
 nu = TaskNum/(2*lambda1);
@@ -26,7 +27,7 @@ end
 lb = zeros(size(Y));
 e = ones(size(Y));
 H = Cond(mu*Q + nu*P);
-[ Alpha ] = quadprog(H, -e, [], [], [], [], lb, e, [], []);
+[ Alpha ] = quadprog(symmetric(H), -e, [], [], [], [], lb, e, [], []);
 % Í£Ö¹¼ÆÊ±
 Time = toc;
 
