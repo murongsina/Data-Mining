@@ -7,10 +7,10 @@ addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
 % 实验设置
-opts = InitOptions('clf', 1, [], 0);
+opts = InitOptions('clf', 1, [], 0, 2);
 % 核函数
 types = {'classify', 'regression', 'ssr'};
-type = types{3};
+type = types{1};
 kernel = 'RBF';
 switch(kernel)
     case 'Poly'
