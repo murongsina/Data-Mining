@@ -1,12 +1,12 @@
-function [ opts ] = InitOptions( name, mean, solver, hasfig)
+function [ opts ] = InitOptions( name, mean, solver, hasfig, version)
 %INITOPIONS 此处显示有关此函数的摘要
+% 初始化参数
 %   此处显示详细说明
 
     switch name
         case 'reg'
             opts.Mean = mean;
             opts.Statistics = @RegStat;
-            opts.IndexCount = 4;
             opts.solver = solver;
             opts.hasfig = hasfig;
             opts.Find = @min;
@@ -14,7 +14,6 @@ function [ opts ] = InitOptions( name, mean, solver, hasfig)
         case 'clf'
             opts.Mean = mean;
             opts.Statistics = @ClfStat;
-            opts.IndexCount = 4;
             opts.solver = solver;
             opts.hasfig = hasfig;
             opts.Find = @max;
@@ -23,11 +22,18 @@ function [ opts ] = InitOptions( name, mean, solver, hasfig)
             opts.Mean = mean;
             opts.Mode = 'OvO';
             opts.Statistics = @ClfStat;
-            opts.IndexCount = 4;
             opts.solver = solver;
             opts.hasfig = hasfig;
             opts.Find = @max;
             opts.Indices = {'Accuracy', 'Precision', 'Recall', 'F1'};
     end
+    
+    if nargin > 4
+        if version == 1
+            % 第一版只统计了Accuracy
+            opts.Indices = {'Accuracy'};
+        end
+    end
+    
+    opts.IndexCount = length(opts.Indices);
 end
-
