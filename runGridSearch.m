@@ -13,15 +13,14 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 %% 加载数据集和网格搜索参数
-load('MLC5.mat');
+load('MTL_UCI5.mat');
 load('LabCParams.mat');
 
-DataSets = MLC5;
+DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-[~,idx] = sort([DataSets.Order]);
-DataSetIndices = idx;
+DataSetIndices = [10:17];
 ParamIndices = [ 9 ];
 
 %% 实验设置

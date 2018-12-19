@@ -20,8 +20,8 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2, 3 ];
-ParamIndices = [ 10 ];
+DataSetIndices = [ 1:17 ];
+ParamIndices = [ 1:14 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
