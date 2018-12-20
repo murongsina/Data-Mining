@@ -11,7 +11,7 @@ opts = InitOptions('clf', 1, [], 0, 3);
 % ºËº¯Êý
 types = {'classify', 'regression', 'ssr'};
 type = types{3};
-kernel = 'Poly';
+kernel = 'RBF';
 switch(kernel)
     case 'Poly'
         Src = ['./data/', type, '/poly/'];

@@ -26,6 +26,7 @@ for i = 1 : n
     CVTime(i, 1) = toc;
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
+%     LastParams = Params;
 end
 
 %% Compare
@@ -82,7 +83,7 @@ end
         % safe screening rules
         P = chol(H2, 'upper');
         LL = (H1+H2)*Alpha1/2;
-        RL = sqrt(sum(P.*P, 1))';
+        RL = sqrt(sum(P.*P, 2));
         RR = RL*norm(P'\(H1*Alpha1)+P*Alpha1);
         Alpha2 = Inf(size(Alpha1));
         Alpha2(LL - RR > 1) = 0;
