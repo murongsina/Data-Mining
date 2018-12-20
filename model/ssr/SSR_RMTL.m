@@ -7,15 +7,16 @@ function [ CVStat, CVTime, CVRate ] = SSR_RMTL( xTrain, yTrain, xTest, yTest, Ta
 tic;
 [ X, Y, T, ~ ] = GetAllData(xTrain, yTrain, TaskNum);
 n = GetParamsCount(IParams);
-CVStat = zeros(n, 2*opts.IndexCount, TaskNum);
+CVStat = zeros(n, opts.IndexCount, TaskNum);
 CVTime = zeros(n, 2);
 CVRate = zeros(n, 2);
 Alpha = cell(n, 1);
 for i = 1 : n
     Params = GetParams(IParams, i);
+    Params.solver = opts.solver;
     tic;
     [ H2 ] = GetHessian(X, Y, TaskNum, Params);
-    if i == 1 %|| ~EqualsTo(LastParams, Params)
+    if i == 1 || ~EqualsTo(LastParams, Params)
         % solve the first problem
         [ H1, Alpha{i} ] = RMTL(H2);
     else
@@ -23,11 +24,8 @@ for i = 1 : n
         [ H1, Alpha{i}, CVRate(i,1) ] = SSR_RMTL(H1, H2, Alpha{i-1});
     end
     CVTime(i, 1) = toc;
-    if mean(i == [1269,1413,1557,1701]) > 0
-        fprintf('Current ID:%d\n', i);
-    end
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
-    CVStat(i,:,:) = Statistics(TaskNum, y_hat, yTest, opts);
+    CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
     LastParams = Params;
 end
 
@@ -45,12 +43,6 @@ end
             b2 = p1.lambda1 == p2.lambda1;
             b = b1 | b2;
         end
-    end
-
-%% Statistics
-    function [ OStat ] = Statistics(TaskNum, y, yTest, opts) 
-        Stat = MTLStatistics(TaskNum, y, yTest, opts);
-        OStat = [ Stat; zeros(size(Stat)) ];
     end
 
 %% Predict
@@ -101,7 +93,7 @@ end
         S = Alpha2 ~= Inf;
         Rate = mean(S);
         if Rate < 1
-            f = 2*H2(R,S)*Alpha2(S)-1;
+            f = H2(R,S)*Alpha2(S)-1;
             lb = zeros(size(f));
             ub = ones(size(f));
             [ Alpha2(R) ] = quadprog(H2(R,R), f, [], [], [], [], lb, ub, [], []);

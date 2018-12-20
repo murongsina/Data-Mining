@@ -7,7 +7,7 @@ addpath(genpath('./params'));
 addpath(genpath('./utils'));
 
 % 实验设置
-opts = InitOptions('clf', 1, [], 0, 2);
+opts = InitOptions('clf', 1, [], 0, 3);
 % 核函数
 types = {'classify', 'regression', 'ssr'};
 type = types{3};

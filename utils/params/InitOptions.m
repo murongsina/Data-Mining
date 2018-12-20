@@ -32,12 +32,16 @@ function [ opts ] = InitOptions( name, mean, solver, hasfig, version)
         if version == 1
             % 第一版只统计了Accuracy
             opts.Indices = {'Accuracy'};
+            opts.IndexCount = 2;
         end
         if version == 2
             % 第二版交换了Precision和Recall顺序
             opts.Indices = opts.Indices([1, 3, 2, 4]);
+            opts.IndexCount = 8;
+        end
+        if version == 3
+            % 第三版只统计了平均值，没有标准差
+            opts.IndexCount = 4;
         end
     end
-    
-    opts.IndexCount = length(opts.Indices);
 end
