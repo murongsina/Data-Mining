@@ -16,7 +16,7 @@ for i = 1 : n
     Params.solver = opts.solver;
     tic;
     [ H2 ] = GetHessian(X, Y, TaskNum, Params);
-    if i == 1 || ~EqualsTo(LastParams, Params)
+    if i == 1 %|| ~EqualsTo(LastParams, Params)
         % solve the first problem
         [ H1, Alpha{i} ] = RMTL(H2);
     else
