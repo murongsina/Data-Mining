@@ -1,7 +1,7 @@
 clc
 clear
 
-Path = './data/ssr/poly/';
+Path = './data/ssr/rbf/';
 if exist(Path, 'dir') == 0
     mkdir(Path);
 end
@@ -13,14 +13,14 @@ addpath(genpath('./model'));
 addpath(genpath('./utils'));
 
 % 加载数据集和网格搜索参数
-load('MTL_UCI5.mat');
-load('LabCParams-Poly.mat');
+load('Caltech5.mat');
+load('LabCParams.mat');
 
-DataSets = MTL_UCI5;
+DataSets = Caltech5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2:17 ];
+DataSetIndices = [ 1:15 ];
 ParamIndices = [ 1:6 9:12 ];
 
 %% 实验设置 RMTL
