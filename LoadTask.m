@@ -7,7 +7,7 @@ load('MTL_UCI5.mat');
 IParams = CreateParams(CParams{10});
 %%
 Error = cell(10, 1);
-for i = [4]
+for i = [2:6]
     D = MTL_UCI5(i);
     A = load(['RMTL-', D.Name,'.mat']);
     B = load(['SSR_RMTL-', D.Name,'.mat']);

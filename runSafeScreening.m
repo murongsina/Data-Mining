@@ -20,7 +20,7 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 4 ];
+DataSetIndices = [ 2:9 ];
 ParamIndices = [ 9 10 ];
 
 %% 实验设置 RMTL
