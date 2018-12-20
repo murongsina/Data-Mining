@@ -1,11 +1,19 @@
 clear
 clc
-addpath(genpath('./data/ssr/'));
-load('LabCParams.mat');
+kernel = 'RBF';
+switch(kernel)
+    case 'Poly'
+        Src = './data/ssr/poly/';
+        load('LabCParams-Poly.mat');
+    otherwise
+        Src = './data/ssr/rbf/';
+        load('LabCParams.mat');
+end
+addpath(genpath(Src));
+
 load('MTL_UCI5.mat');
 
 IParams = CreateParams(CParams{10});
-
 Error = cell(27, 1);
 Result = zeros(27, 2);
 for i = [2:17]
