@@ -25,7 +25,7 @@ ParamIndices = [ 9 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
-opts = InitOptions('clf', 0, solver, 0);
+opts = InitOptions('clf', 0, solver, 0, 2);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始

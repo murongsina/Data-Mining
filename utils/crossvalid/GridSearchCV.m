@@ -6,7 +6,7 @@ function [ CVStat, CVTime ] = GridSearchCV( Learner, X, Y, IParams, TaskNum, Kfo
     % 初始化参数
     solver = opts.solver;
     nParams = GetParamsCount(IParams);
-    CVStat = zeros(nParams, 2*opts.IndexCount, TaskNum);
+    CVStat = zeros(nParams, opts.IndexCount, TaskNum);
     CVTime = zeros(nParams, 2);
     % 加载检查点
     if isfile('check-point.mat')

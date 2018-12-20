@@ -20,7 +20,7 @@ function [ LabStat, LabTime, HasStat ] = LabStatistics(Path, DataSet, IParams, o
         return;
     end
     % 统计数据
-    LabStat = zeros(nParams, TaskNum, 2*opts.IndexCount);
+    LabStat = zeros(nParams, TaskNum, opts.IndexCount);
     LabTime = zeros(nParams, 2);
     for k = 1 : nParams
         Method = IParams{k};

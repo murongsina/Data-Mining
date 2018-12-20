@@ -24,7 +24,7 @@ function [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, TaskNum, Kfold, ValInd, 
     function [ CVStat, CVTime, CVRate ] = GridSearch( xTrain, yTrain, xTest, yTest, TaskNum, Method, opts)
         solver = opts.solver;
         n = GetParamsCount(Method);
-        CVStat = zeros(n, 2*opts.IndexCount, TaskNum);
+        CVStat = zeros(n, opts.IndexCount, TaskNum);
         CVTime = zeros(n, 2);
         CVRate = zeros(n, 1);
         % 不带交叉验证的网格搜索
@@ -32,8 +32,7 @@ function [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, TaskNum, Kfold, ValInd, 
             Params = GetParams(Method, i);
             Params.solver = solver;
             [ y, Time ] = MTL(xTrain, yTrain, xTest, Params);
-            Stat = MTLStatistics(TaskNum, y, yTest, opts);
-            CVStat(i,:,:) = [ Stat; zeros(size(Stat)) ];
+            CVStat(i,:,:) = MTLStatistics(TaskNum, y, yTest, opts);
             CVTime(i,:) = Time;
         end
     end

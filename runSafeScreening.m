@@ -20,12 +20,12 @@ DataSets = MTL_UCI5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2:9 ];
+DataSetIndices = [ 2:17 ];
 ParamIndices = [ 9 10 ];
 
 %% 实验设置 RMTL
 solver = [];%struct('parallel', false);
-opts = InitOptions('clf', 0, solver, 0, 2);
+opts = InitOptions('clf', 0, solver, 0, 3);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
 % 实验开始
