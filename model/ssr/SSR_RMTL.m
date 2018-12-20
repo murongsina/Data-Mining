@@ -9,52 +9,68 @@ tic;
 n = GetParamsCount(IParams);
 CVStat = zeros(n, 2*opts.IndexCount, TaskNum);
 CVTime = zeros(n, 2);
-CVRate = zeros(n, 1);
+CVRate = zeros(n, 2);
 Alpha = cell(n, 1);
 for i = 1 : n
-    tic;
     Params = GetParams(IParams, i);
+    tic;
     [ H2 ] = GetHessian(X, Y, TaskNum, Params);
-    if i == 1
+    if i == 1 %|| ~EqualsTo(LastParams, Params)
         % solve the first problem
-        [ H1, Alpha{1} ] = RMTL(H2);
+        [ H1, Alpha{i} ] = RMTL(H2);
     else
         % solve the rest problem
-        [ H1, Alpha{i} ] = SSR_RMTL(H1, H2, Alpha{i-1});
+        [ H1, Alpha{i}, CVRate(i,1) ] = SSR_RMTL(H1, H2, Alpha{i-1});
     end
     CVTime(i, 1) = toc;
-    [ y_hat, CVRate(i) ] = Predict(X, Y, xTest, Alpha{i}, Params);
+    if mean(i == [1269,1413,1557,1701]) > 0
+        fprintf('Current ID:%d\n', i);
+    end
+    [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = Statistics(TaskNum, y_hat, yTest, opts);
+    LastParams = Params;
 end
 
+%% Compare
+    function [ b ] = EqualsTo(p1, p2)
+        k1 = p1.kernel;
+        k2 = p2.kernel;
+        if strcmp(k1.kernel, 'rbf') && strcmp(k2.kernel, 'rbf')
+            b1 = k1.p1 == k2.p1 && p1.lambda2 == p2.lambda2;
+            b2 = k1.p1 == k2.p1 && p1.lambda1 == p2.lambda1;
+            b3 = p1.lambda1==p2.lambda1 && p1.lambda2==p2.lambda2;
+            b = b1 | b2 | b3;
+        else
+            b1 = p1.lambda2 == p2.lambda2;
+            b2 = p1.lambda1 == p2.lambda1;
+            b = b1 | b2;
+        end
+    end
+
 %% Statistics
-    function [ OStat ] = Statistics(task_num, y_hat, yTest, opts) 
-        Stat = MTLStatistics(task_num, y_hat, yTest, opts);
+    function [ OStat ] = Statistics(TaskNum, y, yTest, opts) 
+        Stat = MTLStatistics(TaskNum, y, yTest, opts);
         OStat = [ Stat; zeros(size(Stat)) ];
     end
 
 %% Predict
     function [ yTest, Rate ] = Predict(X, Y, xTest, Alpha, opts)
         % extract opts
-        lambda1 = opts.lambda1;
-        lambda2 = opts.lambda2;
-        kernel = opts.kernel;
-        task_num = length(xTest);
-        mu = 1/(2*lambda2);
-        nu = task_num/(2*lambda1);
+        mu = 1/(2*opts.lambda2);
+        nu = TaskNum/(2*opts.lambda1);
         % predict
-        yTest = cell(task_num, 1);
-        for t = 1 : task_num
+        yTest = cell(TaskNum, 1);
+        for t = 1 : TaskNum
             Tt = T==t;
-            Ht = Kernel(xTest{t}, X, kernel);
-            y0 = mu*predict(Ht, Y, Alpha);
-            yt = nu*predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
+            Ht = Kernel(xTest{t}, X, opts.kernel);
+            y0 = predict(Ht, Y, Alpha);
+            yt = predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
             y = sign(mu*y0 + nu*yt);
             y(y==0) = 1;
             yTest{t} = y;
         end
         
-        Rate = mean(Alpha==1|Alpha==0);
+        Rate = mean(Alpha > 0);
         
             function [ y ] = predict(H, Y, Alpha)
                 svi = Alpha~=0;
@@ -71,28 +87,20 @@ end
     end
 
 %% SSR-RMTL
-    function [ H2, Alpha2 ] = SSR_RMTL(H1, H2, Alpha1)
+    function [ H2, Alpha2, Rate ] = SSR_RMTL(H1, H2, Alpha1)
         % safe screening rules
         P = chol(H2, 'upper');
-        L = 1/2*(H1+H2)*Alpha1;
-        R = norm(P\H1*Alpha1+P*Alpha1);
-        Alpha2 = zeros(size(Alpha1));
-        m = size(Alpha1, 1);
-        for k = 1 : m
-            Ri = norm(P(:,k))*R;
-            if L(k) - Ri > 1
-                Alpha2(k) = 0;
-            elseif L(k) + Ri < 1
-                Alpha2(k) = 1;
-            else
-                Alpha2(k) = -1;
-            end
-        end
-        
+        LL = (H1+H2)*Alpha1/2;
+        RL = sqrt(sum(P.*P, 1))';
+        RR = RL*norm(P'\(H1*Alpha1)+P*Alpha1);
+        Alpha2 = Inf(size(Alpha1));
+        Alpha2(LL - RR > 1) = 0;
+        Alpha2(LL + RR < 1) = 1;
         % reduced problem
-        R = find(Alpha2 == -1);
-        S = find(Alpha2 ~= -1);
-        if ~isempty(R)
+        R = Alpha2 == Inf;
+        S = Alpha2 ~= Inf;
+        Rate = mean(S);
+        if Rate < 1
             f = 2*H2(R,S)*Alpha2(S)-1;
             lb = zeros(size(f));
             ub = ones(size(f));
@@ -102,20 +110,17 @@ end
 
 %% Get Hessian
     function [ H ] = GetHessian(X, Y, TaskNum, opts)
-    % construct hessian matrix
-        lambda1 = opts.lambda1;
-        lambda2 = opts.lambda2;
-        kernel = opts.kernel;
-        mu = 1/(2*lambda2);
-        nu = TaskNum/(2*lambda1);
-        Q = Y.*Kernel(X, X, kernel).*Y';
+        symmetric = @(H) (H+H')/2;
+        mu = 1/(2*opts.lambda2);
+        nu = TaskNum/(2*opts.lambda1);
+        % construct hessian matrix
+        Q = Y.*Kernel(X, X, opts.kernel).*Y';
         P = sparse(0, 0);
         for t = 1 : TaskNum
             Tt = T==t;
             P = blkdiag(P, Q(Tt,Tt));
         end
         H = Cond(mu*Q + nu*P);
+        H = symmetric(H);
     end
-
-
 end
