@@ -17,7 +17,7 @@ nu = TaskNum/(2*lambda1);
 tic;
 % 得到所有的样本和标签以及任务编号
 [ X, Y, T, ~ ] = GetAllData(xTrain, yTrain, TaskNum);
-Q = Y.*Kernel(X, X, kernel).*Y;
+Q = Y.*Kernel(X, X, kernel).*Y';
 P = sparse(0, 0);
 for t = 1 : TaskNum
     Tt = T==t;
@@ -37,14 +37,14 @@ yTest = cell(TaskNum, 1);
 for t = 1 : TaskNum
     Tt = T==t;
     Ht = Kernel(xTest{t}, X, kernel);
-    y0 = mu*Predict(Ht, Y, Alpha);
-    yt = nu*Predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
+    y0 = predict(Ht, Y, Alpha);
+    yt = predict(Ht(:,Tt), Y(Tt,:), Alpha(Tt,:));
     y = sign(mu*y0 + nu*yt);
     y(y==0) = 1;
     yTest{t} = y;
 end
 
-    function [ y ] = Predict(H, Y, Alpha)
+    function [ y ] = predict(H, Y, Alpha)
         svi = Alpha~=0;
         y = H(:,svi)*(Y(svi,:).*Alpha(svi,:));
     end

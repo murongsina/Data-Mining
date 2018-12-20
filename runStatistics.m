@@ -10,7 +10,7 @@ addpath(genpath('./utils'));
 opts = InitOptions('clf', 1, [], 0, 2);
 % ºËº¯Êý
 types = {'classify', 'regression', 'ssr'};
-type = types{1};
+type = types{3};
 kernel = 'RBF';
 switch(kernel)
     case 'Poly'

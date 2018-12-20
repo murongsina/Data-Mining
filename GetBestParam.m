@@ -3,8 +3,6 @@ function [ BestParam, Accuracy, Result, L, R ] = GetBestParam(CParams, CVStat, x
 % 得到最佳参数
 %   此处显示详细说明
 
-%% 得到参数
-Result = CreateParams(CParams);
 %%
 INDICES = {'Accuracy', 'Precision', 'Recall', 'F1'};
 Stat = mean(CVStat, 3);
