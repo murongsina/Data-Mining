@@ -20,8 +20,8 @@ DataSets = Caltech5;
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 1:5 ];
-ParamIndices = [ 9:13 ];
+DataSetIndices = [ 6:15 ];
+ParamIndices = [ 9:12 ];
 
 %% 实验设置
 solver = [];%struct('parallel', false);
