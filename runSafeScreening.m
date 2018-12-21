@@ -21,7 +21,7 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [ 2:17 ];
-ParamIndices = [ 9 10 ];
+ParamIndices = [ 10 ];
 
 %% 实验设置 RMTL
 solver = [];%struct('parallel', false);
