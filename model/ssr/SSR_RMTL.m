@@ -21,15 +21,15 @@ for i = 1 : n
         [ H1, Alpha{i} ] = RMTL(H2);
     else
         % solve the rest problem
-        [ H1, Alpha{i}, CVRate(i,1) ] = SSR_RMTL(H1, H2, Alpha{i-1});
+        [ Alpha2 ] = SSR(H1, H2, Alpha{i-1});
+        [ H1, Alpha{i}, CVRate(i,1) ] = Reduced_RMTL(H2, Alpha2);
     end
     CVTime(i, 1) = toc;
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
-%     LastParams = Params;
 end
 
-%% Compare
+%% EqualsTo
     function [ b ] = EqualsTo(p1, p2)
         k1 = p1.kernel;
         k2 = p2.kernel;
@@ -62,7 +62,7 @@ end
             yTest{t} = y;
         end
         
-        Rate = mean(Alpha > 0);
+        Rate = mean(Alpha == 0 | Alpha == 1);
         
             function [ y ] = predict(H, Y, Alpha)
                 svi = Alpha~=0;
@@ -78,8 +78,8 @@ end
         [ Alpha1 ] = quadprog(H1, -e, [], [], [], [], lb, e, [], []);
     end
 
-%% SSR-RMTL
-    function [ H2, Alpha2, Rate ] = SSR_RMTL(H1, H2, Alpha1)
+%% SSR
+    function [ Alpha2 ] = SSR(H1, H2, Alpha1)
         % safe screening rules
         P = chol(H2, 'upper');
         LL = (H1+H2)*Alpha1/2;
@@ -88,6 +88,10 @@ end
         Alpha2 = Inf(size(Alpha1));
         Alpha2(LL - RR > 1) = 0;
         Alpha2(LL + RR < 1) = 1;
+    end
+
+%% Reduced-RMTL
+    function [ H2, Alpha2, Rate ] = Reduced_RMTL(H2, Alpha2)
         % reduced problem
         R = Alpha2 == Inf;
         S = Alpha2 ~= Inf;

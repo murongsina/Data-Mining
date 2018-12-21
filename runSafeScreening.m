@@ -22,7 +22,7 @@ DataSets = [MTL_UCI5; Caltech5; MLC5];
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2:9 1 10:54 ];
+DataSetIndices = [ 2:9 1 ];
 ParamIndices = [ 1:6 9:12 ];
 
 %% 实验设置 RMTL
@@ -30,6 +30,8 @@ solver = [];
 opts = InitOptions('clf', 0, solver, 0, 3);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
+profile clear;
+profile on;
 % 实验开始
 fprintf('runGridSearch\n');
 for i = DataSetIndices
@@ -61,3 +63,6 @@ for i = DataSetIndices
     end
 end
 fclose(fd);
+profile viewer;
+p = profile('info');
+profsave(p, 'profile_results');
