@@ -83,7 +83,7 @@ end
         % safe screening rules
         P = chol(H2, 'upper');
         LL = (H1+H2)*Alpha1/2;
-        RL = sqrt(sum(P.*P, 2));
+        RL = sqrt(sum(P.*P, 1))';
         RR = RL*norm(P'\(H1*Alpha1)+P*Alpha1);
         Alpha2 = Inf(size(Alpha1));
         Alpha2(LL - RR > 1) = 0;
