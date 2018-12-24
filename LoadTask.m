@@ -1,6 +1,6 @@
 clear
 clc
-kernel = 'RBF';
+kernel = 'Poly';
 switch(kernel)
     case 'Poly'
         Src = ['./data/ssr/poly/'];
