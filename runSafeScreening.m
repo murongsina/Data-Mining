@@ -22,7 +22,7 @@ DataSets = [MTL_UCI5; Caltech5; MLC5];
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2:9 1 ];
+DataSetIndices = [ 1:54 ];
 ParamIndices = [ 1:6 9:12 ];
 
 %% 实验设置 RMTL
@@ -52,7 +52,7 @@ for i = DataSetIndices
             continue;
         else
             try
-                [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, DataSet.TaskNum, 1, ValInd, opts );
+                [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, DataSet.TaskNum, 2, ValInd, opts );
                 save(StatPath, 'CVStat', 'CVTime', 'CVRate');
                 fprintf(fd, 'save: %s\n', StatPath);
             catch Exception

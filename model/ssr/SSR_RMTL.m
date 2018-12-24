@@ -27,6 +27,9 @@ for i = 1 : n
     CVTime(i, 1) = toc;
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
+    if i == 276
+        fprintf('%d\n', i);
+    end
 end
 
 %% EqualsTo
