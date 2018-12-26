@@ -1,6 +1,6 @@
 clear
 clc
-kernel = 'Poly';
+kernel = 'RBF';
 switch(kernel)
     case 'Poly'
         Src = ['./data/ssr/poly/'];
@@ -18,11 +18,11 @@ load('MLC5.mat');
 DataSets = [MTL_UCI5; Caltech5; MLC5];
 IParams = CreateParams(CParams{10});
 Error = cell(54, 1);
-Result = zeros(54, 7);
-for i = [1:54]
+Result = zeros(54, 8);
+for i = [2:9]
     D = DataSets(i);
-    A = load(['RMTL-', D.Name,'.mat']);
-    B = load(['SSR_RMTL-', D.Name,'.mat']);
+    A = load(['IRMTL-', D.Name,'.mat']);
+    B = load(['SSR_IRMTL-', D.Name,'.mat']);
     T = mean(A.CVTime-B.CVTime, 1)/mean(A.CVTime(:,1));
     C = permute(A.CVStat(:,1,:)==B.CVStat(:,1,:), [1 3 2]);
     % Result
@@ -30,7 +30,7 @@ for i = [1:54]
     cnt = sum(IDX, 1);
     avg0 = mean(B.CVRate, 1);
     avg1 = sum(B.CVRate, 1)./cnt;
-    Result(i,:) = [cnt, avg0, avg1, T(1)];
+    Result(i,:) = [cnt, avg0(:,1)/avg0(:,2), avg0, avg1, T(1)];
     if std(C(:)) == 0 && mean(C(:)) == 1
         fprintf('Success: %d\n', i);
     else

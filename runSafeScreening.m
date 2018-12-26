@@ -23,10 +23,10 @@ IParams = CParams;
 
 % 数据集
 DataSetIndices = [ 2:9 1 10:54 ];
-ParamIndices = [ 1:6 9:12 ];
+ParamIndices = [ 11 12 ];
 
 %% 实验设置 RMTL
-solver = [];
+solver = struct('Display', 'off');
 opts = InitOptions('clf', 0, solver, 0, 3);
 fd = fopen(['./log/log-', datestr(now, 'yyyymmddHHMM'), '.txt'], 'w');
 
@@ -52,7 +52,7 @@ for i = DataSetIndices
             continue;
         else
             try
-                [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, DataSet.TaskNum, 2, ValInd, opts );
+                [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, DataSet.TaskNum, 1, ValInd, opts );
                 save(StatPath, 'CVStat', 'CVTime', 'CVRate');
                 fprintf(fd, 'save: %s\n', StatPath);
             catch Exception

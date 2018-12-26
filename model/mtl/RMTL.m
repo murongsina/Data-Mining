@@ -1,4 +1,4 @@
-function [ yTest, Time ] = RMTL( xTrain, yTrain, xTest, opts )
+function [ yTest, Time, Alpha ] = RMTL( xTrain, yTrain, xTest, opts )
 %RMTL 此处显示有关此函数的摘要
 % Regularized MTL
 %   此处显示详细说明
@@ -7,6 +7,7 @@ function [ yTest, Time ] = RMTL( xTrain, yTrain, xTest, opts )
 lambda1 = opts.lambda1;
 lambda2 = opts.lambda2;
 kernel = opts.kernel;
+solver = opts.solver;
 TaskNum = length(xTrain);
 symmetric = @(H) (H+H')/2;
 
@@ -27,7 +28,7 @@ end
 lb = zeros(size(Y));
 e = ones(size(Y));
 H = Cond(mu*Q + nu*P);
-[ Alpha ] = quadprog(symmetric(H), -e, [], [], [], [], lb, e, [], []);
+[ Alpha ] = quadprog(symmetric(H), -e, [], [], [], [], lb, e, [], solver);
 % 停止计时
 Time = toc;
 
@@ -48,5 +49,5 @@ end
         svi = Alpha~=0;
         y = H(:,svi)*(Y(svi,:).*Alpha(svi,:));
     end
-
+fprintf('rate: %.2f\n', mean(Alpha==0|Alpha==1));
 end

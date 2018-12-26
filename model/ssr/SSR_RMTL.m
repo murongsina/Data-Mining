@@ -27,26 +27,7 @@ for i = 1 : n
     CVTime(i, 1) = toc;
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
-    if i == 276
-        fprintf('%d\n', i);
-    end
 end
-
-%% EqualsTo
-    function [ b ] = EqualsTo(p1, p2)
-        k1 = p1.kernel;
-        k2 = p2.kernel;
-        if strcmp(k1.kernel, 'rbf') && strcmp(k2.kernel, 'rbf')
-            b1 = k1.p1 == k2.p1 && p1.lambda2 == p2.lambda2;
-            b2 = k1.p1 == k2.p1 && p1.lambda1 == p2.lambda1;
-            b3 = p1.lambda1==p2.lambda1 && p1.lambda2==p2.lambda2;
-            b = b1 | b2 | b3;
-        else
-            b1 = p1.lambda2 == p2.lambda2;
-            b2 = p1.lambda1 == p2.lambda1;
-            b = b1 | b2;
-        end
-    end
 
 %% Predict
     function [ yTest, Rate ] = Predict(X, Y, xTest, Alpha, opts)

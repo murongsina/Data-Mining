@@ -5,7 +5,7 @@ function [ CVStat, CVTime, CVRate ] = SSR(X, Y, Method, TaskNum, Kfold, ValInd, 
 %% Safe screening flag
     persistent IsSSR;
     if isempty(IsSSR)
-        IsSSR = struct('SSR_RMTL', 1);
+        IsSSR = struct('SSR_RMTL', 1, 'SSR_IRMTL', 1);
     end
     
 %% Parse opts
