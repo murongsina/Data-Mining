@@ -35,7 +35,7 @@ function [ yTest, Time ] = MTL(xTrain, yTrain, xTest, opts)
         yTest = cell(TaskNum, 1);
         Times = zeros(TaskNum, 1);
         % 使用同样的学习器训练预测每一个任务
-        parfor t = 1 : TaskNum
+        for t = 1 : TaskNum
             BaseLearner = str2func(Name);
             [ y, time ] = BaseLearner(xTrain{t}, yTrain{t}, xTest{t}, opts);
             yTest{t} = y;

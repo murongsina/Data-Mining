@@ -3,6 +3,10 @@ function [ CVStat, CVTime, CVRate ] = SSR_RMTL( xTrain, yTrain, xTest, yTest, Ta
 % Safe Screening for RMTL
 %   此处显示详细说明
 
+%% Multi-dimensional scale
+D = DIST(cell2mat(xTrain));
+[X2, ~, ~] = mdscale(D, 2, 'criterion', 'metricstress');
+
 %% Fit
 tic;
 [ X, Y, T, ~ ] = GetAllData(xTrain, yTrain, TaskNum);
@@ -16,18 +20,30 @@ for i = 1 : n
     Params.solver = opts.solver;
     tic;
     [ H2 ] = GetHessian(X, Y, TaskNum, Params);
-    if i == 1 %|| ~EqualsTo(LastParams, Params)
+    if i == 1
         % solve the first problem
         [ H1, Alpha{i} ] = RMTL(H2);
     else
         % solve the rest problem
-        [ H1, Alpha{i}, CVRate(i,1) ] = SSR_RMTL(H1, H2, Alpha{i-1});
+        [ H1, Alpha{i}, CVRate(i,1), S ] = SSR_RMTL(H1, H2, Alpha{i-1});
     end
     CVTime(i, 1) = toc;
     [ y_hat, CVRate(i, 2) ] = Predict(X, Y, xTest, Alpha{i}, Params);
     CVStat(i,:,:) = MTLStatistics(TaskNum, y_hat, yTest, opts);
-    LastParams = Params;
+    if CVRate(i, 1) > 0 && CVRate(i, 1) < 1
+        DrawVectors([X2, Y], T, S, Alpha);
+        path = sprintf('./pics/SSR_RMTL_Pic%d.png', i);
+        saveas(gcf, path);
+    end
 end
+
+%% DrawVectors
+    function [  ] = DrawVectors(D, T, S, Alpha)
+        clf;
+        PlotDataset(D, 'SSR\_RMTL', 1, 1, 1, 16, '+r', 'xb');
+        hold on;
+        PlotDataset(D(S,:), 'SSR\_RMTL', 1, 1, 1, 48, 'or', 'ob');
+    end
 
 %% Compare
     function [ b ] = EqualsTo(p1, p2)
@@ -79,7 +95,7 @@ end
     end
 
 %% SSR-RMTL
-    function [ H2, Alpha2, Rate ] = SSR_RMTL(H1, H2, Alpha1)
+    function [ H2, Alpha2, Rate, S ] = SSR_RMTL(H1, H2, Alpha1)
         % safe screening rules
         P = chol(H2, 'upper');
         LL = (H1+H2)*Alpha1/2;
