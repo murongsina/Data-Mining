@@ -16,10 +16,12 @@ load('MTL_UCI5.mat');
 load('MLC5.mat');
 
 DataSets = [MTL_UCI5; Caltech5; MLC5];
-IParams = CreateParams(CParams{10});
+IParams = CreateParams(CParams{12});
+Params = struct2cell(IParams)';
+Result = cell(54, 1);
+State = zeros(54, 8);
 Error = cell(54, 1);
-Result = zeros(54, 8);
-for i = [2:9]
+for i = [1:54]
     D = DataSets(i);
     A = load(['IRMTL-', D.Name,'.mat']);
     B = load(['SSR_IRMTL-', D.Name,'.mat']);
@@ -30,12 +32,13 @@ for i = [2:9]
     cnt = sum(IDX, 1);
     avg0 = mean(B.CVRate, 1);
     avg1 = sum(B.CVRate, 1)./cnt;
-    Result(i,:) = [cnt, avg0(:,1)/avg0(:,2), avg0, avg1, T(1)];
-    if std(C(:)) == 0 && mean(C(:)) == 1
+    Result{i} = [mean([A.CVStat(:,1,:), B.CVStat(:,1,:)], 3), B.CVRate];
+    if mean(C(:)) == 1
         fprintf('Success: %d\n', i);
+        State(i,:) = [cnt, avg0(:,1)/avg0(:,2), avg0, avg1, T(1)];
     else
-        Error{i} = [mean([A.CVStat(:,1,:), B.CVStat(:,1,:)], 3), B.CVRate];
         fprintf('Error: %d\n', i);
+        Error(i,:) = [cnt, avg0(:,1)/avg0(:,2), avg0, avg1, T(1)];
     end
 end
 %%

@@ -22,7 +22,7 @@ DataSets = [MTL_UCI5; Caltech5; MLC5];
 IParams = CParams;
 
 % 数据集
-DataSetIndices = [ 2:9 1 10:54 ];
+DataSetIndices = [ 1:54 ];
 ParamIndices = [ 11 12 ];
 
 %% 实验设置 RMTL
