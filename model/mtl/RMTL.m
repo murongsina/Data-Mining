@@ -52,5 +52,5 @@ end
         svi = Alpha~=0;
         y = H(:,svi)*(Y(svi,:).*Alpha(svi,:));
     end
-fprintf('rate: %.2f\n', mean(Alpha==0|Alpha==1));
+% fprintf('rate: %.2f\n', mean(Alpha==0|Alpha==1));
 end
